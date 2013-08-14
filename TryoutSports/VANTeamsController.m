@@ -26,7 +26,6 @@
 {
     [super viewDidLoad];
     
-    NSLog(@"View Did Load");
     NSArray *athleteArray = [self fetchAthleteTeams];
     self.teamsArray = [self organizeAthletesIntoTeams:athleteArray];
     //Building Team Scrollers, Need to come back to Remove the athlete on team 0 (aka Unselected)
@@ -55,18 +54,97 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    NSLog(@"View Will Appear");
     
-    NSArray *array = [self fetchAthleteTeams];
-    self.teamsArray = [self organizeAthletesIntoTeams:array];
+ //   NSArray *array = [self fetchAthleteTeams];
+ //   self.teamsArray = [self organizeAthletesIntoTeams:array];
     for (NSInteger i = 0; i < [self.scrollerView.subviews count]; i++) {
         if ([[self.scrollerView.subviews objectAtIndex:i] isKindOfClass:[VANTeamTableView class]]) {
             VANTeamTableView *table = [self.scrollerView.subviews objectAtIndex:i];
             [table reloadData];
         }
     }
+    if (self.updateAthlete != nil) {
+        [self attemptToUpdateSingleAthlete:self.updateAthlete];
+    }
+}
+
+-(void)attemptToUpdateSingleAthlete:(Athlete *)athlete {
+    
+    //Find the Team they were associated with
+    NSInteger teamIndex = NSNotFound;
+    if ([athlete.teamSelected integerValue] != 0) {
+        teamIndex = [athlete.teamSelected integerValue]-1;
+    }
+    NSInteger previousTeamIndex = self.scrollerView.contentOffset.x/self.view.frame.size.width;
+    
+    NSInteger newPositionIndex = NSNotFound;
+    for (NSInteger i = 0; i < [self.event.positions count]; i++) {
+        Positions *pos = [[self.event.positions allObjects] objectAtIndex:i];
+        if ([pos.position isEqualToString:self.updateAthlete.position]) {
+            newPositionIndex = i;
+            NSLog(@"%@ == %@", pos.position, self.updateAthlete.position);
+        }
+    }
+    if (newPositionIndex == NSNotFound) {
+        NSLog(@"Warning: Position is == NOT Found");
+    }
+    
+    //If the Athletes Team has Changed:
+    if (teamIndex != previousTeamIndex) {
+        NSLog(@"Team Has Changed");
+
+        //Find the TableView associated with The Athlete
+
+        if ([[self.scrollerView.subviews objectAtIndex:previousTeamIndex*2] isKindOfClass:[VANTeamTableView class]]) {
+            VANTeamTableView *oldTable = [self.scrollerView.subviews objectAtIndex:(previousTeamIndex*2)];
+            [[oldTable.array objectAtIndex:self.updatedAthleteIndexPath.section] removeObjectAtIndex:self.updatedAthleteIndexPath.row];
+            NSLog(@"%lu", (unsigned long)[[[self.teamsArray objectAtIndex:previousTeamIndex] objectAtIndex:self.updatedAthleteIndexPath.section] count]);
+          //  [[[self.teamsArray objectAtIndex:previousTeamIndex] objectAtIndex:self.updatedAthleteIndexPath.section] removeObjectAtIndex:self.updatedAthleteIndexPath.row-1];
+            [oldTable deleteRowsAtIndexPaths:@[self.updatedAthleteIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        } else {
+            NSLog(@"Warning VANTeamsController, objectATIndex is not a TableView");
+        }
+        if (teamIndex != NSNotFound) {
+
+            if ([[self.scrollerView.subviews objectAtIndex:teamIndex*2] isKindOfClass:[VANTeamTableView class]]) {
+                VANTeamTableView *newTable = [self.scrollerView.subviews objectAtIndex:(teamIndex*2)];
+                [[newTable.array objectAtIndex:newPositionIndex] addObject:self.updateAthlete];
+                //     [[[self.teamsArray objectAtIndex:teamIndex] objectAtIndex:self.updatedAthleteIndexPath.section] addObject:self.updateAthlete];
+                [newTable insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[[newTable.array objectAtIndex:newPositionIndex] count]-1 inSection:newPositionIndex]] withRowAnimation:UITableViewRowAnimationAutomatic];
+            } else {
+                NSLog(@"Warning VANTeamsController, objectATIndex is not a TableView");
+            }
+        } else {
+            NSLog(@"Athlete is no Longer selected to a team");
+        }
+        
+    } else { // Else check to see if anything else has changed
+        NSLog(@"Team Has not Changed");
+        
+        //Check to see if just the Team has changed
+        
+        NSInteger previousPositionIndex = self.updatedAthleteIndexPath.section;
+        
+        if (newPositionIndex != previousPositionIndex) {
+            VANTeamTableView *table = [self.scrollerView.subviews objectAtIndex:(previousTeamIndex*2)];
+            [[table.array objectAtIndex:previousPositionIndex] removeObjectAtIndex:self.updatedAthleteIndexPath.row];
+            [[table.array objectAtIndex:newPositionIndex] addObject:self.updateAthlete];
+            
+            [table moveRowAtIndexPath:self.updatedAthleteIndexPath toIndexPath:[NSIndexPath indexPathForRow:[[table.array objectAtIndex:newPositionIndex] count]-1 inSection:newPositionIndex]];
+            
+            
+        }
+        
+        
+        
+        
+    }
+    
+
     
     
+    self.updateAthlete = nil;
+    self.updatedAthleteIndexPath = nil;
 }
 
 -(NSMutableArray *)organizeAthletesIntoTeams:(NSArray *)array {
