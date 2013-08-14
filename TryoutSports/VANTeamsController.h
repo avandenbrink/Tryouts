@@ -12,5 +12,7 @@
 @interface VANTeamsController : VANManagedObjectViewController <UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollerView;
+@property (strong, nonatomic) Athlete *updateAthlete;
+@property (strong, nonatomic) NSIndexPath *updatedAthleteIndexPath;
 
 @end
