@@ -282,7 +282,7 @@ static NSString *kTagTypeKey = @"type";
         } else {
             tag = [[self.tagsArray objectAtIndex:(indexPath.row-1)] valueForKey:kTagNameKey];
         }
-        CGSize textSize = [tag sizeWithFont:[UIFont systemFontOfSize:22]];
+        CGSize textSize = [tag sizeWithAttributes:[NSDictionary dictionaryWithObjects:@[[UIFont systemFontOfSize:17]] forKeys:@[NSFontAttributeName]]];
         return CGSizeMake(textSize.width + 24 + 18, textSize.height + 8);
     }
 }

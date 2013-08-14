@@ -16,9 +16,9 @@
 			<key>count</key>
 			<integer>0</integer>
 			<key>value</key>
-			<string>Hard Working</string>
+			<string>Lazy</string>
 			<key>type</key>
-			<integer>0</integer>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>count</key>
@@ -32,9 +32,9 @@
 			<key>count</key>
 			<integer>0</integer>
 			<key>value</key>
-			<string>Competitive</string>
+			<string>Slow</string>
 			<key>type</key>
-			<integer>0</integer>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>count</key>
@@ -64,9 +64,9 @@
 			<key>count</key>
 			<integer>0</integer>
 			<key>value</key>
-			<string>Likeable</string>
+			<string>UnCoachable</string>
 			<key>type</key>
-			<integer>0</integer>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>count</key>
@@ -80,7 +80,7 @@
 			<key>count</key>
 			<integer>0</integer>
 			<key>value</key>
-			<string>Aniticpates the Play</string>
+			<string>Aniticpates Play</string>
 			<key>type</key>
 			<integer>0</integer>
 		</dict>
@@ -104,9 +104,9 @@
 			<key>count</key>
 			<integer>0</integer>
 			<key>value</key>
-			<string>Accountable</string>
+			<string>Conceited</string>
 			<key>type</key>
-			<integer>0</integer>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>count</key>
@@ -120,9 +120,9 @@
 			<key>count</key>
 			<integer>0</integer>
 			<key>value</key>
-			<string>Has Potential</string>
+			<string>Future Potential</string>
 			<key>type</key>
-			<integer>0</integer>
+			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>count</key>
@@ -167,10 +167,50 @@
 		<dict>
 			<key>count</key>
 			<integer>0</integer>
+			<key>value</key>
+			<string>Fit</string>
 			<key>type</key>
 			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>count</key>
+			<integer>0</integer>
 			<key>value</key>
-			<string>In Shape</string>
+			<string>Unfit</string>
+			<key>type</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>count</key>
+			<integer>0</integer>
+			<key>value</key>
+			<string>Disrespectful</string>
+			<key>type</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>count</key>
+			<integer>0</integer>
+			<key>value</key>
+			<string>Hides</string>
+			<key>type</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>count</key>
+			<integer>0</integer>
+			<key>value</key>
+			<string>Helpful</string>
+			<key>type</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>count</key>
+			<integer>0</integer>
+			<key>value</key>
+			<string>Cuts Corners</string>
+			<key>type</key>
+			<integer>2</integer>
 		</dict>
 	</array>
 </dict>
