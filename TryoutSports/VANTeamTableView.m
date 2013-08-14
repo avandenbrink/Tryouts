@@ -59,8 +59,11 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    Athlete *athlete = [[self.array objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     
-    [self.controller performSegueWithIdentifier:@"toAthlete" sender:[[self.array objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]];
+    self.controller.updateAthlete = athlete;
+    self.controller.updatedAthleteIndexPath = indexPath;
+    [self.controller performSegueWithIdentifier:@"toAthlete" sender:athlete];
     
     
 }
