@@ -4,11 +4,11 @@
         <attribute name="age" optional="YES" transient="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="birthday" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="event" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="number" optional="YES" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
         <attribute name="phoneNumber" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="position" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="seen" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="skillsname" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="skillsvalue" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="tags" optional="YES" attributeType="Transformable" syncable="YES"/>
@@ -16,10 +16,13 @@
         <attribute name="testname" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="testvalue" optional="YES" attributeType="Transformable" syncable="YES"/>
         <relationship name="aTags" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="AthleteTags" inverseName="athlete" inverseEntity="AthleteTags" syncable="YES"/>
-        <relationship name="events" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Event" inverseName="athlete" inverseEntity="Event" syncable="YES"/>
+        <relationship name="event" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Event" inverseName="athletes" inverseEntity="Event" syncable="YES"/>
         <relationship name="headShotImage" optional="YES" toMany="YES" minCount="1" deletionRule="Cascade" destinationEntity="Image" inverseName="athlete" inverseEntity="Image" syncable="YES"/>
         <relationship name="skills" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="AthleteSkills" inverseName="athlete" inverseEntity="AthleteSkills" syncable="YES"/>
         <relationship name="tests" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="AthleteTest" inverseName="athlete" inverseEntity="AthleteTest" syncable="YES"/>
+        <fetchedProperty name="teamAtheltes" optional="YES" syncable="YES">
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="Athlete" predicateString="Self.teamSelected &lt; 0"/>
+        </fetchedProperty>
     </entity>
     <entity name="AthleteSkills" representedClassName="AthleteSkills" syncable="YES">
         <attribute name="attribute" optional="YES" attributeType="String" syncable="YES"/>
@@ -47,10 +50,13 @@
         <attribute name="name" optional="YES" attributeType="String" minValueString="1" syncable="YES"/>
         <attribute name="numTeams" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
-        <relationship name="athlete" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Athlete" inverseName="events" inverseEntity="Athlete" syncable="YES"/>
+        <relationship name="athletes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Athlete" inverseName="event" inverseEntity="Athlete" syncable="YES"/>
         <relationship name="positions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Positions" inverseName="event" inverseEntity="Positions" syncable="YES"/>
         <relationship name="skills" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Skills" inverseName="event" inverseEntity="Skills" syncable="YES"/>
         <relationship name="tests" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Tests" inverseName="event" inverseEntity="Tests" syncable="YES"/>
+        <fetchedProperty name="teamAthlete" optional="YES" syncable="YES">
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="Athlete" predicateString="teamSelected > 0"/>
+        </fetchedProperty>
     </entity>
     <entity name="Image" representedClassName="Image" syncable="YES">
         <attribute name="headShot" optional="YES" attributeType="Transformable" syncable="YES"/>
@@ -76,15 +82,15 @@
         <relationship name="event" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Event" inverseName="tests" inverseEntity="Event" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Athlete" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="AthleteSkills" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="AthleteTags" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="AthleteTest" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Event" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Image" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Positions" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Skills" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Tags" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Tests" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Athlete" positionX="90" positionY="-29" width="128" height="344"/>
+        <element name="AthleteSkills" positionX="-191" positionY="360" width="128" height="90"/>
+        <element name="AthleteTags" positionX="142" positionY="387" width="128" height="90"/>
+        <element name="AthleteTest" positionX="297" positionY="315" width="128" height="90"/>
+        <element name="Event" positionX="-198" positionY="-9" width="128" height="284"/>
+        <element name="Image" positionX="333" positionY="-147" width="128" height="75"/>
+        <element name="Positions" positionX="160" positionY="-180" width="128" height="75"/>
+        <element name="Skills" positionX="-45" positionY="-180" width="128" height="105"/>
+        <element name="Tags" positionX="-200" positionY="-177" width="128" height="60"/>
+        <element name="Tests" positionX="-378" positionY="-186" width="128" height="105"/>
     </elements>
 </model>
