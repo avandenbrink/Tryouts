@@ -79,12 +79,12 @@ static NSInteger seenBarHeight = 20;
         
         [self insertSubview:self.barView aboveSubview:self.teamView];
     }
-    [self findPercentAndAnimateChangesForEvent:event];
+    //[self findPercentAndAnimateChangesForEvent:event];
 }
 
 -(void)findPercentAndAnimateChangesForEvent:(Event*)event {
-
-    if (event.athletes != nil || ![event.athletes count] < 1) {
+    
+    if ([event.athletes count] > 0) {
         NSMutableArray *athletes = [self fetchTeamAthleteforEvent:event];
         NSMutableArray *seen = [self fetchSeenAthleteforEvent:event];
         //Temporary Example Floats till Fetch Requests are figured out
@@ -133,12 +133,13 @@ static NSInteger seenBarHeight = 20;
                 }];
             }];
         }
+    } else {
+        
     }
 }
 
 -(void)expandSeen {
     NSString *previousText = self.seenLabel.text;
-    CGPoint point = self.teamLabel.center;
     
     //Remove Target so that it can't be activated again
     [self.teamButton removeTarget:self action:@selector(expandTeam) forControlEvents:UIControlEventTouchUpInside];
@@ -210,9 +211,14 @@ static NSInteger seenBarHeight = 20;
     [UIView animateWithDuration:0.7 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         
         //Move team elements into place
-        CGRect rect = CGRectMake(0, titleBarHeight, (self.frame.size.width/2 + self.frame.size.width/4), teamBarHeight);
-        [self.teamView setFrame:rect];
-        [self.teamLabel setFrame:CGRectMake(0, 0, rect.size.width, rect.size.height)];
+        CGRect rect = CGRectMake(0, titleBarHeight, (self.frame.size.width/4)*3, teamBarHeight);
+
+        if (self.teamView.frame.size.width < rect.size.width) {
+
+            [self.teamView setFrame:rect];
+            [self.teamLabel setFrame:CGRectMake(0, 0, rect.size.width, rect.size.height)];
+
+        }
         self.teamLabel.alpha = 0.0f;
         self.teamLabel.text = [NSString stringWithFormat:@"Athletes on a Team: %.0f", self.teamCount];
         self.teamLabel.alpha = 1.0f;
