@@ -1,0 +1,33 @@
+//
+//  VANReverseSeque.m
+//  Tryout Sports
+//
+//  Created by Aaron VandenBrink on 2013-05-02.
+//  Copyright (c) 2013 Aaron VandenBrink. All rights reserved.
+//
+
+#import "VANReverseSegue.h"
+#import "QuartzCore/QuartzCore.h"
+
+@implementation VANReverseSegue
+
+-(void)perform {
+    
+    UIViewController *source = self.sourceViewController;
+    UIViewController *destination = self.destinationViewController;
+    
+    CATransition* transition = [CATransition animation];
+    transition.duration = .50;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionPush; //kCATransitionMoveIn; //, kCATransitionPush, kCATransitionReveal, kCATransitionFade
+    transition.subtype = kCATransitionFromLeft; //kCATransitionFromLeft, kCATransitionFromRight, kCATransitionFromTop, kCATransitionFromBottom
+    
+    
+    
+    [source.navigationController.view.layer addAnimation:transition
+                                                                forKey:kCATransition];
+    
+    [source.navigationController pushViewController:destination animated:NO];
+}
+
+@end
