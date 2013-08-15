@@ -99,6 +99,9 @@
 		C7B1C09017A9F28000EF8C93 /* TryoutSportsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B1C08F17A9F28000EF8C93 /* TryoutSportsTests.m */; };
 		C7B1C09A17A9F29D00EF8C93 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B1C09917A9F29D00EF8C93 /* QuartzCore.framework */; };
 		C7B1C09C17A9F2AE00EF8C93 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B1C09B17A9F2AE00EF8C93 /* CoreData.framework */; };
+		C7CED92417BD28360042BAA7 /* ArrowRight.png in Resources */ = {isa = PBXBuildFile; fileRef = C7CED92317BD28360042BAA7 /* ArrowRight.png */; };
+		C7CED92617BD287D0042BAA7 /* ArrowLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = C7CED92517BD287D0042BAA7 /* ArrowLeft.png */; };
+		C7CED92917BD5E3F0042BAA7 /* VANConnectCentreController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7CED92817BD5E3F0042BAA7 /* VANConnectCentreController.m */; };
 		C7CFDA0617B431E500665A26 /* mask.png in Resources */ = {isa = PBXBuildFile; fileRef = C7CFDA0517B431E500665A26 /* mask.png */; };
 		C7CFDA0C17B45E4500665A26 /* seen.png in Resources */ = {isa = PBXBuildFile; fileRef = C7CFDA0B17B45E4500665A26 /* seen.png */; };
 		C7CFDA1017B5912E00665A26 /* decisionRoom.png in Resources */ = {isa = PBXBuildFile; fileRef = C7CFDA0F17B5912E00665A26 /* decisionRoom.png */; };
@@ -283,6 +286,10 @@
 		C7B1C08F17A9F28000EF8C93 /* TryoutSportsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TryoutSportsTests.m; sourceTree = "<group>"; };
 		C7B1C09917A9F29D00EF8C93 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C7B1C09B17A9F2AE00EF8C93 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		C7CED92317BD28360042BAA7 /* ArrowRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ArrowRight.png; sourceTree = "<group>"; };
+		C7CED92517BD287D0042BAA7 /* ArrowLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ArrowLeft.png; sourceTree = "<group>"; };
+		C7CED92717BD5E3F0042BAA7 /* VANConnectCentreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANConnectCentreController.h; sourceTree = "<group>"; };
+		C7CED92817BD5E3F0042BAA7 /* VANConnectCentreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANConnectCentreController.m; sourceTree = "<group>"; };
 		C7CFDA0517B431E500665A26 /* mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mask.png; sourceTree = "<group>"; };
 		C7CFDA0B17B45E4500665A26 /* seen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = seen.png; sourceTree = "<group>"; };
 		C7CFDA0F17B5912E00665A26 /* decisionRoom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = decisionRoom.png; sourceTree = "<group>"; };
@@ -371,6 +378,8 @@
 				C703D5E117AB05CF00471194 /* VANPictureTaker.m */,
 				C7E16C5F17B2A6790023FCDD /* VANAthleteOrganizerController.h */,
 				C7E16C6017B2A6790023FCDD /* VANAthleteOrganizerController.m */,
+				C7CED92717BD5E3F0042BAA7 /* VANConnectCentreController.h */,
+				C7CED92817BD5E3F0042BAA7 /* VANConnectCentreController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -515,6 +524,8 @@
 				C7E16C4A17B0BA5A0023FCDD /* Icons */,
 				C703D68317AB0EAC00471194 /* FaceFrame.png */,
 				C7CFDA0517B431E500665A26 /* mask.png */,
+				C7CED92317BD28360042BAA7 /* ArrowRight.png */,
+				C7CED92517BD287D0042BAA7 /* ArrowLeft.png */,
 				C703D68417AB0EAC00471194 /* MenuTopBackground.png */,
 				C703D68517AB0EAC00471194 /* TryoutHome.png */,
 				C703D68617AB0EAC00471194 /* corner.png */,
@@ -742,6 +753,8 @@
 				C7E16C5617B0BEBF0023FCDD /* icon40.png in Resources */,
 				C7B1C07517A9F27F00EF8C93 /* Main_iPhone.storyboard in Resources */,
 				C7B1C06C17A9F27F00EF8C93 /* InfoPlist.strings in Resources */,
+				C7CED92617BD287D0042BAA7 /* ArrowLeft.png in Resources */,
+				C7CED92417BD28360042BAA7 /* ArrowRight.png in Resources */,
 				C703D69A17AB0EAC00471194 /* headshot.png in Resources */,
 				C703D69817AB0EAC00471194 /* downArrow.png in Resources */,
 				C7CFDA1017B5912E00665A26 /* decisionRoom.png in Resources */,
@@ -810,6 +823,7 @@
 				C703D5E317AB05CF00471194 /* VANTeamColorChangerViewController.m in Sources */,
 				C703D5EC17AB05CF00471194 /* VANImagePickerController.m in Sources */,
 				C703D63E17AB066A00471194 /* VANScrollViewTeamSelectionCell.m in Sources */,
+				C7CED92917BD5E3F0042BAA7 /* VANConnectCentreController.m in Sources */,
 				C703D5E217AB05CF00471194 /* VANAppSettingsViewController.m in Sources */,
 				C703D65D17AB068900471194 /* Skills.m in Sources */,
 				C703D67117AB06DC00471194 /* VANMainMenuViewControllerPad.m in Sources */,
