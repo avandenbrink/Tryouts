@@ -33,6 +33,7 @@
 - (IBAction)pushToAthleteList:(id)sender;
 - (IBAction)editSkills:(id)sender;
 - (IBAction)toTeams:(id)sender;
+- (IBAction)toConnectCentre:(id)sender;
 
 
 

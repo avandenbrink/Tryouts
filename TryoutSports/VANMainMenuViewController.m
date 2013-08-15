@@ -13,6 +13,7 @@
 #import "VANTagsViewController.h"
 #import "VANTeamsController.h"
 #import "VANSettingTabsController.h"
+#import "VANConnectCentreController.h"
 
 
 
@@ -36,7 +37,6 @@
     self.navigationItem.hidesBackButton = YES;
     self.backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
     self.navigationItem.leftBarButtonItem = self.backButton;
-    NSLog(@"%@", self.event.name);
     self.navigationItem.title = self.event.name;
     if (self.event.athleteSignIn == [NSNumber numberWithInt:0]) {
         self.athleteSignIn.hidden = YES;
@@ -50,7 +50,6 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [self.athleteStatView findPercentAndAnimateChangesForEvent:self.event];
-    NSLog(@"REsetting View");
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -92,10 +91,12 @@
     } else if ([segue.identifier isEqualToString:@"editSkills"]) {
         VANNewSkillsAndTestsController *viewController = segue.destinationViewController;
         viewController.event = sender;
-        NSLog(@"%@", viewController.event.name);
     } else if ([segue.identifier isEqualToString:@"toTeams"]) {
         VANTeamsController *viewController = segue.destinationViewController;
         viewController.event = sender;
+    } else if ([segue.identifier isEqualToString:@"toConnect"]) {
+        VANConnectCentreController *controller = segue.destinationViewController;
+        controller.event = sender;
     }
 }
 
@@ -124,6 +125,10 @@
 
 - (IBAction)toTeams:(id)sender {
     [self performSegueWithIdentifier:@"toTeams" sender:self.event];
+}
+
+- (IBAction)toConnectCentre:(id)sender {
+    [self performSegueWithIdentifier:@"toConnect" sender:self.event];
 }
 
 @end
