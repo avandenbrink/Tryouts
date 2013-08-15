@@ -33,7 +33,8 @@
     
         for (NSInteger i = 1; i <= [self.teamsArray count]; i++) {
             NSLog(@"Adding new Table");
-            VANTeamTableView *tableView = [[VANTeamTableView alloc] initWithFrame:CGRectMake((320 * i)-320, 40, 320, self.scrollerView.frame.size.height - 40) style:UITableViewStyleGrouped];
+            VANTeamTableView *tableView = [[VANTeamTableView alloc] initWithFrame:CGRectMake((320 * i)-320, 0, 320, self.scrollerView.frame.size.height - 0) style:UITableViewStyleGrouped];
+            [tableView setContentInset:UIEdgeInsetsMake(20, 0, 0, 0)];
             //Athlete *athlete = [self.athletArray objectAtIndex:i];
 //            NSPredicate *teamsSelector = [NSPredicate predicateWithFormat:@"teamSelected = %lu", i];
         //Insert NSPredicate Information Here to Filter athleteArray based on their team number i
@@ -41,13 +42,39 @@
             tableView.array = (NSMutableArray *)[self.teamsArray objectAtIndex:i-1];
             tableView.controller = self;
             [self.scrollerView addSubview:tableView];
-            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(tableView.frame.origin.x, self.scrollerView.frame.origin.y, 320, 40)];
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(tableView.frame.origin.x, self.scrollerView.frame.origin.y, 320, 40)];
+            view.backgroundColor = [UIColor groupTableViewBackgroundColor];
+            view.alpha = 0.9f;
+
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, view.frame.size.width, view.frame.size.height)];
             label.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
             label.text = [NSString stringWithFormat:@"Team: %ld", (long)i];
-            label.backgroundColor = [UIColor groupTableViewBackgroundColor];
             label.textAlignment = NSTextAlignmentCenter;
-        
-            [self.scrollerView addSubview:label];
+            [view addSubview:label];
+            
+            if (i != [self.teamsArray count]) {
+                NSLog(@"Adding ArrowRight");
+                UIButton *right = [[UIButton alloc] initWithFrame:CGRectMake(view.frame.size.width-view.frame.size.height-10, 0, view.frame.size.height, view.frame.size.height)];
+                [right setImage:[UIImage imageNamed:@"ArrowRight.png"] forState:UIControlStateNormal];
+                [right addTarget:self action:@selector(nextTeam) forControlEvents:UIControlEventTouchUpInside];
+                [view addSubview:right];
+            }
+            if (i != 1) {
+                NSLog(@"Adding ArrowRight");
+                UIButton *left = [[UIButton alloc] initWithFrame:CGRectMake(10, 0, view.frame.size.height, view.frame.size.height)];
+                [left setImage:[UIImage imageNamed:@"ArrowLeft.png"] forState:UIControlStateNormal];
+                [left addTarget:self action:@selector(prevTeam) forControlEvents:UIControlEventTouchUpInside];
+                [view addSubview:left];
+            }
+            UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, view.frame.size.height-1, view.frame.size.width, 1)];
+            line.backgroundColor = [UIColor lightGrayColor];
+            [view addSubview:line];
+            
+            
+            [self.scrollerView addSubview:view];
+            UIView *vertLine = [[UIView alloc] initWithFrame:CGRectMake(self.scrollerView.frame.size.width-1, 0, 1, self.scrollerView.frame.size.height)];
+            vertLine.backgroundColor = [UIColor lightGrayColor];
+            [view addSubview:vertLine];
         }
 }
 
@@ -68,6 +95,20 @@
     }
 }
 
+-(void)nextTeam {
+    CGPoint currentPlace = self.scrollerView.contentOffset;
+    NSLog(@"Current %f", currentPlace.x);
+    CGPoint moveTo = CGPointMake(currentPlace.x+self.scrollerView.frame.size.width,currentPlace.y);
+    [self.scrollerView setContentOffset:moveTo animated:YES];
+}
+
+-(void)prevTeam {
+    CGPoint currentPlace = self.scrollerView.contentOffset;
+    NSLog(@"Current %f", currentPlace.x);
+    CGPoint moveTo = CGPointMake(currentPlace.x-self.scrollerView.frame.size.width,currentPlace.y);
+    [self.scrollerView setContentOffset:moveTo animated:YES];
+}
+
 -(void)attemptToUpdateSingleAthlete:(Athlete *)athlete {
     
     //Find the Team they were associated with
@@ -82,7 +123,6 @@
         Positions *pos = [[self.event.positions allObjects] objectAtIndex:i];
         if ([pos.position isEqualToString:self.updateAthlete.position]) {
             newPositionIndex = i;
-            NSLog(@"%@ == %@", pos.position, self.updateAthlete.position);
         }
     }
     if (newPositionIndex == NSNotFound) {
@@ -91,7 +131,6 @@
     
     //If the Athletes Team has Changed:
     if (teamIndex != previousTeamIndex) {
-        NSLog(@"Team Has Changed");
 
         //Find the TableView associated with The Athlete
 
@@ -114,12 +153,9 @@
             } else {
                 NSLog(@"Warning VANTeamsController, objectATIndex is not a TableView");
             }
-        } else {
-            NSLog(@"Athlete is no Longer selected to a team");
         }
         
     } else { // Else check to see if anything else has changed
-        NSLog(@"Team Has not Changed");
         
         //Check to see if just the Team has changed
         
@@ -131,18 +167,10 @@
             [[table.array objectAtIndex:newPositionIndex] addObject:self.updateAthlete];
             
             [table moveRowAtIndexPath:self.updatedAthleteIndexPath toIndexPath:[NSIndexPath indexPathForRow:[[table.array objectAtIndex:newPositionIndex] count]-1 inSection:newPositionIndex]];
-            
-            
-        }
-        
-        
-        
-        
-    }
-    
 
-    
-    
+        }
+    }
+
     self.updateAthlete = nil;
     self.updatedAthleteIndexPath = nil;
 }
