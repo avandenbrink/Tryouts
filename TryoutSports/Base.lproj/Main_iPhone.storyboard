@@ -1000,7 +1000,7 @@
                                             <constraint firstAttribute="width" constant="80" id="LV1-yk-K47"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <state key="normal" title="Sign - In">
+                                        <state key="normal" title="Import">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
@@ -1061,6 +1061,9 @@
                                         <state key="normal" title="Connect" image="contect.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="toConnectCentre:" destination="0ws-Qk-Zmh" eventType="touchUpInside" id="eJA-Vw-EMU"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Athletes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ei3-ni-Pik">
                                         <rect key="frame" x="20" y="110" width="90" height="20"/>
@@ -1084,8 +1087,8 @@
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Sign In" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="45R-dq-1Cl">
-                                        <rect key="frame" x="210" y="110" width="90" height="20"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Import" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="45R-dq-1Cl">
+                                        <rect key="frame" x="210" y="110" width="90" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="90" id="1jT-WS-IA5"/>
@@ -1173,6 +1176,7 @@
                         <segue destination="CWT-XT-cFR" kind="push" identifier="toAthleteList" id="9Lu-9a-Bbn"/>
                         <segue destination="LlU-F5-ayc" kind="push" identifier="toEventSettings" id="JBw-Zl-VdO"/>
                         <segue destination="mZ3-YB-vFF" kind="push" identifier="toTeams" id="etp-dg-RgN"/>
+                        <segue destination="1IR-e1-WI3" kind="push" identifier="toConnect" id="gSE-V2-KL7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZiV-oQ-9jg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1211,6 +1215,39 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rfR-9g-epz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1381" y="-68"/>
+        </scene>
+        <!--Connect Centre Controller - Connections-->
+        <scene sceneID="V1J-92-cGK">
+            <objects>
+                <viewController id="1IR-e1-WI3" customClass="VANConnectCentreController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8Lk-qv-z3f"/>
+                        <viewControllerLayoutGuide type="bottom" id="iQM-j3-DFV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="USx-7x-MAa">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uhr-Zo-MKb">
+                                <rect key="frame" x="20" y="20" width="280" height="53"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="Export to Email Address">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="exportEvent:" destination="1IR-e1-WI3" eventType="touchUpInside" id="sz2-xo-kHv"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <navigationItem key="navigationItem" title="Connections" id="o3h-Gt-mha"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bAR-Zl-lOF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1188" y="622"/>
         </scene>
     </scenes>
     <resources>
