@@ -15,6 +15,7 @@
 #import "VANAppDelegate.h"
 #import "VANTeamColor.h"
 
+static NSDateFormatter *__dateFormatt = nil;
 
 static NSString *athleteRelationship = @"athletes";
 static NSString *skillRelationship = @"skill";
