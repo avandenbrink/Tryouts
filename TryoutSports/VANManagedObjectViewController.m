@@ -11,6 +11,11 @@
 
 @implementation VANManagedObjectViewController
 
++ (void)initialize {
+    __dateFormatt = [[NSDateFormatter alloc] init];
+    [__dateFormatt setDateStyle:NSDateFormatterLongStyle];
+}
+
 -(void)viewDidLoad {
     VANTeamColor *teamcolor = [[VANTeamColor alloc] init];
     [self.view setTintColor:[teamcolor findTeamColor]];
