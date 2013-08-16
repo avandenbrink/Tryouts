@@ -6,9 +6,11 @@
 //  Copyright (c) 2013 Aaron VandenBrink. All rights reserved.
 //
 
+#import <MessageUI/MessageUI.h>
 #import "VANManagedObjectViewController.h"
 
-@interface VANConnectCentreController : VANManagedObjectViewController
+
+@interface VANConnectCentreController : VANManagedObjectViewController <MFMailComposeViewControllerDelegate>
 
 
 - (IBAction)exportEvent:(id)sender;

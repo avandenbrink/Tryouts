@@ -23,7 +23,14 @@
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [self.positions count] + 1;
+    NSArray *lastArray = [self.array objectAtIndex:[self.array count]-1];
+    if ([lastArray count] < 1) {
+        return [self.positions count];
+    } else {
+        return [self.positions count] + 1;
+    }
+    
+    
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

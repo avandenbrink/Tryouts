@@ -102,6 +102,7 @@
 		C7CED92417BD28360042BAA7 /* ArrowRight.png in Resources */ = {isa = PBXBuildFile; fileRef = C7CED92317BD28360042BAA7 /* ArrowRight.png */; };
 		C7CED92617BD287D0042BAA7 /* ArrowLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = C7CED92517BD287D0042BAA7 /* ArrowLeft.png */; };
 		C7CED92917BD5E3F0042BAA7 /* VANConnectCentreController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7CED92817BD5E3F0042BAA7 /* VANConnectCentreController.m */; };
+		C7CED92B17BD80150042BAA7 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7CED92A17BD80150042BAA7 /* MessageUI.framework */; };
 		C7CFDA0617B431E500665A26 /* mask.png in Resources */ = {isa = PBXBuildFile; fileRef = C7CFDA0517B431E500665A26 /* mask.png */; };
 		C7CFDA0C17B45E4500665A26 /* seen.png in Resources */ = {isa = PBXBuildFile; fileRef = C7CFDA0B17B45E4500665A26 /* seen.png */; };
 		C7CFDA1017B5912E00665A26 /* decisionRoom.png in Resources */ = {isa = PBXBuildFile; fileRef = C7CFDA0F17B5912E00665A26 /* decisionRoom.png */; };
@@ -290,6 +291,8 @@
 		C7CED92517BD287D0042BAA7 /* ArrowLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ArrowLeft.png; sourceTree = "<group>"; };
 		C7CED92717BD5E3F0042BAA7 /* VANConnectCentreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANConnectCentreController.h; sourceTree = "<group>"; };
 		C7CED92817BD5E3F0042BAA7 /* VANConnectCentreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANConnectCentreController.m; sourceTree = "<group>"; };
+		C7CED92A17BD80150042BAA7 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		C7CED92C17BE8CD80042BAA7 /* TryoutSports.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TryoutSports.entitlements; sourceTree = "<group>"; };
 		C7CFDA0517B431E500665A26 /* mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mask.png; sourceTree = "<group>"; };
 		C7CFDA0B17B45E4500665A26 /* seen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = seen.png; sourceTree = "<group>"; };
 		C7CFDA0F17B5912E00665A26 /* decisionRoom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = decisionRoom.png; sourceTree = "<group>"; };
@@ -322,6 +325,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7CED92B17BD80150042BAA7 /* MessageUI.framework in Frameworks */,
 				C7B1C09C17A9F2AE00EF8C93 /* CoreData.framework in Frameworks */,
 				C7B1C09A17A9F29D00EF8C93 /* QuartzCore.framework in Frameworks */,
 				C7B1C06417A9F27F00EF8C93 /* CoreGraphics.framework in Frameworks */,
@@ -564,6 +568,7 @@
 		C7B1C06017A9F27F00EF8C93 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C7CED92A17BD80150042BAA7 /* MessageUI.framework */,
 				C7B1C09B17A9F2AE00EF8C93 /* CoreData.framework */,
 				C7B1C09917A9F29D00EF8C93 /* QuartzCore.framework */,
 				C7B1C06117A9F27F00EF8C93 /* Foundation.framework */,
@@ -577,6 +582,7 @@
 		C7B1C06717A9F27F00EF8C93 /* TryoutSports */ = {
 			isa = PBXGroup;
 			children = (
+				C7CED92C17BE8CD80042BAA7 /* TryoutSports.entitlements */,
 				C7B1C07C17A9F27F00EF8C93 /* Images.xcassets */,
 				C703D67D17AB077600471194 /* Settings.bundle */,
 				C7B1C07017A9F27F00EF8C93 /* VANAppDelegate.h */,
@@ -706,6 +712,14 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Aaron VandenBrink";
 				TargetAttributes = {
+					C7B1C05D17A9F27F00EF8C93 = {
+						DevelopmentTeam = V95E568Y46;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
+					};
 					C7B1C08117A9F27F00EF8C93 = {
 						TestTargetID = C7B1C05D17A9F27F00EF8C93;
 					};
@@ -988,6 +1002,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = TryoutSports/TryoutSports.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TryoutSports/TryoutSports-Prefix.pch";
@@ -1003,6 +1018,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = TryoutSports/TryoutSports.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TryoutSports/TryoutSports-Prefix.pch";

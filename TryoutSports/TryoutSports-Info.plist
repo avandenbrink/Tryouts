@@ -47,5 +47,17 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UIFileSharingEnabled</key>
+	<true/>
+	<key>CFBundleDocumentsType</key>
+	<array>
+		<dict>
+			<key>CFBundelTypeName</key>
+			<string>Tryout Sports Document</string>
+		</dict>
+		<array/>
+	</array>
+	<key>UTExprtedTypeDeclarations</key>
+	<array/>
 </dict>
 </plist>
