@@ -40,6 +40,8 @@
     }
     VANTeamColor *teamColor = [[VANTeamColor alloc] init];
     [self.appSettings setTintColor:[teamColor findTeamColor]];
+    
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
