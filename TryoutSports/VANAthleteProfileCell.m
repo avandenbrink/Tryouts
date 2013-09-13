@@ -8,6 +8,14 @@
 
 #import "VANAthleteProfileCell.h"
 #import "VANTeamColor.h"
+#import "VANPictureTaker.h"
+
+@interface VANAthleteProfileCell ()
+
+@property (strong, nonatomic) VANPictureTaker *pictureTaker;
+
+
+@end
 
 @implementation VANAthleteProfileCell
 
@@ -33,4 +41,6 @@
 
 - (IBAction)EditAthleteInformation:(id)sender {
 }
+
+
 @end
