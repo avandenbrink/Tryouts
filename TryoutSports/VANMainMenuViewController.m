@@ -14,7 +14,7 @@
 #import "VANTeamsController.h"
 #import "VANSettingTabsController.h"
 #import "VANConnectCentreController.h"
-
+#import "VANDecisionRoomViewController.h"
 
 
 @interface VANMainMenuViewController ()
@@ -85,10 +85,10 @@
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Hero Detail Error", @"Hero Detail Error") message:NSLocalizedString(@"Error Showing Detail",@"Error Showing Detail") delegate:self cancelButtonTitle:NSLocalizedString(@"OK", @"OK") otherButtonTitles:nil];
             [alert show];
         }
-    } else if ([segue.identifier isEqualToString:@"toAthleteList"]) {
+    } else /*if ([segue.identifier isEqualToString:@"toAthleteList"])*/ {
         VANAthleteListViewController *viewController = segue.destinationViewController;
         viewController.event = sender;
-    } else if ([segue.identifier isEqualToString:@"editSkills"]) {
+    } /*else if ([segue.identifier isEqualToString:@"editSkills"]) {
         VANNewSkillsAndTestsController *viewController = segue.destinationViewController;
         viewController.event = sender;
     } else if ([segue.identifier isEqualToString:@"toTeams"]) {
@@ -97,7 +97,9 @@
     } else if ([segue.identifier isEqualToString:@"toConnect"]) {
         VANConnectCentreController *controller = segue.destinationViewController;
         controller.event = sender;
-    }
+    } else if ([segue.identifier isEqualToString:@"toDecisionRoom"]) {
+        VANDecisionRoomViewController *controller = segue.destinationViewController
+    }*/
 }
 
 #pragma mark - Custom Controller Button Actions
@@ -129,6 +131,10 @@
 
 - (IBAction)toConnectCentre:(id)sender {
     [self performSegueWithIdentifier:@"toConnect" sender:self.event];
+}
+
+- (IBAction)toDecisionRoom:(id)sender {
+    [self performSegueWithIdentifier:@"toDecisionRoom" sender:self.event];
 }
 
 @end

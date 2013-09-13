@@ -34,7 +34,7 @@
 - (IBAction)editSkills:(id)sender;
 - (IBAction)toTeams:(id)sender;
 - (IBAction)toConnectCentre:(id)sender;
-
+- (IBAction)toDecisionRoom:(id)sender;
 
 
 @property (weak, nonatomic) IBOutlet UIPageControl *pageController;
