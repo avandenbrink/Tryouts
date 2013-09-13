@@ -20,4 +20,6 @@
 @property (strong, nonatomic) UITableViewCell *cell;
 -(IBAction)keyboardResign:(id)sender;
 
+- (IBAction)addPicture:(id)sender;
+
 @end

@@ -19,6 +19,7 @@
 #import "AthleteTags.h"
 #import "VANTagsTableViewController.h"
 #import "Image.h"
+#import "VANPictureTaker.h"
 
 
 
@@ -26,6 +27,8 @@
 
 @property (strong, nonatomic) NewTableConfiguration *config;
 @property (strong, nonatomic) UIBarButtonItem *backButton;
+
+@property (strong, nonatomic) VANPictureTaker *pictureTaker;
 //@property (strong, nonatomic) UIPickerView *pickerView;
 //@property (nonatomic) BOOL rowThree;
 
@@ -62,13 +65,21 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.tableView reloadData];
     VANCollectionCell *cell = (VANCollectionCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
-    [cell.collectionView reloadData];
+//    [cell.collectionView reloadData];
+    [self.tableView reloadData];
     if ([self.athlete.aTags count] > 0) {
         cell.label.text = @"";
     }
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+ /*   VANCollectionCell *cell = (VANCollectionCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
     
+    CGFloat floater = [self findNumberOfRowswithMaxWidth:self.view.frame.size.width - 18 withStringMargin:10 cellSpacing:10 andFont:[UIFont systemFontOfSize:17]];
+    [cell.collectionView setFrame:CGRectMake(0, 0, self.view.frame.size.width, floater)];
+    NSLog(@"%f",cell.contentView.frame.size.height);
+    NSLog(@"%f",cell.collectionView.frame.size.height);*/
 }
 
 - (void)didReceiveMemoryWarning
@@ -138,10 +149,10 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        if (!self.config.rowTwo) {
-            return 3;
-        } else {
+        if (!self.config.rowThree) {
             return 4;
+        } else {
+            return 5;
         }
     } else if (section == 1) {
         return 1;
@@ -157,24 +168,40 @@
     if ([indexPath section] == 0) {
         // -------- Top Section
         if ([indexPath row] == 0) {
+            static NSString *CellIdentifier = @"detail";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+            cell.textLabel.text = [NSString stringWithFormat:@"# %@",self.athlete.number];
+            cell.detailTextLabel.text = [__dateFormatter stringFromDate:self.athlete.birthday];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            return cell;
+        } else if ([indexPath row] == 1) {
             // -------- Athlete Information Cell
             static NSString *CellIdentifier = @"Profile";
             VANAthleteProfileCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-
-            cell.number.text = [NSString stringWithFormat:@"%@",[self.athlete.number stringValue]];
-            cell.birthday.text = [self.athlete.birthday description];
+            
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            VANTeamColor *teamColor = [[VANTeamColor alloc] init];
-            cell.pic.backgroundColor = [teamColor findTeamColor];
-            cell.birthday.text = [__dateFormatter stringFromDate:self.athlete.birthday];
             if ([self.athlete.headShotImage count] > 0) {
                 Image *imageMO = [[self.athlete.headShotImage allObjects] objectAtIndex:0];
                 UIImage *image = [UIImage imageWithData:imageMO.headShot];
-                cell.imageView.image = image;
-                cell.imageView.contentMode = UIViewContentModeScaleToFill;
+                cell.pic.image = image;
+                cell.pic.contentMode = UIViewContentModeScaleAspectFit;
+            } else if ([self.athlete.headShotImage count] == 1) {
+                UIImage *cameraImage = [UIImage imageNamed:@"cameraButton.png"];
+                cell.pic.image = cameraImage;
+                cell.pic.contentMode = UIViewContentModeScaleAspectFit;
+            } else {
+                NSArray *array = [self.athlete.headShotImage allObjects];
+                NSMutableArray *images = nil;
+                for (NSInteger i = 0; i < [array count]; i++) {
+                    Image *imageData = [array objectAtIndex:i];
+                    UIImage *image = [UIImage imageWithData:imageData.headShot];
+                    [images addObject:image];
+                }
+                cell.pic.animationImages = images;
             }
             return cell;
-        } else if ([indexPath row] == 1){
+        } else if ([indexPath row] == 2){
             // -------- Athlete Team Number Cell ------------ //
             static NSString *CellIdentifier = @"Scroll";
             VANScrollViewTeamSelectionCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -216,11 +243,11 @@
             
             return cell;
             
-        } else if ([indexPath row] == 2){
+        } else if ([indexPath row] == 3){
             // -------- Athlete Position Selection Cell
             return [self.config buildCellInTable:tableView ForIndex:indexPath withLabel:@"Position" andValue:self.athlete.position];            
         } else {
-            if (self.config.rowTwo) {
+            if (self.config.rowThree) {
                 return [self.config buildPickerCellInTable:tableView ForIndex:indexPath withValues:[self.event.positions allObjects] forPurpose:@"Position"];
             } else {
                 return nil;
@@ -232,6 +259,7 @@
         static NSString *CellIdentifier = @"Tags";
         VANCollectionCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
         cell = [cell init];
+
         cell.athlete = self.athlete;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         if ([self.athlete.aTags count] < 1) {
@@ -320,6 +348,14 @@
 
 #pragma mark - Custom Built Methods
 
+- (IBAction)addPicture:(id)sender {
+    if (!self.pictureTaker) {
+        self.pictureTaker = [[VANPictureTaker alloc] init];
+    }
+    self.pictureTaker.controller = self;
+    [self.pictureTaker callImagePickerController];
+}
+
 -(IBAction)keyboardResign:(id)sender {
     [sender resignFirstResponder];
 }
@@ -386,12 +422,18 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([indexPath section] == 0) {
         if ([indexPath row] == 0) {
-            //Home Profile Cell
-            return 170;
+            return 40;
         } else if ([indexPath row] == 1) {
+            //Home Profile Cell
+            if ([self.athlete.headShotImage count] > 0) {
+                return 170;
+            } else {
+                return 40;
+            }
+        } else if ([indexPath row] == 2) {
             //Team Selectiong Cell
             return 90;
-        } else if ([indexPath row] == 2) {
+        } else if ([indexPath row] == 3) {
             //Position Selection Cell
             return 60;
         } else {
@@ -400,16 +442,7 @@
         }
     } else if ([indexPath section] == 1) {
         //Collection Cell for Athlete Tags
-        NSMutableArray *strings = [NSMutableArray array];
-        for (NSInteger i = 0; i < [self.athlete.aTags count]; i++) {
-            AthleteTags *tag = [[self.athlete.aTags allObjects] objectAtIndex:i];
-            if (tag.descriptor == nil) {
-                [strings addObject:@""];
-            } else {
-                [strings addObject:tag.descriptor];
-            }
-        }
-        CGFloat floater =[self findNumberOfRowswithMaxWidth:self.view.frame.size.width - 18 forStringArray:strings withStringMargin:10 cellSpacing:10 andFont:[UIFont systemFontOfSize:17]];
+        CGFloat floater =[self findNumberOfRowswithMaxWidth:self.view.frame.size.width - 18 withStringMargin:10 cellSpacing:10 andFont:[UIFont systemFontOfSize:17]];
         return floater;
     } else if ([indexPath section] == 2){
         //Skills Cell
@@ -420,13 +453,23 @@
     }
 }
 
--(CGFloat)findNumberOfRowswithMaxWidth:(NSInteger)width forStringArray:(NSArray *)array withStringMargin:(NSInteger)margin cellSpacing:(NSInteger)spacing andFont:(UIFont *)font {
+-(CGFloat)findNumberOfRowswithMaxWidth:(NSInteger)width withStringMargin:(NSInteger)margin cellSpacing:(NSInteger)spacing andFont:(UIFont *)font {
+    
+    NSMutableArray *strings = [NSMutableArray array];
+    for (NSInteger i = 0; i < [self.athlete.aTags count]; i++) {
+        AthleteTags *tag = [[self.athlete.aTags allObjects] objectAtIndex:i];
+        if (tag.descriptor == nil) {
+            [strings addObject:@""];
+        } else {
+            [strings addObject:tag.descriptor];
+        }
+    }
     
     self.rows = 0;
     self.rowWidth = 0;
     self.itemsInRow = 0;
     
-    for (NSString *string in array) {
+    for (NSString *string in strings) {
         self.itemsInRow++;
         CGSize stringSize = [string sizeWithAttributes:[NSDictionary dictionaryWithObjects:@[font] forKeys:@[NSFontAttributeName]]];
 //        NSLog(@"String: %@ has width: %f", string, stringSize.width);
@@ -476,7 +519,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        if (indexPath.row == 2) {
+        if (indexPath.row == 3) {
             [self.config didSelectRowAtIndex:indexPath inTableView:tableView];
         }
     }
