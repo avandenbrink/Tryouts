@@ -225,16 +225,8 @@
 
 #pragma mark - Custom Action Methods
 
-- (IBAction)saveSkills:(id)sender {
-    [self saveManagedObjectContext:self.event];
-    [self performSegueWithIdentifier:@"saveToMain" sender:self.event];
-}
-
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"saveToMain"]) {
-        VANMainMenuViewController *viewController = segue.destinationViewController;
-        viewController.event = sender;
-    } else if ([segue.identifier isEqualToString:@"editSkill"]) {
+    if ([segue.identifier isEqualToString:@"editSkill"]) {
         VANEditSkillController *viewController = segue.destinationViewController;
         if ([sender isKindOfClass:[NSArray class]]) {
             viewController.skill = [sender objectAtIndex:0];
