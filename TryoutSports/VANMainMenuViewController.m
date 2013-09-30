@@ -88,18 +88,7 @@
     } else /*if ([segue.identifier isEqualToString:@"toAthleteList"])*/ {
         VANAthleteListViewController *viewController = segue.destinationViewController;
         viewController.event = sender;
-    } /*else if ([segue.identifier isEqualToString:@"editSkills"]) {
-        VANNewSkillsAndTestsController *viewController = segue.destinationViewController;
-        viewController.event = sender;
-    } else if ([segue.identifier isEqualToString:@"toTeams"]) {
-        VANTeamsController *viewController = segue.destinationViewController;
-        viewController.event = sender;
-    } else if ([segue.identifier isEqualToString:@"toConnect"]) {
-        VANConnectCentreController *controller = segue.destinationViewController;
-        controller.event = sender;
-    } else if ([segue.identifier isEqualToString:@"toDecisionRoom"]) {
-        VANDecisionRoomViewController *controller = segue.destinationViewController
-    }*/
+    }
 }
 
 #pragma mark - Custom Controller Button Actions
