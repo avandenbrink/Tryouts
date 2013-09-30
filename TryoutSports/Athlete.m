@@ -28,9 +28,4 @@
 @dynamic tests;
 @dynamic teamAthletes;
 
--(void)awakeFromInsert {
-    self.teamSelected = 0;
-    self.seen = 0;
-}
-
 @end
