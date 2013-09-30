@@ -54,7 +54,11 @@ static NSString *kPickerType = @"Picker";
 -(void)cancel {
     NSManagedObjectContext *context = [self.athlete managedObjectContext];
     [context deleteObject:self.athlete];
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.delegate) {
+        [self dismissViewControllerAnimated:YES completion:nil ];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (IBAction)launchCamera:(id)sender {
@@ -265,7 +269,11 @@ static NSString *kPickerType = @"Picker";
         [self.tableView reloadData];
         //[self.view reloadInputViews];
     } else if(buttonIndex == 1) {
-        [self.navigationController popViewControllerAnimated:YES];
+        if (self.delegate) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        } else {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     } else {
         
     }
