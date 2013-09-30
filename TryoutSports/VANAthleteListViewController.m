@@ -12,6 +12,7 @@
 #import "VANAthleteListCell.h"
 #import "VANTeamColor.h"
 #import "Image.h"
+#import "VANGlobalMethods.h"
 
 @interface VANAthleteListViewController ()
 
@@ -141,8 +142,8 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        
-        [self removeRelationshipObjectInIndexPath:indexPath forKey:@"athletes"];
+        VANGlobalMethods *methods = [[VANGlobalMethods alloc] initwithEvent:self.event];
+        [methods removeRelationshipObjectInIndexPath:indexPath forKey:@"athletes"];
         NSMutableSet *athleteSet = [self.event mutableSetValueForKey:@"athletes"];
         self.athleteList = (NSMutableArray *)[athleteSet allObjects];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
@@ -185,7 +186,8 @@
 #pragma  mark - Cutsom Methods
 
 - (IBAction)addNewAthlete:(id)sender {
-    Athlete *athlete = (Athlete *)[self addNewRelationship:athleteRelationship toManagedObject:self.event andSave:NO];
+    VANGlobalMethods *methods = [[VANGlobalMethods alloc] initwithEvent:self.event];
+    Athlete *athlete = (Athlete *)[methods addNewRelationship:athleteRelationship toManagedObject:self.event andSave:NO];
     [self performSegueWithIdentifier:@"toNewAthletePage" sender:athlete];
 }
 

@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "VANManagedObjectTableViewController.h"
+#import "VANManagedObjectViewController.h"
 #import "VANNewAthleteController.h"
 
 
-@interface VANAthleteListViewController : VANManagedObjectTableViewController
+@interface VANAthleteListViewController : VANManagedObjectViewController
 
 @property (strong, nonatomic) NSMutableArray *athleteList;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 - (IBAction)addNewAthlete:(id)sender;
 
 @end
