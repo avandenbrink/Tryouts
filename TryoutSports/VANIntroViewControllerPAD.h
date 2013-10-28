@@ -7,8 +7,11 @@
 //
 
 #import "VANIntroViewController.h"
+@class VANMainMenuViewController;
 
 @interface VANIntroViewControllerPad : VANIntroViewController
+
+@property (strong, nonatomic) VANMainMenuViewController *delegate;
 
 @end
   
