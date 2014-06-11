@@ -21,7 +21,6 @@
 }
 
 - (IBAction)exportEvent:(id)sender {
-    
     NSString *write = @"";
     
     write = [write stringByAppendingString:[NSString stringWithFormat:@"Event Name:, %@ \n", self.event.name]];

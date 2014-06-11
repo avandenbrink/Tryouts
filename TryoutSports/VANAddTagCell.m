@@ -10,32 +10,46 @@
 
 @implementation VANAddTagCell
 
--(BOOL)textFieldShouldReturn:(UITextField *)textField {
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
     [self saveNewTag:textField];
     return YES;
 }
 
--(void)textFieldDidBeginEditing:(UITextField *)textField {
-    self.segmentButton.hidden = NO;
-    self.addNewButton.enabled = YES;
-    self.segmentButton.selectedSegmentIndex = 1;
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    _segmentButton.hidden = NO;
+    _addNewButton.enabled = YES;
+    _segmentButton.selectedSegmentIndex = 1;
+    if ([_delegate respondsToSelector:@selector(VANAddTextViewDidBecomeFirstResponder)]) {
+        [_delegate VANAddTextViewDidBecomeFirstResponder];
+    }
 }
 
-- (IBAction)saveNewTag:(id)sender {
-    if ([self.textView.text isEqualToString:@""] || self.textView.text == nil) {
-        [self.textView resignFirstResponder];
-        self.addNewButton.enabled = NO;
-        self.segmentButton.hidden = YES;
-        NSLog(@"attemptiong to close Cell without adding Tag");
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    _addNewButton.enabled = NO;
+    _segmentButton.hidden = YES;
+    _segmentButton.selectedSegmentIndex = 1;
+    self.textView.text = @"";
+    if ([_delegate respondsToSelector:@selector(VANAddTextViewDidResignFirstResponder)]) {
+        [_delegate VANAddTextViewDidResignFirstResponder];
+    }
+}
+
+- (IBAction)saveNewTag:(id)sender
+{
+    if (![_textView.text isEqualToString:@""]) {
+        if ([_delegate respondsToSelector:@selector(buildnewTagWithString:andType:)]) {
+            [_delegate buildnewTagWithString:self.textView.text andType:self.segmentButton.selectedSegmentIndex];
+        }
     } else {
-        NSLog(@"Selected Index: %ld", (long)self.segmentButton.selectedSegmentIndex);
-        
-        [self.controller buildnewTagWithString:self.textView.text andType:self.segmentButton.selectedSegmentIndex];
-        self.addNewButton.enabled = NO;
-        self.segmentButton.hidden = YES;
-        self.textView.text = @"";
         [self.textView resignFirstResponder];
     }
+}
+
+-(void)safeToCloseAddTagCell {
+    [self.textView resignFirstResponder];
 }
 
 @end

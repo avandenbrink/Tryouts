@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-@class Event;
+#import "VANTabController.h"
+#import "VANNewEventViewController.h"
+#import "VANNewSkillsAndTestsController.h"
 
-@interface VANSettingTabsController : UITabBarController <UITabBarControllerDelegate>
+@interface VANSettingTabsController : VANTabController <UITabBarControllerDelegate>
 
-@property (strong, nonatomic) Event *event;
+-(void)saveManagedObjectContext:(NSManagedObject *)managedObject;
+- (IBAction)saveEvent:(id)sender;
+- (void)cancel;
 
 @end

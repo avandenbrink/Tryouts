@@ -14,12 +14,8 @@
 #import "Positions.h"
 #import "VANAppDelegate.h"
 #import "VANTeamColor.h"
+#import "VANGlobalMethods.h"
 
-static NSDateFormatter *__dateFormatt = nil;
-
-static NSString *athleteRelationship = @"athletes";
-static NSString *skillRelationship = @"skill";
-static NSString *testRelationship = @"test";
 
 @interface VANManagedObjectViewController : UIViewController
 
@@ -29,8 +25,12 @@ static NSString *testRelationship = @"test";
 @property (strong, nonatomic) Tests *test;
 @property (strong, nonatomic) Positions *position;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-
+/*
 -(void)saveManagedObjectContext:(NSManagedObject *)managedObject;
 -(NSManagedObject *)addNewRelationship:(NSString *)relationship;
+*/
+
+// -(void)adjustContentInsetsForEditing:(BOOL)editing;
+
 
 @end

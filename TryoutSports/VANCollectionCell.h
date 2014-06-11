@@ -11,12 +11,14 @@
 #import "VANTagsViewController.h"
 #import "VANLeftAlignedFlowLayout.h"
 
-@interface VANCollectionCell : UITableViewCell <UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate, UIPopoverControllerDelegate, UICollectionViewDelegateFlowLayout>
+@interface VANCollectionCell : UITableViewCell <UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate, UICollectionViewDelegateFlowLayout>
 
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) IBOutlet VANLeftAlignedFlowLayout *layoutView;
 @property (strong, nonatomic) Athlete *athlete;
 @property (strong, nonatomic) NSMutableArray *tagsArray;
 @property (strong, nonatomic) UILabel *label;
+
+- (void)initiate;
 
 @end

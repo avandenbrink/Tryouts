@@ -10,9 +10,4 @@
 
 @interface VANTagsTableViewController : VANManagedObjectTableViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 
-@property (strong, nonatomic) NSMutableArray *selectedTagsArray;
-@property (strong, nonatomic) NSMutableArray *tagsArray;
-
--(void)buildnewTagWithString:(NSString *)string andType:(NSInteger)type;
-
 @end

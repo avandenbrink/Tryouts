@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4457.9" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment defaultVersion="1552" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3682.9"/>
+        <deployment defaultVersion="1792" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -10,70 +10,38 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="textCell" rowHeight="46" id="fiM-eN-87H" customClass="VANTextFieldCell">
             <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fiM-eN-87H" id="Aoy-7h-ece">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="45"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Test" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IJP-YN-fdy">
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Test" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IJP-YN-fdy">
                         <rect key="frame" x="18" y="0.0" width="103" height="46"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline2"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="text Field" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9fg-vh-5XY">
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="text Field" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9fg-vh-5XY">
                         <rect key="frame" x="125" y="0.0" width="175" height="46"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead1"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no"/>
                     </textField>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S07-Pv-4ib">
-                        <rect key="frame" x="0.0" y="0.0" width="6" height="46"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="6" id="rpy-C2-Mpa"/>
-                        </constraints>
-                    </view>
                 </subviews>
-                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-            </view>
+            </tableViewCellContentView>
             <constraints>
-                <constraint firstItem="S07-Pv-4ib" firstAttribute="leading" secondItem="fiM-eN-87H" secondAttribute="leading" id="18S-4N-jFB"/>
-                <constraint firstItem="9fg-vh-5XY" firstAttribute="top" secondItem="fiM-eN-87H" secondAttribute="top" id="5TF-mZ-o23"/>
-                <constraint firstItem="IJP-YN-fdy" firstAttribute="top" secondItem="fiM-eN-87H" secondAttribute="top" id="8oY-1S-ep2"/>
-                <constraint firstItem="IJP-YN-fdy" firstAttribute="leading" secondItem="fiM-eN-87H" secondAttribute="leading" constant="18" id="DfY-M5-rdh"/>
-                <constraint firstAttribute="bottom" secondItem="IJP-YN-fdy" secondAttribute="bottom" id="KhR-2N-F3e"/>
-                <constraint firstAttribute="bottom" secondItem="S07-Pv-4ib" secondAttribute="bottom" id="LaG-h9-nPZ"/>
-                <constraint firstItem="9fg-vh-5XY" firstAttribute="leading" secondItem="IJP-YN-fdy" secondAttribute="trailing" constant="4" id="ONf-6c-Nmh"/>
-                <constraint firstItem="9fg-vh-5XY" firstAttribute="bottom" secondItem="fiM-eN-87H" secondAttribute="bottom" id="WgU-5z-zvB"/>
-                <constraint firstItem="S07-Pv-4ib" firstAttribute="top" secondItem="fiM-eN-87H" secondAttribute="top" id="erA-AR-9f4"/>
-                <constraint firstAttribute="trailing" secondItem="9fg-vh-5XY" secondAttribute="trailing" constant="20" id="mPT-1y-1EQ"/>
+                <constraint firstItem="IJP-YN-fdy" firstAttribute="leading" secondItem="fiM-eN-87H" secondAttribute="leading" constant="18" id="CfY-qH-oTE"/>
+                <constraint firstItem="9fg-vh-5XY" firstAttribute="top" secondItem="fiM-eN-87H" secondAttribute="top" id="GQ4-NX-iLE"/>
+                <constraint firstAttribute="bottom" secondItem="IJP-YN-fdy" secondAttribute="bottom" id="JU0-uB-3Yc"/>
+                <constraint firstItem="IJP-YN-fdy" firstAttribute="top" secondItem="fiM-eN-87H" secondAttribute="top" id="W1R-Rb-ZhC"/>
+                <constraint firstItem="9fg-vh-5XY" firstAttribute="leading" secondItem="IJP-YN-fdy" secondAttribute="trailing" constant="4" id="XGV-Fo-jbk"/>
+                <constraint firstAttribute="trailing" secondItem="9fg-vh-5XY" secondAttribute="trailing" constant="20" id="ckf-If-Zu5"/>
+                <constraint firstItem="9fg-vh-5XY" firstAttribute="bottom" secondItem="fiM-eN-87H" secondAttribute="bottom" id="oh8-nT-UG5"/>
             </constraints>
             <connections>
                 <outlet property="label" destination="IJP-YN-fdy" id="NBp-F0-z85"/>
-                <outlet property="sideView" destination="S07-Pv-4ib" id="aCh-fS-aPE"/>
                 <outlet property="textField" destination="9fg-vh-5XY" id="8jo-Nd-kvg"/>
             </connections>
         </tableViewCell>
     </objects>
-    <classes>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="VANMotherCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/VANMotherCell.h"/>
-            <relationships>
-                <relationship kind="action" name="keyboardResign:"/>
-                <relationship kind="outlet" name="label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="sideView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="VANTextFieldCell" superclassName="VANMotherCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/VANTextFieldCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="textField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-    </classes>
 </document>

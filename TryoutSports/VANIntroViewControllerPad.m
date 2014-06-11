@@ -82,7 +82,6 @@ static NSInteger marginSpacing = 100;
     }];
         self.newLoad = NO;
     }
-    NSLog(@"%@", NSStringFromCGRect(self.eventsTable.frame));
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -118,13 +117,8 @@ static NSInteger marginSpacing = 100;
         tabBarController.delegate = tabBarController;
         tabBarController.event = sender;
         tabBarController.selectedIndex = 0;
-        if (tabBarController.selectedIndex == 1) {
-            VANNewSkillsAndTestsController *controller = (VANNewSkillsAndTestsController *)[tabBarController.viewControllers objectAtIndex:1];
-            controller.event = sender;
-        } else {
-            VANNewEventViewController *controller = (VANNewEventViewController *)[tabBarController.viewControllers objectAtIndex:0];
-            controller.event = tabBarController.event;
-        }
+        VANNewEventViewController *controller = (VANNewEventViewController *)[tabBarController.viewControllers objectAtIndex:0];
+        controller.event = tabBarController.event;
     } else {
         [super prepareForSegue:segue sender:sender];
    }

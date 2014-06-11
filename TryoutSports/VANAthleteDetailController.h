@@ -9,17 +9,26 @@
 #import <UIKit/UIKit.h>
 #import "VANManagedObjectTableViewController.h"
 
+#import "VANAthleteProfileCell.h"
+
+#import "VANDetailTableDelegate.h"
+#import "VANPictureTaker.h"
+#import "VANSoloImageViewer.h"
+
+
 @class AthleteSkills;
 
-@interface VANAthleteDetailController : VANManagedObjectTableViewController <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, UITextFieldDelegate>
+@interface VANAthleteDetailController : VANManagedObjectTableViewController <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, UITextFieldDelegate, UIActionSheetDelegate, VANPictureTakerDelegate, VANAthleteProfileDelegate, VANSoloImageViewerDelegate, VANDetailTableDelegate>
 
-@property (strong, nonatomic) IBOutlet UITableView *tableview;
--(void)back;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *editButton;
 
 @property (strong, nonatomic) AthleteSkills *athleteSkills;
 @property (strong, nonatomic) UITableViewCell *cell;
--(IBAction)keyboardResign:(id)sender;
 
-- (IBAction)addPicture:(id)sender;
+-(IBAction)keyboardResign:(id)sender;
+-(IBAction)editAthleteProfile:(id)sender;
+-(void)addPicture;
+-(void)back;
+-(void)removeImagefromCell:(Image *)image;
 
 @end

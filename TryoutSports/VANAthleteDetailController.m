@@ -7,30 +7,33 @@
 //
 
 #import "VANAthleteDetailController.h"
+#import "VANAthleteEditController.h"
+#import "VANTagsTableViewController.h"
+
 #import "VANAthleteProfileCell.h"
-#import "NewTableConfiguration.h"
 #import "VANTextFieldCell.h"
 #import "VANValueSliderCell.h"
 #import "VANCollectionCell.h"
 #import "VANPickerCell.h"
 #import "VANScrollViewTeamSelectionCell.h"
+
+#import "NewTableConfiguration.h"
+#import "VANDetailTableDelegate.h"
+
 #import "AthleteSkills.h"
 #import "AthleteTest.h"
 #import "AthleteTags.h"
-#import "VANTagsTableViewController.h"
 #import "Image.h"
-#import "VANPictureTaker.h"
-
 
 
 @interface VANAthleteDetailController ()
 
-@property (strong, nonatomic) NewTableConfiguration *config;
 @property (strong, nonatomic) UIBarButtonItem *backButton;
-
+@property (strong, nonatomic) VANDetailTableDelegate *tableDelegate;
 @property (strong, nonatomic) VANPictureTaker *pictureTaker;
-//@property (strong, nonatomic) UIPickerView *pickerView;
-//@property (nonatomic) BOOL rowThree;
+
+//Objects for the Solo Image Viewer
+@property (strong, nonatomic) VANSoloImageViewer *imageDisplay;
 
 -(AthleteSkills *)compareSkillAndValueforSkill:(Skills *)object inArray:(NSArray *)array;
 -(AthleteTest *)compareTestAndValueforTest:(Tests *)object inArray:(NSArray *)array;
@@ -44,58 +47,183 @@
 
 @implementation VANAthleteDetailController
 
-+ (void)initialize {
-    __dateFormatter = [[NSDateFormatter alloc] init];
-    [__dateFormatter setDateStyle:NSDateFormatterLongStyle];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.config = [[NewTableConfiguration alloc] init];
-    self.config.controller = self;
+    
+    //Create our Delegate and DataSource Object
+    self.tableDelegate = [[VANDetailTableDelegate alloc] initWithTableView:self.tableView];
+    self.tableDelegate.delegate = self;
+    self.tableDelegate.event = self.event;
+    [self.tableDelegate resetAthletesPointertoAthlete:self.athlete];
+    
 	// Do any additional setup after loading the view.
     self.navigationItem.title = self.athlete.name;
-    self.tableview.backgroundColor = [UIColor darkGrayColor];
     self.backButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(back)];
     self.navigationItem.leftBarButtonItem = self.backButton;
     
-    //Temporary Code
+    //Any Temporary Code....
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    VANCollectionCell *cell = (VANCollectionCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
-//    [cell.collectionView reloadData];
+    
     [self.tableView reloadData];
-    if ([self.athlete.aTags count] > 0) {
-        cell.label.text = @"";
-    }
+    [_tableDelegate reloadTagsCollectionViewCell];
+    self.navigationItem.title = self.athlete.name;
+
 }
 
 -(void)viewDidAppear:(BOOL)animated {
- /*   VANCollectionCell *cell = (VANCollectionCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
-    
-    CGFloat floater = [self findNumberOfRowswithMaxWidth:self.view.frame.size.width - 18 withStringMargin:10 cellSpacing:10 andFont:[UIFont systemFontOfSize:17]];
-    [cell.collectionView setFrame:CGRectMake(0, 0, self.view.frame.size.width, floater)];
-    NSLog(@"%f",cell.contentView.frame.size.height);
-    NSLog(@"%f",cell.collectionView.frame.size.height);*/
+    [super viewDidAppear:animated];
+    [_tableDelegate moveTeamScrollViewWithAnimation:NO];
+
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    
+    self.imageDisplay = nil;
 }
 
--(void)back {
-    [self cleanUpExcessSkillsAndTests];
+#pragma mark - VAN Image Picker Delegate Methods
+
+
+-(void)pictureTaker:(VANPictureTaker *)object isReadyToDismissWithAnimation:(BOOL)animation {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)passBackSelectedImageData:(NSData *)imageData
+{
+    //VANAthleteProfileCell *cell =  (VANAthleteProfileCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    // --- [cell addNewImageFromData:imageData];  --- was used to animate image into place but not currently functioning
     
-    [self saveManagedObjectContext:self.event];
+    //B. Create a new Image object and attach it to our selected athlete.
+    VANGlobalMethods *methods = [[VANGlobalMethods alloc] initwithEvent:self.event];
+    
+    Image *newImage = (Image *)[methods addNewRelationship:@"images" toManagedObject:self.athlete andSave:NO];
+    newImage.headShot = imageData;
+    if ([self.athlete.images count] == 1) {
+        self.athlete.profileImage = newImage;
+    }
+    [self.tableView reloadData];
+    
+    [self saveManagedObjectContext:self.athlete];
+}
+
+#pragma mark - VAN Solo Image View Delegate Methods
+
+-(void)deleteImagefromSoloImageViewer:(Image *)image
+{
+
+}
+
+-(void)closeSoloImageViewer
+{
+    self.tableView.scrollEnabled = YES;
+    [self saveManagedObjectContext:self.athlete];
+}
+
+-(void)requiresUIUpdating
+{
+    [self.tableView reloadData];
+    VANAthleteListViewController *controller = (VANAthleteListViewController *)[self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-2];
+    NSString *string = self.athlete.name;
+    [controller removeImagesFromProfileCache:@[string]];
+  //  controller.shouldReloadCache = YES;
+}
+
+#pragma mark - Image Full Screen Methods
+
+-(void)buildFullScreenImageViewWithImage
+{
+    
+}
+
+-(void)removeImagefromCell:(Image *)image
+{
+    VANAthleteProfileCell *cell = (VANAthleteProfileCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    CGSize oldSize = cell.imageScrollView.contentSize;
+    CGSize newSize = CGSizeMake(oldSize.width-cell.imageScrollView.frame.size.width, oldSize.height);
+    [cell.imageScrollView setContentSize:newSize];
+    
+    NSInteger imageInArray;
+    NSArray *images = [self.athlete.images allObjects];
+    for (NSInteger i = 0; i < [images count]; i++) {
+        Image *potentialImage = [images objectAtIndex:i];
+        if (potentialImage == image) {
+            imageInArray = i;
+        }
+    }
+    NSLog(@"Array Number: %lu", (long)imageInArray);
+    NSArray *subviews = [cell.imageScrollView subviews];
+    for (NSInteger x = 0; x < [subviews count]; x++) {
+        UIView *view = [subviews objectAtIndex:x];
+        if (x > (imageInArray*2)+1) {
+            CGRect old = view.frame;
+            CGRect new = CGRectMake(old.origin.x-cell.imageScrollView.frame.size.width, old.origin.y, old.size.width, old.size.height);
+            [view setFrame:new];
+            NSLog(@"Moving: %lu: View: %@", (long)x, [view description]);
+        } else if (x == imageInArray*2 || x == (imageInArray*2)+1) {
+            [view removeFromSuperview];
+            NSLog(@"Removing: %lu: View: %@", (long)x, [view description]);
+        }
+    }
+    [self.tableView reloadData];
+}
+
+
+#pragma mark - Button Pressed Methods
+
+- (void)addPicture
+{
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        if (!self.pictureTaker) {
+            self.pictureTaker = [[VANPictureTaker alloc] init];
+        }
+        self.pictureTaker.delegate = self;
+        [self presentViewController:self.pictureTaker.imagePicker animated:YES completion:nil];
+    } else {
+        UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:@"No Camera was Detected" delegate:self cancelButtonTitle:@"OK" destructiveButtonTitle:nil otherButtonTitles: nil];
+        action.tag = 1;
+        [action showInView:self.view];
+    }
+}
+
+-(IBAction)keyboardResign:(id)sender
+{
+    [sender resignFirstResponder];
+}
+
+-(void)back
+{
+    [self cleanUpExcessSkillsAndTests]; //Clean up Any possible issues with the Athlete Data
+    [self saveManagedObjectContext:self.athlete]; //Save Athletes Profile
     [self.navigationController popViewControllerAnimated:YES];
 }
 
--(void)cleanUpExcessSkillsAndTests {
+-(void)editAthleteProfile:(id)sender {
+    [self performSegueWithIdentifier:@"editAthlete" sender:self.athlete];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"pushToTags"]) {
+        VANTagsTableViewController *controller = segue.destinationViewController;
+        controller.event = self.event;
+        controller.athlete = self.athlete;
+    } else if ([segue.identifier isEqualToString:@"editAthlete"]) {
+        VANAthleteEditController *controller = segue.destinationViewController;
+        controller.athlete = sender;
+        controller.event = self.event;
+    }
+}
+
+#pragma mark - Core Data Managment Methods
+
+-(void)cleanUpExcessSkillsAndTests
+{
     NSMutableArray *athleteSkillsArray = (NSMutableArray *)[self.athlete.skills allObjects];
     NSMutableArray *eventSkillsArray = (NSMutableArray *)[self.event.skills allObjects];
     if ([athleteSkillsArray count] > [eventSkillsArray count]) {
@@ -118,7 +246,8 @@
     }
 }
 
--(BOOL)deleteUnusedSkills:(AthleteSkills *)skill inSkills:(NSMutableArray *)skills {
+-(BOOL)deleteUnusedSkills:(AthleteSkills *)skill inSkills:(NSMutableArray *)skills
+{
     for (Skills *eSkill in skills) {
         if ([eSkill.descriptor isEqualToString:skill.attribute]) {
             return YES;
@@ -127,7 +256,8 @@
     return NO;
 }
 
--(BOOL)deleteUnusedTests:(AthleteTest *)test inTests:(NSMutableArray *)tests {
+-(BOOL)deleteUnusedTests:(AthleteTest *)test inTests:(NSMutableArray *)tests
+{
     for (Tests *eTest in tests) {
         if ([eTest.descriptor isEqualToString:test.attribute]) {
             return YES;
@@ -136,231 +266,9 @@
     return NO;
 }
 
-#pragma mark - Table View Data Source
 
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (self.athlete == nil) {
-        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        return 0;
-    } else {
-        return 4;
-    }
-}
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) {
-        if (!self.config.rowThree) {
-            return 4;
-        } else {
-            return 5;
-        }
-    } else if (section == 1) {
-        return 1;
-    } else if (section == 2){
-        return [self.event.skills count];
-    } else {
-        return [self.event.tests count];
-    }
-}
-
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+-(AthleteSkills *)compareSkillAndValueforSkill:(Skills *)object inArray:(NSArray *)array
 {
-    if ([indexPath section] == 0) {
-        // -------- Top Section
-        if ([indexPath row] == 0) {
-            static NSString *CellIdentifier = @"detail";
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-            cell.textLabel.text = [NSString stringWithFormat:@"# %@",self.athlete.number];
-            cell.detailTextLabel.text = [__dateFormatter stringFromDate:self.athlete.birthday];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            
-            return cell;
-        } else if ([indexPath row] == 1) {
-            // -------- Athlete Information Cell
-            static NSString *CellIdentifier = @"Profile";
-            VANAthleteProfileCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-            
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            if ([self.athlete.headShotImage count] > 0) {
-                Image *imageMO = [[self.athlete.headShotImage allObjects] objectAtIndex:0];
-                UIImage *image = [UIImage imageWithData:imageMO.headShot];
-                cell.pic.image = image;
-                cell.pic.contentMode = UIViewContentModeScaleAspectFit;
-            } else if ([self.athlete.headShotImage count] == 1) {
-                UIImage *cameraImage = [UIImage imageNamed:@"cameraButton.png"];
-                cell.pic.image = cameraImage;
-                cell.pic.contentMode = UIViewContentModeScaleAspectFit;
-            } else {
-                NSArray *array = [self.athlete.headShotImage allObjects];
-                NSMutableArray *images = nil;
-                for (NSInteger i = 0; i < [array count]; i++) {
-                    Image *imageData = [array objectAtIndex:i];
-                    UIImage *image = [UIImage imageWithData:imageData.headShot];
-                    [images addObject:image];
-                }
-                cell.pic.animationImages = images;
-            }
-            return cell;
-        } else if ([indexPath row] == 2){
-            // -------- Athlete Team Number Cell ------------ //
-            static NSString *CellIdentifier = @"Scroll";
-            VANScrollViewTeamSelectionCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-            if ([self.event.numTeams integerValue] < 2) {
-                NSLog(@"WARNING: TeamsCell (%@) disrupted because event.numTeams is less than 1, Replacing it with 1 again", self.event.numTeams);
-                self.event.numTeams = [NSNumber numberWithInteger:2];
-            }
-            cell.athlete = self.athlete;
-            cell.scrollViewer.contentSize = CGSizeMake(self.view.frame.size.width*[self.event.numTeams integerValue], cell.scrollViewer.frame.size.height);
-            cell.pageController.numberOfPages = [self.event.numTeams integerValue];
-            [cell initiate];
-            
-            if ([cell.scrollViewer.subviews count] < [self.event.numTeams integerValue]) {
-                for (int i = 0 ; i < [self.event.numTeams intValue]; i++) {
-                    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width  *i, 6, self.view.frame.size.width, 48)];
-                    [view setTranslatesAutoresizingMaskIntoConstraints:NO];                        
-                    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 48)];
-                    label.backgroundColor = [UIColor clearColor];
-                    label.textColor = [UIColor whiteColor];
-                    label.textAlignment = NSTextAlignmentCenter;
-                    if (i == 0) {
-                        label.text = @"No Team Selected";
-                        view.backgroundColor = [UIColor darkGrayColor];
-                    } else {
-                        VANTeamColor *teamColor = [[VANTeamColor alloc] init];
-                        view.backgroundColor = [teamColor findTeamColor];
-                        label.text = [NSString stringWithFormat:@"Team %d", i];
-                    }
-                    [view addSubview:label];
-                    [cell.scrollViewer addSubview:view];
-                    
-                    /*
-                    NSLayoutConstraint *contraint = [NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:cell.scrollViewer attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0];
-                    [cell.scrollViewer addConstraint:contraint];
-                    contraint = [NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:cell.scrollViewer attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0];
-                    [cell.scrollViewer addConstraint:contraint];*/
-                }
-            }
-            
-            return cell;
-            
-        } else if ([indexPath row] == 3){
-            // -------- Athlete Position Selection Cell
-            return [self.config buildCellInTable:tableView ForIndex:indexPath withLabel:@"Position" andValue:self.athlete.position];            
-        } else {
-            if (self.config.rowThree) {
-                return [self.config buildPickerCellInTable:tableView ForIndex:indexPath withValues:[self.event.positions allObjects] forPurpose:@"Position"];
-            } else {
-                return nil;
-            }
-        }
-        
-    } else if ([indexPath section] == 1) {
-        // -------- Athelte Tags Cell
-        static NSString *CellIdentifier = @"Tags";
-        VANCollectionCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-        cell = [cell init];
-
-        cell.athlete = self.athlete;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        if ([self.athlete.aTags count] < 1) {
-            cell.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height)];
-            cell.label.text = @"Tap here to add tags";
-            cell.label.textAlignment = NSTextAlignmentCenter;
-            [cell addSubview:cell.label];
-        }
-        return cell;
-        
-    } else if ([indexPath section] == 2) {
-        // -------- Athlete Skills Cell(s)
-        static NSString *CellIdentifier = @"sliderCell";
-        VANValueSliderCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-
-        if (cell == nil) {
-            NSArray *nibs = [[NSBundle mainBundle] loadNibNamed:@"VANValueSliderCell" owner:self options:nil];
-            cell = [nibs objectAtIndex:0];
-        }
-        NSMutableSet *set = [self.event mutableSetValueForKey:@"skills"];
-        NSArray *fullArray = [set allObjects];
-        Skills *object = [fullArray objectAtIndex:[indexPath row]];
-        cell.label.text = object.descriptor;
-        cell.slider.minimumValue = 0;
-        cell.slider.maximumValue = 5;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        VANTeamColor *teamColor = [[VANTeamColor alloc] init];
-        cell.sideColor.backgroundColor = [teamColor findTeamColor];
-        
-        AthleteSkills *aSkill = [self compareSkillAndValueforSkill:object inArray:[self.athlete.skills allObjects]];
-            if (aSkill != nil) {
-                cell.slider.value = [aSkill.value floatValue];
-                cell.skill = aSkill;
-                cell.value.text = [NSString stringWithFormat:@"%.00f", [aSkill.value floatValue]];
-
-            } else {
-                AthleteSkills *newValue = [self addNewAthleteSkillRelationship];
-                cell.slider.value = 2.5;
-                cell.skill = newValue;
-                newValue.value = [NSNumber numberWithFloat:cell.slider.value];
-                cell.value.text = @"2.5";
-                newValue.attribute = object.descriptor;
-        }
-        
-        return cell;
-        
-    } else {
-        
-        // -------- Athlete Test Cell(s)
-        static NSString *CellIdentifier = @"textCell";
-        VANTextFieldCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-            NSArray *nibs = [[NSBundle mainBundle] loadNibNamed:@"VANTextEditCell" owner:self options:nil];
-            cell = [nibs objectAtIndex:0];
-        }
-        NSMutableSet *set = [self.event mutableSetValueForKey:@"tests"];
-        NSArray *fullArray = [set allObjects];
-        Tests *object = [fullArray objectAtIndex:[indexPath row]];
-        cell.label.text = object.descriptor;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        VANTeamColor *teamColor = [[VANTeamColor alloc] init];
-        cell.sideView.backgroundColor = [teamColor findTeamColor];
-        cell.textField.clearButtonMode = UITextFieldViewModeWhileEditing;
-        [cell.textField addTarget:self action:@selector(keyboardResign:) forControlEvents:UIControlEventEditingDidEndOnExit];
-        cell.textField.delegate = cell;
-        cell.textField.keyboardAppearance = UIKeyboardAppearanceDefault;
-
-        cell.textField.placeholder = @"Insert Value";
-        cell.controller = self;
-        AthleteTest *aTest = [self compareTestAndValueforTest:object inArray:[self.athlete.tests allObjects]];
-        if (aTest != nil) {
-            cell.textField.text = aTest.value;
-            cell.test = aTest;
-        } else {
-            AthleteTest *newTest = [self addNewAthleteTestRelationship];
-            newTest.attribute = cell.label.text;
-            cell.test = newTest;
-        }
-        return cell;
-    }
-}
-
-- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController {
-    [self saveManagedObjectContext:self.athlete];
-}
-
-#pragma mark - Custom Built Methods
-
-- (IBAction)addPicture:(id)sender {
-    if (!self.pictureTaker) {
-        self.pictureTaker = [[VANPictureTaker alloc] init];
-    }
-    self.pictureTaker.controller = self;
-    [self.pictureTaker callImagePickerController];
-}
-
--(IBAction)keyboardResign:(id)sender {
-    [sender resignFirstResponder];
-}
-
--(AthleteSkills *)compareSkillAndValueforSkill:(Skills *)object inArray:(NSArray *)array {
     for (AthleteSkills *skill in array) {
         NSString *attribute = skill.attribute;
         NSString *value = object.descriptor;
@@ -382,7 +290,6 @@
         }
     }
     return nil;
-    
 }
 
 -(AthleteSkills *)addNewAthleteSkillRelationship {
@@ -412,148 +319,93 @@
     [self saveManagedObjectContext:self.athlete];
     
     return newAthleteTest;
-    
 }
 
-#pragma mark - Table View Delegate Methods
+#pragma mark - Scroll View Delegate Methods
 
-
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([indexPath section] == 0) {
-        if ([indexPath row] == 0) {
-            return 40;
-        } else if ([indexPath row] == 1) {
-            //Home Profile Cell
-            if ([self.athlete.headShotImage count] > 0) {
-                return 170;
-            } else {
-                return 40;
-            }
-        } else if ([indexPath row] == 2) {
-            //Team Selectiong Cell
-            return 90;
-        } else if ([indexPath row] == 3) {
-            //Position Selection Cell
-            return 60;
-        } else {
-            //Positiong Picker Cell
-            return 216;
-        }
-    } else if ([indexPath section] == 1) {
-        //Collection Cell for Athlete Tags
-        CGFloat floater =[self findNumberOfRowswithMaxWidth:self.view.frame.size.width - 18 withStringMargin:10 cellSpacing:10 andFont:[UIFont systemFontOfSize:17]];
-        return floater;
-    } else if ([indexPath section] == 2){
-        //Skills Cell
-        return 70;
-    } else {
-        //Tests Cell
-        return 60;
-    }
-}
-
--(CGFloat)findNumberOfRowswithMaxWidth:(NSInteger)width withStringMargin:(NSInteger)margin cellSpacing:(NSInteger)spacing andFont:(UIFont *)font {
-    
-    NSMutableArray *strings = [NSMutableArray array];
-    for (NSInteger i = 0; i < [self.athlete.aTags count]; i++) {
-        AthleteTags *tag = [[self.athlete.aTags allObjects] objectAtIndex:i];
-        if (tag.descriptor == nil) {
-            [strings addObject:@""];
-        } else {
-            [strings addObject:tag.descriptor];
-        }
-    }
-    
-    self.rows = 0;
-    self.rowWidth = 0;
-    self.itemsInRow = 0;
-    
-    for (NSString *string in strings) {
-        self.itemsInRow++;
-        CGSize stringSize = [string sizeWithAttributes:[NSDictionary dictionaryWithObjects:@[font] forKeys:@[NSFontAttributeName]]];
-//        NSLog(@"String: %@ has width: %f", string, stringSize.width);
-        self.rowWidth += stringSize.width + (margin * 2);
-        if (self.itemsInRow != 1) {
-//            NSLog(@"Adding extra %ld", (long)spacing);
-            self.rowWidth += spacing;
-        }
- //       NSLog(@"Current Row Length: %ld", (long)self.rowWidth);
-        if (self.rowWidth > width) {
-//            NSLog(@"    Adding Row because %ld is larger than %ld", (long)self.rowWidth, (long)width);
-            self.rows++;
-            self.rowWidth = stringSize.width + (margin * 2);
-            self.itemsInRow = 1;
-        }
-    }
-    self.rows++; //Add One extra Row for the last still that stuck in the formula (Doesn't register +1 if it doesn't reach end of the line
-    //CGSize viewSize = CGSizeMake(collectionView.frame.size.width, (self.rows * 40) + ((self.rows - 1) * 10) + 20);
-    CGFloat floater = (self.rows * 30) + ((self.rows - 1) * 9) + 16;
-    return floater;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section != 0) {
-        return 26;
-    } else {
-     return 0;
-    }
-}
-
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 26)];
-    view.backgroundColor = [UIColor darkGrayColor];
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 3, 200, 20)];
-    titleLabel.backgroundColor = [UIColor clearColor];
-    titleLabel.textColor = [UIColor whiteColor];
-    if (section == 1) {
-        titleLabel.text = @"Character Traits";
-    } else if (section == 2) {
-        titleLabel.text = @"Skills";
-    } else if (section == 3){
-        titleLabel.text = @"Tests";
-    }
-    [view addSubview:titleLabel];
-    return view;
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
-        if (indexPath.row == 3) {
-            [self.config didSelectRowAtIndex:indexPath inTableView:tableView];
-        }
-    }
-    if (indexPath.section == 1) {
-        if (indexPath.row == 0) {
-            [tableView deselectRowAtIndexPath:indexPath animated:YES];
-            [self performSegueWithIdentifier:@"pushToTags" sender:nil];
-        }
+-(void)cleanUpImageViewer {
+    if (self.imageDisplay.alpha > 0) {
+        self.imageDisplay.alpha = 0;
     }
 }
 
 -(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
-
-}
-
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"pushToTags"]) {
-        VANTagsTableViewController *controller = segue.destinationViewController;
-        controller.event = self.event;
-        controller.athlete = self.athlete;
-    }
-}
-
-/* 
- // Decided against Using this Setup: Opted for a new view Controller with Collection view within it.
- 
--(IBAction)openPopup {
-    self.controller = [self.storyboard instantiateViewControllerWithIdentifier:@"popoverView"];
-    self.popover = [[UIPopoverController alloc] initWithContentViewController:self.controller];
-    self.controller.athlete = self.athlete;
-    self.popover.delegate = self;
-    [self.popover presentPopoverFromRect:CGRectMake(self.cell.frame.origin.x, self.cell.frame.origin.y, self.cell.frame.size.width - 200, self.cell.frame.size.height - 115) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     
 }
-*/
+
+#pragma mark - Detail Table View Delegate Methods
+
+-(Athlete *)collectAthlete
+{
+    return self.athlete;
+}
+
+-(Event *)collectEvent {
+    return self.event;
+}
+
+-(void)introduceTagsViewWithAnimation:(BOOL)animate {
+    [self performSegueWithIdentifier:@"pushToTags" sender:nil];
+}
+
+
+-(void)VANTableViewCellrequestsImageInFullScreen:(UIImage *)image fromCell:(VANAthleteProfileCell *)cell
+{
+    self.tableView.scrollEnabled = NO;
+    self.tableView.contentOffset = CGPointMake(0, -64);
+    
+    CGPoint offset = cell.imageScrollView.contentOffset;
+    
+    CGFloat imageNumber = offset.x/cell.imageScrollView.frame.size.width;
+    
+    NSArray *images = [self.athlete.images allObjects];
+    Image *headshot = [images objectAtIndex:imageNumber];
+    
+    CGRect viewFrame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y-63, self.view.frame.size.width, self.view.frame.size.height);
+    if (!self.imageDisplay) {
+        self.imageDisplay = [[VANSoloImageViewer alloc] initWithFrame:viewFrame andImage:headshot];
+        [self.view addSubview:self.imageDisplay];
+        self.imageDisplay.delegate = self;
+    } else {
+        NSMutableArray *subviews = [self.view.subviews mutableCopy];
+        if (![[subviews objectAtIndex:[subviews count]-1] isKindOfClass:[VANSoloImageViewer class]]) {
+            [self.view bringSubviewToFront:self.imageDisplay];
+        }
+    }
+    
+    CGRect startView = CGRectMake(self.tableView.frame.origin.x+cell.frame.origin.x,
+                                  self.view.frame.origin.y-self.view.frame.size.width,
+                                  self.tableView.frame.size.width, self.tableView.frame.size.width);
+    [self.imageDisplay animateInImageViewerWithImage:headshot andInitialPosition:startView];
+
+    
+}
+
+-(void)VANTableViewCellrequestsActivateCameraForAthlete:(Athlete *)athlete fromCell:(VANAthleteProfileCell *)cell {
+    UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:@"Take Picture" otherButtonTitles:@"Select from Library", nil];
+    action.tag = 0; //First Tag for Picture Option
+    [action showInView:self.view];
+}
+
+-(void)adjustContentInsetsForEditing:(BOOL)editing {
+    //Don't need to do Anything here becuase it is a tableView Controller that Controls itself
+}
+
+-(void)addTextFieldContent:(NSString *)string ToContextForTitle:(NSString *)title {
+    
+}
+
+#pragma mark - Action Sheet Delegate Methods
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (actionSheet.tag == 0) { //Picture or Library Option
+        if (buttonIndex == 0) {
+            [self addPicture];
+        }
+    } else if (actionSheet.tag == 1) {
+
+    }
+    
+}
 
 @end

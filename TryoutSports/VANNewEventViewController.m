@@ -8,7 +8,6 @@
 
 #import "VANNewEventViewController.h"
 #import "Event.h"
-#import "NewTableConfiguration.h"
 
 @interface VANNewEventViewController ()
 
@@ -39,7 +38,9 @@
 	// Do any additional setup after loading the view.
     
     self.config = [[NewTableConfiguration alloc] init];
-    self.config.controller = self;
+    self.config.delegate = self;
+    self.config.event = self.event;
+    
     self.navigationItem.hidesBackButton = YES;
     self.cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel)];
     self.navigationItem.leftBarButtonItem = self.cancelButton;
@@ -108,7 +109,7 @@
             if (self.config.rowZero) {
                 return [self.config buildCellInTable:tableView ForIndex:indexPath withLabel:@"Number of Teams:" andValue:[NSNumber numberWithInteger:([self.event.numTeams integerValue])]];
             } else if (self.config.rowTwo) {
-                return [self.config buildPickerCellInTable:tableView ForIndex:indexPath withValues:[self getArrayofNumbersUpTo:10] forPurpose:@"numTeams"];
+                return [self.config buildPickerCellInTable:tableView ForIndex:indexPath withValues:[self getArrayofNumbersUpTo:10] andSelected:[NSString stringWithFormat:@"%@",self.event.numTeams] forPurpose:@"numTeams"];
             } else {
                 return [self.config buildCellInTable:tableView ForIndex:indexPath withLabel:@"Athlete Age:" andValue:self.event.athleteAge];
             }
@@ -119,7 +120,7 @@
             if (self.config.rowZero || self.config.rowTwo) {
                 return [self.config buildCellInTable:tableView ForIndex:indexPath withLabel:@"Athlete Age:" andValue:self.event.athleteAge];
             } else if (self.config.rowThree) {
-                return [self.config buildPickerCellInTable:tableView ForIndex:indexPath withValues:[self getArrayofNumbersUpTo:40] forPurpose:@"athleteAge"];
+                return [self.config buildPickerCellInTable:tableView ForIndex:indexPath withValues:[self getArrayofNumbersUpTo:40] andSelected:[NSString stringWithFormat:@"%@",self.event.athleteAge] forPurpose:@"athleteAge"];
             } else {
                 return [self.config buildCellInTable:tableView ForIndex:indexPath withLabel:@"Athletes Per Team" andValue:self.event.athletesPerTeam];
             }
@@ -130,14 +131,14 @@
             if (self.config.rowZero || self.config.rowTwo || self.config.rowThree) {
                 return [self.config buildCellInTable:tableView ForIndex:indexPath withLabel:@"Athletes Per Team" andValue:self.event.athletesPerTeam];
             } else {
-                return [self.config buildPickerCellInTable:tableView ForIndex:indexPath withValues:[self getArrayofNumbersUpTo:50] forPurpose:@"athletesPerTeam"];
+                return [self.config buildPickerCellInTable:tableView ForIndex:indexPath withValues:[self getArrayofNumbersUpTo:50] andSelected:[NSString stringWithFormat:@"%@",self.event.athletesPerTeam] forPurpose:@"athletesPerTeam"];
             }
         }
     } else {
         if ([indexPath row] == 0) {
-            return [self.config buildBoolCellInTable:tableView ForIndex:indexPath withLabel:@"Athlete Sign-In:" andValue:self.event.athleteSignIn];
+            return [self.config buildBoolCellInTable:tableView ForIndex:indexPath withLabel:@"Athlete Sign-In:" andNSNumberBoolValue:self.event.athleteSignIn orDefault:YES forPurpose:@"signIn"];
         } else {
-            return [self.config buildBoolCellInTable:tableView ForIndex:indexPath withLabel:@"Manage Personal Info:" andValue:self.event.manageInfo];
+            return [self.config buildBoolCellInTable:tableView ForIndex:indexPath withLabel:@"Manage Personal Info:" andNSNumberBoolValue:self.event.manageInfo orDefault:YES forPurpose:@"info"];
         }
     }
 }
@@ -165,13 +166,12 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     if ([[tableView cellForRowAtIndexPath:indexPath] isKindOfClass:[VANTextFieldCell class]]) {
         VANTextFieldCell *cell = (VANTextFieldCell *)[tableView cellForRowAtIndexPath:indexPath];
         [cell.textField becomeFirstResponder];
     } else if ([indexPath section] == 1) {
-        if ([[tableView cellForRowAtIndexPath:indexPath] isKindOfClass:[VANMotherCell class]]) {
-                 [self.config didSelectRowAtIndex:indexPath inTableView:tableView];
+        if ([[tableView cellForRowAtIndexPath:indexPath] isKindOfClass:[UITableViewCell class]]) {
+                 [self.config didSelectRowAtIndex:indexPath inTableView:tableView forTheme:[UIColor blackColor]];
             
         }
     }
@@ -193,20 +193,12 @@
 
 //Used In CellForRowAtIndex to generate an Array of Numbers up to a Specified Ammount
 -(NSMutableArray *)getArrayofNumbersUpTo:(NSInteger)number {
-    NSMutableArray *numbers = [NSMutableArray arrayWithObject:@1];
+    NSMutableArray *numbers = [NSMutableArray arrayWithObject:@"1"];
     for (NSInteger i = 2; i <= number; i++) {
-        [numbers addObject:[NSNumber numberWithInt:i]];
+        [numbers addObject:[NSString stringWithFormat:@"%d",i]];
     }
     return numbers;
 }
-
-//When "Cancel" is tapped, deletes the event and pops the view controller off to return to VANIntroViewController
--(void)cancel {
-    NSManagedObjectContext *context = [self.event managedObjectContext];
-    [context deleteObject:self.event];
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 
 //When "Next" is tapped, this method is called
 - (IBAction)saveEvent:(id)sender {
@@ -229,6 +221,28 @@
     } else {
         [self saveManagedObjectContext:self.event];
         [self performSegueWithIdentifier:@"toNext" sender:self.event];
+    }
+}
+
+#pragma mark - NewTableConfiguration Delegate Methods
+
+-(void)pickerCell:(VANPickerCell *)cell didChangeValueToRow:(NSInteger)row inArray:(NSArray *)array
+{
+    NSString *n = [array objectAtIndex:row];
+    if ([cell.purpose isEqualToString:@"numTeams"]) {
+        self.event.numTeams = [NSNumber numberWithInteger:[n integerValue]];
+    } else if ([cell.purpose isEqualToString:@"athleteAge"]) {
+        self.event.athleteAge = [NSNumber numberWithInteger:[n integerValue]];
+    } else if ([cell.purpose isEqualToString:@"athletesPerTeam"]) {
+        self.event.athletesPerTeam = [NSNumber numberWithInteger:[n integerValue]];
+    }
+}
+
+-(void)setBoolianValue:(BOOL)value forPurpose:(NSString *)purpose {
+    if ([purpose isEqualToString:@"signIn"]) {
+        self.event.athleteSignIn = [NSNumber numberWithBool:value];
+    } else if ([purpose isEqualToString:@"info"]){
+        self.event.manageInfo = [NSNumber numberWithBool:value];
     }
 }
 

@@ -31,15 +31,7 @@
 #pragma mark - Segue Methods - iPhone/Pod Specific
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"pushToMain"]) {
-        if ([sender isKindOfClass:[NSManagedObject class]]) {
-            VANMainMenuViewController *viewController = segue.destinationViewController;
-            viewController.event = sender;
-        } else {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Event Detail Error", @"Event Detail Error") message:NSLocalizedString(@"Error Showing Detail",@"Error Showing Detail") delegate:self cancelButtonTitle:NSLocalizedString(@"OK", @"OK") otherButtonTitles:nil];
-            [alert show];
-        }
-    } else if ([[segue identifier] isEqualToString:@"toAppSettings"]) {
+    if ([[segue identifier] isEqualToString:@"toAppSettings"]) {
         UINavigationController *navController = (UINavigationController *)[segue destinationViewController];
         VANAppSettingsViewController *settingsController = (VANAppSettingsViewController *)[navController topViewController];
         settingsController.delegate = self;
@@ -55,6 +47,7 @@
         VANSettingTabsController *tabBarController = segue.destinationViewController;
         tabBarController.delegate = tabBarController;
         tabBarController.event = sender;
+        tabBarController.selectedIndex = 0;
         if (tabBarController.selectedIndex == 1) {
             VANNewSkillsAndTestsController *controller = (VANNewSkillsAndTestsController *)[tabBarController.viewControllers objectAtIndex:1];
             controller.event = sender;

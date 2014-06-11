@@ -10,11 +10,18 @@
 #import "VANMotherCell.h"
 #import "VANManagedObjectTableViewController.h"
 
+@protocol VANTextFieldCellDelegate <NSObject>
+
+-(void)adjustContentInsetsForEditing:(BOOL)editing;
+-(void)addTextFieldContent:(NSString *)string ToContextForTitle:(NSString *)title;
+
+@end
+
 @interface VANTextFieldCell : VANMotherCell <UITextFieldDelegate>
 
+@property (nonatomic, weak) id <VANTextFieldCellDelegate> delegate;
 @property (strong, nonatomic) IBOutlet UITextField *textField;
 @property (strong, nonatomic) id value;
-@property (strong, nonatomic) VANManagedObjectTableViewController *controller;
 
 -(void)initiate;
 

@@ -10,8 +10,11 @@
 #import "Athlete.h"
 #import "VANManagedObjectTableViewController.h"
 #import "VANAthleteListTabController.h"
+#import "VANAthleteListViewController.h"
+#import "VANPictureTaker.h"
+#import "NewTableConfiguration.h"
 
-@interface VANNewAthleteController : VANManagedObjectTableViewController <UIActionSheetDelegate, UIGestureRecognizerDelegate, UIImagePickerControllerDelegate>
+@interface VANAthleteEditController : VANManagedObjectTableViewController <UIActionSheetDelegate, UIAlertViewDelegate,UIGestureRecognizerDelegate, UIImagePickerControllerDelegate, VANPictureTakerDelegate, VANTableViewCellExpansionDelegate>
 
 @property (strong, nonatomic) VANAthleteListTabController *delegate;
 - (IBAction)saveNewAthlete:(id)sender;

@@ -13,29 +13,22 @@
 
 @interface VANCollectionCell ()
 
-- (BOOL)searchAthleteTagsForTag:(NSString *)string;
 
+@property (strong, nonatomic) VANTeamColor *teamColor;
+- (BOOL)searchAthleteTagsForTag:(NSString *)string;
 
 @end
 
 @implementation VANCollectionCell
 
-- (id)init {
-    self = [super init];
-        // Initialization code
-    
-        //self.collectionView.contentSize = CGSizeMake(640, 100);
-        self.collectionView.backgroundColor = [UIColor clearColor];
-        self.collectionView.allowsSelection = NO;
-    return self;
+- (void)initiate {
+    _teamColor = [[VANTeamColor alloc] init];
+    self.collectionView.allowsSelection = NO;
+    UINib *nib = [UINib nibWithNibName:@"Tag" bundle:[NSBundle mainBundle]];
+    [self.collectionView registerNib:nib forCellWithReuseIdentifier:@"tag"];
+    self.collectionView.backgroundColor = [UIColor clearColor];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
 
 #pragma mark - Collection View Data Source Methods
 
@@ -45,7 +38,9 @@
 
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [self.athlete.aTags count];
+    NSInteger i = [self.athlete.aTags count];
+    NSLog(@"%lu",(unsigned long)i);
+    return i;
 }
 
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
@@ -56,29 +51,37 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"tag";
     VANTagsCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-    VANTeamColor *teamColor = [[VANTeamColor alloc] init];
+
+    
     cell.layer.cornerRadius = 4.00f;
     
     cell.label.textColor = [UIColor whiteColor];
     AthleteTags *tag = [[self.athlete.aTags allObjects] objectAtIndex:indexPath.row];
     cell.label.text = tag.descriptor;
     if (tag.type == [NSNumber numberWithInt:0]) {
-        cell.backgroundColor = [teamColor findTeamColor];
+        cell.backgroundColor = [_teamColor findTeamColor];
+        if (cell.backgroundColor == [UIColor whiteColor]) {
+            cell.label.textColor = [UIColor blackColor];
+        }
     } else if (tag.type == [NSNumber numberWithInt:1]) {
-        cell.backgroundColor = [teamColor washedColor];
+        cell.backgroundColor = [_teamColor washedColor];
     } else {
-        cell.backgroundColor = [UIColor darkGrayColor];
+        if ([_teamColor findTeamColor] == [UIColor whiteColor]) {
+            cell.backgroundColor = [UIColor blackColor];
+        } else {
+            cell.backgroundColor = [UIColor lightGrayColor];
+        }
     }
     return cell;
 }
-
+/*
 -(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     UICollectionReusableView *view = nil;
     if (kind == UICollectionElementKindSectionHeader) {
         view = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:indexPath];
     }
     return view;
-}
+}*/
 
 #pragma mark - Collection View Delegate Methods
 
@@ -110,11 +113,9 @@
         NSString *string = [[NSBundle mainBundle] pathForResource:@"CharacteristicsDefault" ofType:@"plist"];
         NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:string];
         NSMutableArray *array = [NSMutableArray arrayWithArray:[dict objectForKey:@"Characteristics"]];
-//        NSLog(@"Returning default array");
         return array;
     } else {
         return [NSMutableArray arrayWithContentsOfFile:filePath];
-        NSLog(@"File Path: %@", filePath);
     }
 }
 

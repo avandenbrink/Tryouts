@@ -9,6 +9,7 @@
 #import "VANAthleteDetailController.h"
 #import "VANMainMenuViewControllerPad.h"
 
+
 @interface VANAthleteDetailControllerPad : VANAthleteDetailController
 
 @property (strong, nonatomic) VANMainMenuViewControllerPad *delegate;

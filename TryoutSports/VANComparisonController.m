@@ -7,7 +7,7 @@
 //
 
 #import "VANComparisonController.h"
-#import "VANAthleteListTabController.h"
+#import "VANAthleteListViewController.h"
 #import "VANAthleteNameViewController.h"
 #import "VANCompareImageCell.h"
 #import "VANCompareNameCell.h"
@@ -16,6 +16,7 @@
 #import "AthleteTags.h"
 #import "AthleteSkills.h"
 #import "AthleteTest.h"
+#import "Image.h"
 
 static NSString *kSkill = @"skill";
 static NSString *kTest = @"test";
@@ -25,6 +26,11 @@ static NSString *kValue = @"value";
 @interface VANComparisonController ()
 
 @property (strong, nonatomic) NSArray *statLabels;
+@property (nonatomic) NSInteger changeAthlete;
+@property (strong, nonatomic) VANTeamColor *teamColor;
+
+//Scroll Dection
+@property (nonatomic, assign) NSInteger lastContentOffset;
 
 @end
 
@@ -59,20 +65,22 @@ static NSString *kValue = @"value";
         NSDictionary *dic = [NSDictionary dictionaryWithObjects:@[test.descriptor, kTest] forKeys:@[kValue,kType]];
         [testsArray addObject:dic];
     }
-    
+    self.changeA.layer.opacity = 0.8;
+    self.changeB.layer.opacity = 0.8;
     self.statLabels = [skillArray arrayByAddingObjectsFromArray:testsArray];
+    self.teamColor = [[VANTeamColor alloc] init];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     if (!self.athleteA) {
-        self.changeA.titleLabel.text = @"Select Athlete";
+        [self.changeA setTitle:@"Select Athlete" forState:UIControlStateNormal];
     } else {
-        self.changeA.titleLabel.text = @"Change Athlete";
+        [self.changeA setTitle:@"Change Athlete" forState:UIControlStateNormal];
     }
     if (!self.athleteB) {
-        self.changeB.titleLabel.text = @"Select Athlete";
+        [self.changeB setTitle:@"Select Athlete" forState:UIControlStateNormal];
     } else {
-        self.changeB.titleLabel.text = @"Change Athlete";
+        [self.changeB setTitle:@"Change Athlete" forState:UIControlStateNormal];
     }
 }
 
@@ -85,14 +93,16 @@ static NSString *kValue = @"value";
 #pragma mark - Table View Data Source Methods
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 3;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
         return 2;
+    } else if (section == 1) {
+        return [self.statLabels count] + 1;
     } else {
-        return [self.statLabels count] + 2;
+        return 1;
     }
 }
 
@@ -102,15 +112,25 @@ static NSString *kValue = @"value";
             static NSString *cellIDpic = @"compareImage";
             VANCompareImageCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIDpic];
             if (self.athleteA) {
-                UIImage *image = [[self.athleteA.headShotImage allObjects] objectAtIndex:0];
-                cell.athleteA.image = image;
+                NSArray *array = [self.athleteA.images allObjects];
+                if ([array count] > 0) {
+                    Image *imageData = [array objectAtIndex:0];
+                    UIImage *image = [UIImage imageWithData:imageData.headShot];
+                    cell.athleteA.image = image;
+                } else {
+                    cell.athleteA.image = nil;
+                }
             }
-            
             if (self.athleteB) {
-                UIImage *image = [[self.athleteB.headShotImage allObjects] objectAtIndex:0];
-                cell.athleteB.image = image;
+                NSArray *array = [self.athleteB.images allObjects];
+                if ([array count] > 0) {
+                    Image *imageData = [array objectAtIndex:0];
+                    UIImage *image = [UIImage imageWithData:imageData.headShot];
+                    cell.athleteB.image = image;
+                } else {
+                    cell.athleteB.image = nil;
+                }
             }
-            
             return cell;
         } else {
             static NSString *cellIDName = @"compareName";
@@ -127,75 +147,112 @@ static NSString *kValue = @"value";
             }
             return cell;
         }
-    } else {
+    } else if (indexPath.section == 1){
         if (indexPath.row == 0) {
-            static NSString *cellIDTag = @"compareTags";
-            VANCompareTagsCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIDTag];
+            static NSString *cellIDStats = @"compareStats";
+            VANCompareStatsCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIDStats];
+
+            cell.athleteStat.text = @"All Skills";
+            NSInteger allSkillsValueA = 0;
+            NSInteger allSkillsValueB = 0;
+            
             if (self.athleteA) {
-                if ([self.athleteA.aTags count] > 0) {
-                    NSArray *array = [self.athleteA.aTags allObjects];
-                    NSString *tags = [NSMutableString string];
-                    for (AthleteTags *tag in array) {
-                        tags = [tags stringByAppendingString:[NSString stringWithFormat:@"%@, ",tag.descriptor]];
-                    }
-                    cell.athleteATags.text = tags;
-                } else {
-                    cell.athleteATags.text = @"No Characteristics";
+                NSArray *skills = [self.athleteA.skills allObjects];
+                
+                for (NSInteger i = 0; i < [skills count]; i++) {
+                    AthleteSkills *skill = [skills objectAtIndex:i];
+                    allSkillsValueA += [skill.value integerValue];
                 }
+                cell.athleteAValue.text = [NSString stringWithFormat:@"%ld", (long)allSkillsValueA];
+            } else {
+                cell.athleteAValue.text = @"NA";
             }
             
             if (self.athleteB) {
-                if ([self.athleteB.aTags count] > 0) {
-                    NSArray *array = [self.athleteB.aTags allObjects];
-                    NSString *tags = [NSMutableString string];
-                    for (AthleteTags *tag in array) {
-                        tags = [tags stringByAppendingString:[NSString stringWithFormat:@"%@, ",tag.descriptor]];
-                    }
-                    cell.athleteBTags.text = tags;
-                } else {
-                    cell.athleteBTags.text = @"No Characteristics";
+                NSArray *skills = [self.athleteB.skills allObjects];
+                for (NSInteger i = 0; i < [skills count]; i++) {
+                    AthleteSkills *skill = [skills objectAtIndex:i];
+                    allSkillsValueB += [skill.value integerValue];
                 }
+                cell.athleteBValue.text = [NSString stringWithFormat:@"%ld", (long)allSkillsValueB];
+            } else {
+                cell.athleteBValue.text = @"NA";
+            }
+            
+            if (allSkillsValueA > allSkillsValueB) {
+                cell.athleteAValue.textColor = [self.teamColor findTeamColor];
+                cell.athleteBValue.textColor = [UIColor blackColor];
+            } else if (allSkillsValueB > allSkillsValueA) {
+                cell.athleteBValue.textColor = [self.teamColor findTeamColor];
+                cell.athleteAValue.textColor = [UIColor blackColor];
+            } else {
+                cell.athleteAValue.textColor = [UIColor blackColor];
+                cell.athleteBValue.textColor = [UIColor blackColor];
             }
             return cell;
         } else {
             static NSString *cellIDStats = @"compareStats";
             VANCompareStatsCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIDStats];
             
-            if (indexPath.row == 1) {
-                cell.athleteStat.text = @"All Skills";
-                
-                if (self.athleteA) {
-                    
-                } else {
-                    cell.athleteAValue.text = @"NA";
-                }
-                
-                if (self.athleteB) {
-                    
-                } else {
-                    cell.athleteBValue.text = @"NA";
-                }
+            NSDictionary *dic = [self.statLabels objectAtIndex:indexPath.row -1];
+            NSString *value = [dic valueForKey:kValue];
+            cell.athleteStat.text = value;
+            id valueA = [self searchAthlete:self.athleteA forStat:dic];
+            id valueB = [self searchAthlete:self.athleteB forStat:dic];
+            if (self.athleteA && valueA) {
+                cell.athleteAValue.text = [NSString stringWithFormat:@"%@", valueA];
             } else {
-                NSDictionary *dic = [self.statLabels objectAtIndex:indexPath.row -2];
-                NSString *value = [dic valueForKey:kValue];
-                cell.athleteStat.text = value;
-                
-                if (self.athleteA) {
-                    id value = [self searchAthlete:self.athleteA forStat:dic];
-                    cell.athleteAValue.text = [NSString stringWithFormat:@"%@", value];
-                } else {
-                    cell.athleteAValue.text = @"NA";
-                }
-                
-                if (self.athleteB) {
-                    id value = [self searchAthlete:self.athleteB forStat:dic];
-                    cell.athleteBValue.text = [NSString stringWithFormat:@"%@", value];
-                } else {
-                    cell.athleteBValue.text = @"NA";
-                }
+                cell.athleteAValue.text = @"NA";
+            }
+            if (self.athleteB && valueB) {
+                cell.athleteBValue.text = [NSString stringWithFormat:@"%@", valueB];
+            } else {
+                cell.athleteBValue.text = @"NA";
+            }
+            NSLog(@"%@ : %@", valueA, valueB);
+            if (valueA > valueB) {
+                NSLog(@"A is larger than B");
+                cell.athleteAValue.textColor = [self.teamColor findTeamColor];
+                cell.athleteBValue.textColor = [UIColor blackColor];
+            } else if (valueB > valueA) {
+                NSLog(@"B is larger than A");
+                cell.athleteBValue.textColor = [self.teamColor findTeamColor];
+                cell.athleteAValue.textColor = [UIColor blackColor];
+            } else {
+                NSLog(@"A == B");
+                cell.athleteAValue.textColor = [UIColor blackColor];
+                cell.athleteBValue.textColor = [UIColor blackColor];
             }
             return cell;
         }
+    } else {
+        static NSString *cellIDTag = @"compareTags";
+        VANCompareTagsCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIDTag];
+        if (self.athleteA) {
+            if ([self.athleteA.aTags count] > 0) {
+                NSArray *array = [self.athleteA.aTags allObjects];
+                NSString *tags = [NSMutableString string];
+                for (AthleteTags *tag in array) {
+                    tags = [tags stringByAppendingString:[NSString stringWithFormat:@"%@, ",tag.descriptor]];
+                }
+                cell.athleteATags.text = tags;
+            } else {
+                cell.athleteATags.text = @"No Characteristics";
+            }
+        }
+        if (self.athleteB) {
+            if ([self.athleteB.aTags count] > 0) {
+                NSArray *array = [self.athleteB.aTags allObjects];
+                NSString *tags = [NSMutableString string];
+                for (AthleteTags *tag in array) {
+                    tags = [tags stringByAppendingString:[NSString stringWithFormat:@"%@, ",tag.descriptor]];
+                }
+                cell.athleteBTags.text = tags;
+            } else {
+                cell.athleteBTags.text = @"No Characteristics";
+            }
+        }
+        return cell;
     }
 }
 
@@ -228,30 +285,55 @@ static NSString *kValue = @"value";
 #pragma mark - Table View Delegate Methods
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 0 && indexPath.section == 0) {
-        return 159;
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            return 159;
+        } else {
+            return 30;
+        }
+    } else if (indexPath.section == 2)  {
+        return 100;
     } else {
         return 50;
     }
 }
 
+#pragma mark - Scroll View Delegate Methods
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (self.lastContentOffset > scrollView.contentOffset.x) {
+
+    } else {
+        
+    }
+}
 
 #pragma mark - Custom Built Methods
 
 - (IBAction)changeAthlete:(id)sender {
+    UIButton *button = sender;
+    if (button.tag == 1) {
+        self.changeAthlete = 1;
+    } else {
+        self.changeAthlete = 2;
+    }
     [self performSegueWithIdentifier:@"toChangeAthlete" sender:self.event];
+}
+
+-(void)completeChangeAthlete:(Athlete *)athlete {
+    if (self.changeAthlete == 1) {
+        self.athleteA = athlete;
+    } else {
+        self.athleteB = athlete;
+    }
+    [self.tableView reloadData];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"toChangeAthlete"]) {
-        VANAthleteListTabController *tabBarController = segue.destinationViewController;
-        tabBarController.delegate = tabBarController;
-        tabBarController.event = sender;
-        tabBarController.selectedIndex = 0;
-        if (tabBarController.selectedIndex == 0) {
-            VANAthleteNameViewController *controller = (VANAthleteNameViewController *)[tabBarController.viewControllers objectAtIndex:0];
-            controller.event = sender;
-        }
+        VANAthleteListViewController *controller = segue.destinationViewController;
+        controller.compareDelegate = self;
+        controller.event = sender;
     }
 }
 

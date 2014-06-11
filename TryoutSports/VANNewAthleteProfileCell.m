@@ -15,13 +15,12 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.stepper.maximumValue = 200;
-        self.athleteName.clearButtonMode = UITextFieldViewModeWhileEditing;
-        self.athleteName.enabled = YES;
+
         //[self.stepper addTarget:self action:@selector(numberstepper) forControlEvents:UIControlEventValueChanged];
     }
     return self;
 }
+
 - (id)init {
     self = [super init];
     if (self) {

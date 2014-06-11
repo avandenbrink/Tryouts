@@ -5,11 +5,13 @@
 //  Created by Aaron VandenBrink on 2013-05-21.
 //  Copyright (c) 2013 Aaron VandenBrink. All rights reserved.
 //
-
+#import "Event.h"
 #import "VANScrollViewTeamSelectionCell.h"
 #import "VANTeamColor.h"
 
 @interface VANScrollViewTeamSelectionCell ()
+
+@property (strong, nonatomic) UIView *lastView;
 
 -(void)saveManagedObjectContext:(NSManagedObject *)managedObject;
 
@@ -18,36 +20,104 @@
 @implementation VANScrollViewTeamSelectionCell
 
 - (void)initiate {
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = [UIColor darkGrayColor];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.scrollViewer.backgroundColor = [UIColor darkGrayColor];
-    self.scrollViewer.pagingEnabled = YES;
-    self.scrollViewer.showsHorizontalScrollIndicator = NO;
-    self.scrollViewer.delegate = self;
-    self.pageController.currentPage = [self.athlete.teamSelected integerValue];
-    [self gotoPageWithAnimation:NO];
+    
+    _scrollViewer.backgroundColor = [UIColor darkGrayColor];
+    _scrollViewer.pagingEnabled = YES;
+    _scrollViewer.showsHorizontalScrollIndicator = NO;
+    _scrollViewer.delegate = self;
+    
+    _pageController.numberOfPages = [self.athlete.event.numTeams integerValue];
+    _pageController.currentPage = [self.athlete.teamSelected integerValue];
     VANTeamColor *teamColor = [[VANTeamColor alloc] init];
-    self.pageController.pageIndicatorTintColor = [teamColor findTeamColor];
-    self.pageController.currentPageIndicatorTintColor = [UIColor lightGrayColor];
-    self.sideColor.backgroundColor = [teamColor findTeamColor];
+    _pageController.pageIndicatorTintColor = [teamColor findTeamColor];
+    _pageController.currentPageIndicatorTintColor = [UIColor whiteColor];
     
+    
+    [self buildView];
+    // ---- [_pageController setNeedsDisplay];
 }
 
-- (void)loadVisiblePages {
-    CGFloat pageWidth = self.scrollViewer.frame.size.width;
-    NSInteger page = (NSInteger)floor((self.scrollViewer.contentOffset.x * 2.0f + pageWidth / (pageWidth * 2.0f)));
-    
-    self.pageController.currentPage = page;
-    NSInteger firstPage = page - 1;
-    NSInteger lastPage = page + 1;
-    
-    for (NSInteger i=firstPage; i<=lastPage; i++) {
-        [self loadPage:i];
+- (void)buildView {
+    if (!_viewer) {
+        _viewer = [[UIView alloc] init];
+        [_scrollViewer addSubview:_viewer];
+        
+        _viewer.translatesAutoresizingMaskIntoConstraints = NO;
+        NSDictionary *d = @{@"viewer": _viewer};
+        NSArray *v = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[viewer]|" options:0 metrics:0 views:d];
+        NSArray *h = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[viewer]|" options:0 metrics:0 views:d];
+        
+        [_scrollViewer addConstraints:v];
+        [_scrollViewer addConstraints:h];
     }
-}
-
--(void)loadPage:(NSInteger)page {
+    //       [cell.scrollViewer addSubview:contentView];
+    //       NSDictionary *dic = NSDictionaryOfVariableBindings(contentView);
+    //       NSArray *contentHoriz = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[contentView]|" options:0 metrics:0 views:dic];
+    //       [cell.scrollViewer addConstraints:contentHoriz];
     
+    //      NSArray *contentVert = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[contentView]|" options:0 metrics:0 views:dic];
+    //      [cell.scrollViewer addConstraints:contentVert];
+    //      contentView.backgroundColor = [UIColor yellowColor];
+    
+    for (int i = 0 ; i < [self.athlete.event.numTeams intValue]; i++) {
+        
+        UIView *view = [[UIView alloc] init];
+        [self.viewer addSubview:view];
+        
+        view.translatesAutoresizingMaskIntoConstraints = NO;
+
+        //View Constraints
+        NSDictionary *dict = NSDictionaryOfVariableBindings(view);
+        NSArray *verticle = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|" options:0 metrics:0 views:dict];
+        [self.viewer addConstraints:verticle];
+        
+        NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.scrollViewer attribute:NSLayoutAttributeWidth multiplier:1 constant:0];
+        [self.scrollViewer addConstraint:width];
+        
+        NSLayoutConstraint *height = [NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.scrollViewer attribute:NSLayoutAttributeHeight multiplier:1 constant:0];
+        [self.scrollViewer addConstraint:height];
+        
+        if (self.lastView) {
+            NSLayoutConstraint *left = [NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.lastView attribute:NSLayoutAttributeTrailing multiplier:1 constant:0];
+            [self.viewer addConstraint:left];
+        } else {
+            NSLayoutConstraint *left = [NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.viewer attribute:NSLayoutAttributeLeading multiplier:1 constant:0];
+            [self.viewer addConstraint:left];
+        }
+        self.lastView = view;
+        if (i == [self.athlete.event.numTeams intValue]-1) {
+            NSLayoutConstraint *right = [NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.viewer attribute:NSLayoutAttributeTrailing multiplier:1 constant:0];
+            [self.viewer addConstraint:right];
+        }
+        
+        UILabel *label = [[UILabel alloc] init];
+        [view addSubview:label];
+        label.translatesAutoresizingMaskIntoConstraints = NO;
+        
+        //Label Constraints
+        NSArray *vert = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[label]|" options:0 metrics:nil views:@{@"label": label}];
+        NSArray *hori = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[label]|" options:0 metrics:nil views:@{@"label": label}];
+        [view addConstraints:vert];
+        [view addConstraints:hori];
+        
+        label.textColor = [UIColor whiteColor];
+        label.textAlignment = NSTextAlignmentCenter;
+        if (i == 0) {
+            label.text = @"No Team Selected";
+            view.backgroundColor = [UIColor darkGrayColor];
+        } else {
+            VANTeamColor *teamColor = [[VANTeamColor alloc] init];
+            view.backgroundColor = [teamColor findTeamColor];
+            if ([teamColor findTeamColor] == [UIColor whiteColor]) {
+                label.textColor = [UIColor blackColor];
+            }
+            label.text = [NSString stringWithFormat:@"Team %d", i];
+        }
+    }
+
+//    [self gotoPageWithAnimation:YES];
 }
 
 -(void)resizeTeamViewstoControllerViewSize:(CGSize *)size {
@@ -57,32 +127,38 @@
 // at the end of scroll animation, reset the boolean used when scrolls originate from the UIPageControl
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    // switch the indicator when more than 50% of the previous/next page is visible
+    //Called Only when a Finger Swipe is used to change the team's page position;
     CGFloat pageWidth = CGRectGetWidth(self.scrollViewer.frame);
     NSUInteger page = floor((self.scrollViewer.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
     self.pageController.currentPage = page;
-    self.athlete.teamSelected = [NSNumber numberWithInteger:page];
-    [self saveManagedObjectContext:self.athlete];
-    NSLog(@"Changing Team");
+    
+    [self saveAthletesNewTeamTo:page];
+
+}
+
+- (IBAction)changeScrollerfromController:(id)sender
+{
+    [self gotoPageWithAnimation:YES];    // YES = animate
+    NSUInteger page = self.pageController.currentPage;
+    [self saveAthletesNewTeamTo:page];
 
 }
 
 - (void)gotoPageWithAnimation:(BOOL)animated
 {
     NSInteger page = self.pageController.currentPage;
-    
-    [self.scrollViewer setContentOffset:CGPointMake(self.frame.size.width *page, 0) animated:animated];
+    CGPoint frame = CGPointMake(self.frame.size.width *page, 0);
+    if (animated) {
+        [self.scrollViewer setContentOffset:frame animated:animated];
+    } else {
+        self.scrollViewer.contentOffset = frame;
+    }
 }
 
-- (IBAction)changeScrollerfromController:(id)sender
+-(void)saveAthletesNewTeamTo:(NSInteger)team
 {
-    [self gotoPageWithAnimation:YES];    // YES = animate
-    
-    CGFloat pageWidth = CGRectGetWidth(self.scrollViewer.frame);
-    NSUInteger page = floor((self.scrollViewer.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-    self.athlete.teamSelected = [NSNumber numberWithInteger:page];
+    self.athlete.teamSelected = [NSNumber numberWithInteger:team];
     [self saveManagedObjectContext:self.athlete];
-
 }
 
 -(void)saveManagedObjectContext:(NSManagedObject *)managedObject {

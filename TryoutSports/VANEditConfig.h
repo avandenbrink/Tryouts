@@ -13,7 +13,7 @@
 
 @property (strong, nonatomic) NSMutableArray *optionsArray;
 @property (nonatomic) NSInteger optionIndex;
-@property (strong, nonatomic) VANEditSkillController *delegate;
+@property (nonatomic, weak) VANEditSkillController *delegate;
 
 - (id)initWithResource:(NSString *)resource;
 - (void)configureMutableArrayForKey:(NSString *)string;

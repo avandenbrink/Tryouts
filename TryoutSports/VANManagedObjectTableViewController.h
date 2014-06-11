@@ -14,6 +14,8 @@ static NSDateFormatter *__dateFormatter = nil;
 #import "Tests.h"
 #import "VANTeamColor.h"
 #import "Positions.h"
+#import "VANGlobalMethods.h"
+
 
 #define kDefaultDate =  @"defaultDate"
 
@@ -28,7 +30,7 @@ static NSDateFormatter *__dateFormatter = nil;
 
 - (void)removeRelationshipObjectInIndexPath:(NSIndexPath *)indexPath forKey:(NSString *)key;
 -(NSManagedObject *)addNewRelationship:(NSString *)relationship toManagedObject:(NSManagedObject *)managedObject andSave:(BOOL)save;
--(void)addTextFieldContent:(NSString *)content ToContextForTitle:(NSString *)title;
--(void)placeImage:(UIImage *)image;
+ //-(void)addTextFieldContent:(NSString *)content ToContextForTitle:(NSString *)title;
+// -(void)adjustContentInsetsForEditing:(BOOL)editing;
 
 @end

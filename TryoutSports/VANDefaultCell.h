@@ -11,6 +11,6 @@
 
 @interface VANDefaultCell : VANMotherCell
 
-@property (strong, nonatomic) IBOutlet UILabel *detailLabel;
+//@property (strong, nonatomic) IBOutlet UILabel *detailLabel;
 
 @end

@@ -10,17 +10,17 @@
 #import "VANTeamColor.h"
 #import "Event.h"
 
-static NSInteger titleBarHeight = 25;
-static NSInteger teamBarHeight = 25;
-static NSInteger seenBarHeight = 20;
+static float const titleBarHeight = 25;
+static float const teamBarHeight = 25;
+static float const seenBarHeight = 20;
 
 @interface VANIntroShape ()
 
-@property (nonatomic) CGFloat teamWidth;
-@property (nonatomic) CGFloat seenWidth;
+@property (nonatomic, assign) CGFloat teamWidth;
+@property (nonatomic, assign) CGFloat seenWidth;
 
-@property (nonatomic) CGFloat teamCount;
-@property (nonatomic) CGFloat seenCount;
+@property (nonatomic, assign) CGFloat teamCount;
+@property (nonatomic, assign) CGFloat seenCount;
 
 @end
 
@@ -34,8 +34,8 @@ static NSInteger seenBarHeight = 20;
     if (self.seenView == nil) {
         self.seenView = [[UIView alloc] initWithFrame:CGRectMake(0, titleBarHeight, 0, seenBarHeight)];
         self.seenView.backgroundColor = [teamColor washedColor];
-        self.seenView.layer.shadowOffset = CGSizeMake(0, 2);
-        self.seenView.layer.shadowOpacity = 0.2;
+        //self.seenView.layer.shadowOffset = CGSizeMake(0, 2);
+        //self.seenView.layer.shadowOpacity = 0.2;
         [self.seenView setClipsToBounds:YES];
         
         self.seenLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.seenWidth, teamBarHeight)];
@@ -51,8 +51,8 @@ static NSInteger seenBarHeight = 20;
     if (self.teamView == nil) {
         self.teamView = [[UIView alloc] initWithFrame:CGRectMake(0, titleBarHeight, 0, teamBarHeight)];
         self.teamView.backgroundColor = [teamColor findTeamColor];
-        self.teamView.layer.shadowOpacity = 0.2;
-        self.teamView.layer.shadowOffset = CGSizeMake(0, 2);
+        //self.teamView.layer.shadowOpacity = 0.2;
+        //self.teamView.layer.shadowOffset = CGSizeMake(0, 2);
         
         self.teamLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.teamWidth, teamBarHeight)];
         self.teamLabel.textColor = [UIColor whiteColor];
@@ -66,11 +66,14 @@ static NSInteger seenBarHeight = 20;
     }
     if (self.barView == nil) {
         self.barView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.superview.frame.size.width, titleBarHeight)];
+        self.barView.translatesAutoresizingMaskIntoConstraints = NO;
+
         self.barView.backgroundColor = [UIColor blackColor];
         self.barView.layer.shadowOffset = CGSizeMake(0, 4);
         self.barView.layer.shadowOpacity = 0.3;
         
         self.statTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, titleBarHeight)];
+        self.statTitle.translatesAutoresizingMaskIntoConstraints = NO;
         self.statTitle.textColor = [UIColor whiteColor];
         self.statTitle.textAlignment = NSTextAlignmentCenter;
         [self.barView addSubview:self.statTitle];
@@ -78,6 +81,19 @@ static NSInteger seenBarHeight = 20;
 
         
         [self insertSubview:self.barView aboveSubview:self.teamView];
+        
+        NSDictionary *dic = @{@"bar": self.barView,@"label":self.statTitle};
+        NSArray *constraint = [NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|[bar(%f)]",titleBarHeight] options:0 metrics:0 views:dic];
+        [self addConstraints:constraint];
+        
+        constraint = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[bar]|" options:0 metrics:0 views:dic];
+        [self addConstraints:constraint];
+        
+        constraint = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[label]|" options:0 metrics:0 views:dic];
+        [self.barView addConstraints:constraint];
+        
+        constraint = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[label]|" options:0 metrics:0 views:dic];
+        [self.barView addConstraints:constraint];
     }
     //[self findPercentAndAnimateChangesForEvent:event];
 }
@@ -87,6 +103,7 @@ static NSInteger seenBarHeight = 20;
     if ([event.athletes count] > 0) {
         NSMutableArray *athletes = [self fetchTeamAthleteforEvent:event];
         NSMutableArray *seen = [self fetchSeenAthleteforEvent:event];
+        
         //Temporary Example Floats till Fetch Requests are figured out
         CGFloat numOfAthletes = [event.athletes count];
         self.teamCount = [athletes count];
@@ -104,6 +121,7 @@ static NSInteger seenBarHeight = 20;
             self.statTitle.text = [NSString stringWithFormat:@"Total Athletes: %lu", (unsigned long)[event.athletes count]];
 
             [UIView animateWithDuration:0.7 delay:0.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                
                 [self.teamView setFrame:CGRectMake(0, titleBarHeight, self.teamWidth, teamBarHeight)];
                 [self.teamLabel setFrame:CGRectMake(0, 0, self.teamWidth, teamBarHeight)];
                 [self.teamButton setFrame:CGRectMake(0, 0, self.teamWidth, teamBarHeight+titleBarHeight)];

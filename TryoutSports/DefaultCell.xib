@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4457.9" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment defaultVersion="1552" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3682.9"/>
+        <deployment defaultVersion="1792" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -10,55 +10,42 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="rightDetailCell" rowHeight="56" id="Yvr-R7-FU3" customClass="VANDefaultCell">
             <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Yvr-R7-FU3" id="liX-ob-1Pf">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k9m-Uy-2qR">
-                        <rect key="frame" x="0.0" y="0.0" width="6" height="50"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="6" id="RNM-ek-twd"/>
-                        </constraints>
-                    </view>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cnB-mL-MBW">
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cnB-mL-MBW">
                         <rect key="frame" x="18" y="0.0" width="107" height="50"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="107" id="XlV-mV-VwF"/>
                         </constraints>
-                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline2"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RMj-Se-aPm">
+                    <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RMj-Se-aPm">
                         <rect key="frame" x="133" y="0.0" width="171" height="50"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline2"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.50196078430000002" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
-                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-            </view>
+            </tableViewCellContentView>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="k9m-Uy-2qR" secondAttribute="bottom" id="5Rr-xm-odw"/>
-                <constraint firstItem="k9m-Uy-2qR" firstAttribute="leading" secondItem="Yvr-R7-FU3" secondAttribute="leading" id="6xg-w4-rXH"/>
-                <constraint firstItem="RMj-Se-aPm" firstAttribute="leading" secondItem="cnB-mL-MBW" secondAttribute="trailing" constant="8" id="A2h-jU-feG"/>
-                <constraint firstAttribute="bottom" secondItem="cnB-mL-MBW" secondAttribute="bottom" id="GLs-Wt-n16"/>
-                <constraint firstItem="RMj-Se-aPm" firstAttribute="bottom" secondItem="Yvr-R7-FU3" secondAttribute="bottom" id="Irs-r0-NMs"/>
-                <constraint firstItem="RMj-Se-aPm" firstAttribute="top" secondItem="Yvr-R7-FU3" secondAttribute="top" id="dqA-7S-LSJ"/>
-                <constraint firstAttribute="trailing" secondItem="RMj-Se-aPm" secondAttribute="trailing" constant="16" id="fGI-GT-0Qt"/>
-                <constraint firstItem="cnB-mL-MBW" firstAttribute="top" secondItem="Yvr-R7-FU3" secondAttribute="top" id="seg-Cm-Nrf"/>
-                <constraint firstItem="cnB-mL-MBW" firstAttribute="leading" secondItem="Yvr-R7-FU3" secondAttribute="leading" constant="18" id="vBx-eO-vAC"/>
-                <constraint firstItem="k9m-Uy-2qR" firstAttribute="top" secondItem="Yvr-R7-FU3" secondAttribute="top" id="vVq-Hb-7vO"/>
+                <constraint firstItem="cnB-mL-MBW" firstAttribute="top" secondItem="Yvr-R7-FU3" secondAttribute="top" id="bcx-92-FAk"/>
+                <constraint firstItem="cnB-mL-MBW" firstAttribute="leading" secondItem="Yvr-R7-FU3" secondAttribute="leading" constant="18" id="cs8-A8-Usy"/>
+                <constraint firstItem="RMj-Se-aPm" firstAttribute="leading" secondItem="cnB-mL-MBW" secondAttribute="trailing" constant="8" id="dmL-r4-exG"/>
+                <constraint firstAttribute="bottom" secondItem="cnB-mL-MBW" secondAttribute="bottom" id="i9h-jU-BkZ"/>
+                <constraint firstItem="RMj-Se-aPm" firstAttribute="bottom" secondItem="Yvr-R7-FU3" secondAttribute="bottom" id="jNx-4s-LF9"/>
+                <constraint firstItem="RMj-Se-aPm" firstAttribute="top" secondItem="Yvr-R7-FU3" secondAttribute="top" id="vOb-mI-c3s"/>
+                <constraint firstAttribute="trailing" secondItem="RMj-Se-aPm" secondAttribute="trailing" constant="16" id="wkR-Hc-vZp"/>
             </constraints>
             <connections>
                 <outlet property="detailLabel" destination="RMj-Se-aPm" id="JC8-xR-tZR"/>
                 <outlet property="label" destination="cnB-mL-MBW" id="AxL-bB-oPn"/>
-                <outlet property="sideView" destination="k9m-Uy-2qR" id="jq7-Up-U0p"/>
             </connections>
         </tableViewCell>
     </objects>

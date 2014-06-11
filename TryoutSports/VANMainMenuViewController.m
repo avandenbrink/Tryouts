@@ -48,13 +48,9 @@
     self.mainView.layer.shadowOffset = CGSizeMake(0, 3);
 }
 
--(void)viewWillAppear:(BOOL)animated {
-    [self.athleteStatView findPercentAndAnimateChangesForEvent:self.event];
-}
-
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-
+    [self.athleteStatView findPercentAndAnimateChangesForEvent:self.event];
 }
 
 - (void)didReceiveMemoryWarning
@@ -91,6 +87,10 @@
     }
 }
 
+-(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [self.athleteStatView findPercentAndAnimateChangesForEvent:self.event];
+}
+
 #pragma mark - Custom Controller Button Actions
 
 - (IBAction)pushtoEventSettings:(id)sender {
@@ -125,5 +125,7 @@
 - (IBAction)toDecisionRoom:(id)sender {
     [self performSegueWithIdentifier:@"toDecisionRoom" sender:self.event];
 }
+
+
 
 @end

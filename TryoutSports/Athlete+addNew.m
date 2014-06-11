@@ -13,6 +13,8 @@
 -(void)awakeFromInsert {
     self.teamSelected = 0;
     self.seen = 0;
+    self.flagged = 0;
+    self.checkedIn = 0;
 }
 
 + (Athlete *)athleteWithInfo:(NSDictionary *)info inManagedObjectContext:(NSManagedObjectContext *)context

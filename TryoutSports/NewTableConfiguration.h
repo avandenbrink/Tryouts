@@ -8,21 +8,36 @@
 
 #import <Foundation/Foundation.h>
 #import "VANManagedObjectTableViewController.h"
+#import "VANTableView.h"
 #import "VANTextFieldCell.h"
 #import "VANBoolCell.h"
 #import "VANDateCell.h"
 #import "VANPickerCell.h"
 #import "VANDefaultCell.h"
 
-@interface NewTableConfiguration : NSObject
+@protocol VANTableViewCellExpansionDelegate <NSObject>
 
-@property (strong, nonatomic) VANManagedObjectTableViewController *controller;
+
+@optional
+-(void)pickerCell:(VANPickerCell *)cell didChangeValueToRow:(NSInteger)row inArray:(NSArray *)array;
+-(void)adjustContentInsetsForEditing:(BOOL)editing;
+-(void)addTextFieldContent:(NSString *)string ToContextForTitle:(NSString *)title;
+-(UIAlertView *)createAlertViewforEmptyPickerViewCellWithPurpose:(NSString *)purpose;
+-(void)setBoolianValue:(BOOL)value forPurpose:(NSString *)purpose;
+
+@end
+
+@interface NewTableConfiguration : NSObject <VANTextFieldCellDelegate, VANPickerCellDelegate, VANBoolCellDelegate>
+
+@property (nonatomic, weak) id <VANTableViewCellExpansionDelegate> delegate;
 @property (nonatomic) BOOL rowZero;
 @property (nonatomic) BOOL rowOne;
 @property (nonatomic) BOOL rowTwo;
 @property (nonatomic) BOOL rowThree;
 @property (nonatomic) BOOL rowFour;
 @property (strong, nonatomic) NSIndexPath *selectedIndex;
+@property (strong, nonatomic) Event *event;
+@property (strong, nonatomic) Athlete *athlete;
 
 //New IOS 7 TableViewImplementation Based on max of 5 rows of Selectable Cells
 
@@ -37,7 +52,7 @@
  * @param   label   Text string of the title of the cell
  * @param   value   Bool value to be displayed with the Switch
  */
--(VANBoolCell *)buildBoolCellInTable:(UITableView *)tableView ForIndex:(NSIndexPath *)index withLabel:(NSString *)label andValue:(id)value;
+-(VANBoolCell *)buildBoolCellInTable:(UITableView *)tableView ForIndex:(NSIndexPath *)index withLabel:(NSString *)label andNSNumberBoolValue:(NSNumber *)value orDefault:(BOOL)starter forPurpose:(NSString *)purpose;
 /**
  * Builds and returns a VANTextFieldCell with a Label and a Text Field
  * @param   label   Text string of the title of the cell
@@ -56,11 +71,11 @@
  * @param   values   Array of values to be displayed in the UIPickerView
  * @param   purpose   A String representation of the keyValue of where this data should be saved. (Spellcheck for accuraccy)
  */
-- (VANPickerCell *)buildPickerCellInTable:(UITableView *)tableView ForIndex:(NSIndexPath *)index withValues:(NSArray *)values forPurpose:(NSString *)purpose;
+- (VANPickerCell *)buildPickerCellInTable:(UITableView *)tableView ForIndex:(NSIndexPath *)index withValues:(NSArray *)values andSelected:(NSString *)selected forPurpose:(NSString *)purpose;
 /**
  * Adds or Removes Inline Edit cells to the TableView at the indexPath based on which cell was selected. If more than one section is used, this method must be implemented within a conditional syntax for your prefered [indexpath section].
  */
--(void)didSelectRowAtIndex:(NSIndexPath *)indexPath inTableView:(UITableView *)tableView;
+-(void)didSelectRowAtIndex:(NSIndexPath *)indexPath inTableView:(UITableView *)tableView forTheme:(UIColor *)color;
 /**
  * Returns the Proper heigh for a Cell and indexPath in the specified TableView. If more than one section is used, this method must be implemented within a conditional syntax for your prefered [indexpath section].
  */

@@ -8,9 +8,17 @@
 
 #import "VANMotherCell.h"
 #import "VANDefaultCell.h"
+@class VANPickerCell;
+
+@protocol VANPickerCellDelegate <NSObject>
+
+-(void)VANPickerCell:(VANPickerCell *)cell didChangeToRow:(NSInteger)row withValues:(NSArray *)values;
+
+@end
 
 @interface VANPickerCell : VANMotherCell <UIPickerViewDataSource, UIPickerViewDelegate>
 
+@property (nonatomic, assign) id <VANPickerCellDelegate> delegate;
 @property (strong, nonatomic) NSArray *values;
 @property (weak, nonatomic)IBOutlet UIPickerView *pickerView;
 @property (weak, nonatomic) VANDefaultCell *delegateCell;

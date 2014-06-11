@@ -6,20 +6,21 @@
 //  Copyright (c) 2013 Aaron VandenBrink. All rights reserved.
 //
 
-#import "VANNewAthleteController.h"
+#import "VANAthleteEditController.h"
 #import "VANNewAthleteProfileCell.h"
 #import "VANMotherCell.h"
 #import "VANTextFieldCell.h"
 #import "VANTeamColor.h"
 #import "VANPickerCell.h"
-#import "VANAthleteListViewController.h"
-#import "NewTableConfiguration.h"
 #import "VANPictureTaker.h"
+#import "VANAthleteDetailController.h"
+#import "Image.h"
+
 
 static NSString *kDateType = @"Date";
 static NSString *kPickerType = @"Picker";
 
-@interface VANNewAthleteController ()
+@interface VANAthleteEditController ()
 
 @property (strong, nonatomic) UIBarButtonItem *cancelButton;
 @property (strong, nonatomic) NewTableConfiguration *config;
@@ -27,16 +28,8 @@ static NSString *kPickerType = @"Picker";
 
 @end
 
-@implementation VANNewAthleteController
+@implementation VANAthleteEditController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 /*
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [self.view endEditing:YES];
@@ -45,17 +38,24 @@ static NSString *kPickerType = @"Picker";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.config = [[NewTableConfiguration alloc] init];
-    self.config.controller = self;
+    self.config.delegate = self;
     self.cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel)];
     self.navigationItem.leftBarButtonItem = self.cancelButton;
 }
      
 
 -(void)cancel {
-    NSManagedObjectContext *context = [self.athlete managedObjectContext];
-    [context deleteObject:self.athlete];
-    if (self.delegate) {
-        [self dismissViewControllerAnimated:YES completion:nil ];
+    
+    NSInteger count = [self.navigationController.viewControllers count];
+    UIViewController *controller = [self.navigationController.viewControllers objectAtIndex:count - 2];
+    if ([controller isKindOfClass:[VANAthleteListViewController class]]) {
+        NSManagedObjectContext *context = [self.athlete managedObjectContext];
+        [context deleteObject:self.athlete];
+        if (self.delegate) {
+            [self dismissViewControllerAnimated:YES completion:nil ];
+        } else {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     } else {
         [self.navigationController popViewControllerAnimated:YES];
     }
@@ -65,13 +65,8 @@ static NSString *kPickerType = @"Picker";
     if (!self.pictureTaker) {
         self.pictureTaker = [[VANPictureTaker alloc] init];
     }
-    self.pictureTaker.controller = self;
-    [self.pictureTaker callImagePickerController];
-}
-
--(void)placeImage:(UIImage *)image {
-    VANNewAthleteProfileCell *cell = (VANNewAthleteProfileCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
-    cell.imageView.image = image;
+    self.pictureTaker.delegate = self;
+    [self presentViewController:self.pictureTaker.imagePicker animated:YES completion:nil];
 }
 
 
@@ -79,7 +74,14 @@ static NSString *kPickerType = @"Picker";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    NSInteger count = [self.navigationController.viewControllers count];
+    UIViewController *controller = [self.navigationController.viewControllers objectAtIndex:count - 2];
+    
+    if ([controller isKindOfClass:[VANAthleteListViewController class]]) {
+        return 3;
+    } else {
+        return 4;
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -89,12 +91,12 @@ static NSString *kPickerType = @"Picker";
         return 1;
     } else if (section == 1){
         return 1;
+    } else if (section == 3) {
+        return 1;
+    } else if (!self.config.rowZero && !self.config.rowOne) {
+        return 4;
     } else {
-        if (!self.config.rowZero && !self.config.rowOne) {
-            return 4;
-        } else {
-            return 5;
-        }
+        return 5;
     }
 }
 
@@ -103,28 +105,48 @@ static NSString *kPickerType = @"Picker";
     NSString *cellIdentifier = nil;
     if ([indexPath section] == 0) {
         return [self.config buildTextFieldCellInTable:tableView ForIndex:indexPath withLabel:@"Name" andValue:self.athlete.name orPlaceholder:@"Required" withKeyboard:UIKeyboardTypeAlphabet];
-        cellIdentifier = @"TextFieldCell";
-        VANTextFieldCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-        [cell initiate];
-        cell.label.text = @"Name";
-        cell.value = self.athlete.name;
-        cell.textField.textAlignment = NSTextAlignmentCenter;
-        cell.textField.placeholder = @"Athlete Name";
-        return cell;
-        
-        
+
     } else if ([indexPath section] == 1) {
+        //Create Image and Number Cell
         cellIdentifier = @"VANNewAthleteProfileCell";
         VANNewAthleteProfileCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-        cell.athleteName.text = self.athlete.name;
-        cell.athleteName.keyboardType = UIKeyboardTypeEmailAddress;
-        VANTeamColor *teamcolor = [[VANTeamColor alloc] init];
-        cell.athleteHeadshot.backgroundColor = [teamcolor findTeamColor];
         
-        cell.stepper.value = [self.event.athletes count];
+        
+        //Set up Image Headshot Rules:
+        cell.athleteHeadshot.layer.masksToBounds = YES;
+        cell.athleteHeadshot.layer.cornerRadius = cell.athleteHeadshot.frame.size.height/2;
+        cell.athleteHeadshot.backgroundColor = [UIColor darkGrayColor];
+        NSArray *array = [self.athlete.images allObjects];
+        if ([array count] > 0) { //Check to see if we already have headshots of this athlete? aka editing their info
+            Image *img = [array objectAtIndex:0];
+            NSData *imgData = img.headShot;
+            cell.athleteHeadshot.image = [UIImage imageWithData:imgData];
+        } else {
+            cell.athleteHeadshot.image = [UIImage imageNamed:@"cameraButton.png"];
+        }
+        
+        //Set up Number Stepper
+        cell.stepper.maximumValue = 200;
+        //If this is a new Athlete, we need to give them a default number to start
+        
+        cell.stepper.value = [self.athlete.number integerValue];
+        VANTeamColor *color = [[VANTeamColor alloc] init];
+        if ([color findTeamColor] == [UIColor whiteColor]) {
+            cell.stepper.tintColor = [UIColor blackColor];
+        }
         cell.athleteNumber.text = [NSString stringWithFormat:@"%1.f", [cell.stepper value]];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
 
+    } else if ([indexPath section] == 3) {
+        cellIdentifier = @"DeleteCell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        }
+        cell.textLabel.text = @"Delete Athlete";
+        
+        return cell;
     } else {
         if ([indexPath row] == 0) {
             //Birthday Cell
@@ -140,7 +162,7 @@ static NSString *kPickerType = @"Picker";
             if (self.config.rowZero) {
                 return [self.config buildCellInTable:tableView ForIndex:indexPath withLabel:@"Position" andValue:self.athlete.position];
             } else if (self.config.rowOne) {
-                return [self.config buildPickerCellInTable:tableView ForIndex:indexPath withValues:[self.event.positions allObjects] forPurpose:@"Position"];
+                return [self.config buildPickerCellInTable:tableView ForIndex:indexPath withValues:[self.event.positions allObjects] andSelected:self.athlete.position forPurpose:@"Position"];
             } else {
             
             return [self.config buildTextFieldCellInTable:tableView ForIndex:indexPath withLabel:@"Email" andValue:self.athlete.email orPlaceholder:@"Email"withKeyboard:UIKeyboardTypeEmailAddress];
@@ -173,32 +195,28 @@ static NSString *kPickerType = @"Picker";
             cell.dataType = [self.config dataTypeForIndexPath:indexPath forSection:[indexPath section]-2];
           */          
     }
-    // Configure the cell...
 }
+
+#pragma mark - Table view delegate
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         return 50;
     } else if (indexPath.section == 1) {
-        return 150;
+        return 211;
     } else {
         return [self.config setTableViewCellHeightfromTableView:tableView forIndex:indexPath];
     }
 }
-
-#pragma mark - Table view delegate
-
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([[tableView cellForRowAtIndexPath:indexPath] isKindOfClass:[VANTextFieldCell class]]) {
         VANTextFieldCell *cell = (VANTextFieldCell *)[tableView cellForRowAtIndexPath:indexPath];
         [cell.textField becomeFirstResponder];
+        
     } else if ([indexPath section] == 2) {
-        VANMotherCell *cell = (VANMotherCell *)[tableView cellForRowAtIndexPath:indexPath];
-        if (cell.expandable == YES) {
-        } else {
-            [self.config didSelectRowAtIndex:indexPath inTableView:tableView];
+            [self.config didSelectRowAtIndex:indexPath inTableView:tableView forTheme:[UIColor blackColor]];
             /*
             if ([indexPath row] == 0) {
                 [self insertInlineDisplayCellAfterIndex:indexPath forTypeOfCell:kDateType];
@@ -207,11 +225,46 @@ static NSString *kPickerType = @"Picker";
             } else if ([indexPath row] == 2 && self.BirthdayCell == YES) {
                 [self insertInlineDisplayCellAfterIndex:indexPath forTypeOfCell:kPickerType];
             }*/
-        }
+    } if (indexPath.section == 3) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Delete Athlete?" message:@"Are you Sure you want to Delete this athlete?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
+        [alert show];
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
 }
 
+#pragma mark - UI Alert View Methods
 
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
+        NSManagedObjectContext *context = self.athlete.managedObjectContext;
+        [context deleteObject:self.athlete];
+        UIViewController *toController;
+        for (UIViewController *controller in self.navigationController.viewControllers) {
+            if ([controller isKindOfClass:[VANAthleteListViewController class]]) {
+                toController = controller;
+            }
+        }
+        [self.navigationController popToViewController:toController animated:YES];
+    } else {
+        
+    }
+}
+
+#pragma mark - VANImagePicker Delegate Methods
+
+-(void)pictureTaker:(VANPictureTaker *)object isReadyToDismissWithAnimation:(BOOL)animation {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)passBackSelectedImageData:(NSData *)imageData {
+    VANGlobalMethods *methods = [[VANGlobalMethods alloc] initwithEvent:self.event];
+    Image *image = (Image *)[methods addNewRelationship:@"headShotImage" toManagedObject:self.athlete andSave:YES];
+    image.headShot = imageData;
+    
+    VANNewAthleteProfileCell *cell = (VANNewAthleteProfileCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+    cell.athleteHeadshot.image = [UIImage imageWithData:imageData];
+    
+}
 
 #pragma mark - Custom Self Methods
 
@@ -242,14 +295,23 @@ static NSString *kPickerType = @"Picker";
     NSLog(@"Phone: %@", self.athlete.phoneNumber);
     NSLog(@"Number: %@", self.athlete.number);
     NSLog(@"Birithday: %@", [self.athlete.birthday description]);
+    if (!self.athlete.seen) {
+        self.athlete.seen = [NSNumber numberWithBool:NO];
+    }
+    if (!self.athlete.flagged) {
+        self.athlete.flagged = [NSNumber numberWithBool:NO];
+    }
     
     if (self.athlete.name == nil || [self.athlete.name isEqualToString:@""]) {
+        
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Info Missing"
                                                         message:@"Please provide a Name"
                                                        delegate:self cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil];
         [alert show];
+        
     } else {
+        
         [self saveManagedObjectContext:self.athlete];
         UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:@"Create Another Athlete?"
                                                         delegate:self

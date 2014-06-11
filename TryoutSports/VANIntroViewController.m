@@ -39,7 +39,8 @@
         [alert show];
     }
     VANTeamColor *teamColor = [[VANTeamColor alloc] init];
-    [self.appSettings setTintColor:[teamColor findTeamColor]];
+    [[UIApplication sharedApplication] keyWindow].tintColor = [teamColor findTeamColor];
+//    [self.appSettings setTintColor:[teamColor findTeamColor]];
     
     
 }
@@ -205,11 +206,23 @@
 
 #pragma mark - Other Custom Methods and PrepareForSegue
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    NSLog(@"We Don't Currently have a Segue by the Name: %@ Sent to IntroViewController", segue.identifier);
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"pushToMain"]) {
+        if ([sender isKindOfClass:[NSManagedObject class]]) {
+            VANMainMenuViewController *viewController = segue.destinationViewController;
+            viewController.event = sender;
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Event Detail Error", @"Event Detail Error") message:NSLocalizedString(@"Error Showing Detail",@"Error Showing Detail") delegate:self cancelButtonTitle:NSLocalizedString(@"OK", @"OK") otherButtonTitles:nil];
+            [alert show];
+        }
+    } else {
+        NSLog(@"We Don't Currently have a Segue by the Name: %@ Sent to IntroViewController", segue.identifier);
+    }
 }
 
-- (void)appSettingsViewControllerDidFinish:(VANAppSettingsViewController *)controller {
+- (void)appSettingsViewControllerDidFinish:(VANAppSettingsViewController *)controller
+{
     [self dismissViewControllerAnimated:YES completion:nil];
     VANTeamColor *teamColor = [[VANTeamColor alloc] init];
     [self.appSettings setTintColor:[teamColor findTeamColor]];
@@ -219,7 +232,8 @@
     [self.view setNeedsDisplay];
 }
 
-- (IBAction)addEvent:(id)sender {
+- (IBAction)addEvent:(id)sender
+{
     NSManagedObjectContext *managedObjectContext = [self.fetchedResultsController managedObjectContext];
     NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
     NSManagedObject *newEvent = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:managedObjectContext];

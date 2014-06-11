@@ -13,12 +13,11 @@
 
 @property (strong, nonatomic) IBOutlet UIPageControl *pageController;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollViewer;
-@property (weak, nonatomic) IBOutlet UIImageView *sideColor;
+@property (strong, nonatomic) UIView *viewer;
 @property (nonatomic, strong) NSMutableArray *pageViews;
 @property (strong, nonatomic) Athlete *athlete;
 
 - (void)initiate;
-- (void)loadVisiblePages;
 - (IBAction)changeScrollerfromController:(id)sender;
 - (void)gotoPageWithAnimation:(BOOL)animated;
 

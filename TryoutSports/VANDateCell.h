@@ -8,7 +8,7 @@
 
 #import "VANMotherCell.h"
 #import "VANDefaultCell.h"
-@class VANNewAthleteController;
+@class VANAthleteEditController;
 
 @interface VANDateCell : VANMotherCell
 

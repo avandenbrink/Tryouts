@@ -8,12 +8,14 @@
 
 #import "VANManagedObjectViewController.h"
 
-@interface VANComparisonController : VANManagedObjectViewController <UITableViewDataSource, UITableViewDelegate>
+@interface VANComparisonController : VANManagedObjectViewController <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *changeA;
 @property (weak, nonatomic) IBOutlet UIButton *changeB;
 @property (strong,nonatomic) Athlete *athleteA;
 @property (strong,nonatomic) Athlete *athleteB;
 - (IBAction)changeAthlete:(id)sender;
+
+-(void)completeChangeAthlete:(Athlete *)athlete;
 
 @end

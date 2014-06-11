@@ -11,6 +11,4 @@
 
 @interface VANNewSkillsAndTestsController : VANManagedObjectTableViewController
 
-- (IBAction)saveSkills:(id)sender;
-
 @end

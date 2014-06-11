@@ -14,9 +14,7 @@
 
 @class VANTagsViewController;
 
-@interface VANMainMenuViewController : VANManagedObjectViewController <UIScrollViewDelegate, UIPopoverControllerDelegate> {
-    
-}
+@interface VANMainMenuViewController : VANManagedObjectViewController <UIScrollViewDelegate, UIPopoverControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (assign, nonatomic) NSUInteger selectedColorIndex;
 @property (strong, nonatomic) UIColor *teamColor;

@@ -1,34 +1,63 @@
 //
 //  Athlete.h
-//  Tryout Sports
+//  TryoutSports
 //
-//  Created by Aaron VandenBrink on 2013-05-20.
+//  Created by Aaron VandenBrink on 12/4/2013.
 //  Copyright (c) 2013 Aaron VandenBrink. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Event;
-@class Image;
+@class AthleteSkills, AthleteTags, AthleteTest, Event, Image;
 
 @interface Athlete : NSManagedObject
 
 @property (nonatomic, retain) NSNumber * age;
 @property (nonatomic, retain) NSDate * birthday;
 @property (nonatomic, retain) NSString * email;
+@property (nonatomic, retain) NSNumber * flagged;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSNumber * number;
 @property (nonatomic, retain) NSString * phoneNumber;
 @property (nonatomic, retain) NSString * position;
-@property (nonatomic, retain) NSNumber * teamSelected;
 @property (nonatomic, retain) NSNumber * seen;
+@property (nonatomic, retain) NSNumber * teamSelected;
+@property (nonatomic, retain) NSNumber * checkedIn;
+
+@property (nonatomic, retain) id skillsname;
+@property (nonatomic, retain) id skillsvalue;
+@property (nonatomic, retain) id tags;
+@property (nonatomic, retain) id testname;
+@property (nonatomic, retain) id testvalue;
+@property (nonatomic, retain) NSSet *aTags;
 @property (nonatomic, retain) Event *event;
-@property (nonatomic, retain) NSSet *headShotImage;
+@property (nonatomic, retain) NSSet *images;
+@property (nonatomic, retain) Image *profileImage;
 @property (nonatomic, retain) NSSet *skills;
 @property (nonatomic, retain) NSSet *tests;
-@property (nonatomic, retain) NSSet *aTags;
-@property (nonatomic, readonly) NSArray *teamAthletes;
+@end
 
+@interface Athlete (CoreDataGeneratedAccessors)
+
+- (void)addATagsObject:(AthleteTags *)value;
+- (void)removeATagsObject:(AthleteTags *)value;
+- (void)addATags:(NSSet *)values;
+- (void)removeATags:(NSSet *)values;
+
+- (void)addImagesObject:(Image *)value;
+- (void)removeImagesObject:(Image *)value;
+- (void)addImages:(NSSet *)values;
+- (void)removeImages:(NSSet *)values;
+
+- (void)addSkillsObject:(AthleteSkills *)value;
+- (void)removeSkillsObject:(AthleteSkills *)value;
+- (void)addSkills:(NSSet *)values;
+- (void)removeSkills:(NSSet *)values;
+
+- (void)addTestsObject:(AthleteTest *)value;
+- (void)removeTestsObject:(AthleteTest *)value;
+- (void)addTests:(NSSet *)values;
+- (void)removeTests:(NSSet *)values;
 
 @end

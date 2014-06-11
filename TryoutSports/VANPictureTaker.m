@@ -7,7 +7,6 @@
 //
 
 #import "VANPictureTaker.h"
-#import "Image.h"
 
 @implementation VANPictureTaker
 
@@ -24,26 +23,47 @@
     return self;
 }
 
--(void)callImagePickerController {
-    [self.controller presentViewController:self.imagePicker animated:YES completion:nil];
+
+-(void)callImagePickerController {    
+    NSLog(@"*** Warning: This CallImagePickerController Method is Outdated");
 }
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    [self.controller dismissViewControllerAnimated:YES completion:nil];
+    if ([_delegate respondsToSelector:@selector(pictureTaker:isReadyToDismissWithAnimation:)]) {
+        [_delegate pictureTaker:self isReadyToDismissWithAnimation:YES];
+    }
 }
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
-    NSData *imageData = UIImagePNGRepresentation(image);
-    
-    
-    Image *imageMO = (Image *)[self.controller addNewRelationship:@"headShotImage" toManagedObject:self.controller.athlete andSave:NO];
-    imageMO.headShot = imageData;
+    UIImage *resizedImage = [self resizeImage:image width:320 height:320];
+    NSData *imageData = UIImagePNGRepresentation(resizedImage);
 
-    [self.controller placeImage:[info objectForKey:UIImagePickerControllerEditedImage]];
-    NSLog(@"Number of Images: %lu", (unsigned long)[self.controller.athlete.headShotImage count]);
-    [self.controller dismissViewControllerAnimated:YES completion:nil];
+    if ([_delegate respondsToSelector:@selector(passBackSelectedImageData:)]) {
+        [_delegate passBackSelectedImageData:imageData];
+        [_delegate pictureTaker:self isReadyToDismissWithAnimation:YES];
+    } else {
+        NSLog(@"*** Warning: Image Picker Delegate does not respond to passedImage");
+    }
+    
+}
+
+-(UIImage *)resizeImage:(UIImage *)image width:(int)width height:(int)height {
+    CGImageRef imageRef = [image CGImage];
+    CGImageAlphaInfo alphaInfo = CGImageGetAlphaInfo(imageRef);
+
+    //if (alphaInfo == kCGImageAlphaNone)
+    alphaInfo = kCGImageAlphaNoneSkipLast;
+    CGContextRef bitmap = CGBitmapContextCreate(NULL, width, height, CGImageGetBitsPerComponent(imageRef), 4 * width, CGImageGetColorSpace(imageRef), (CGBitmapInfo) alphaInfo);
+    CGContextDrawImage(bitmap, CGRectMake(0, 0, width, height), imageRef);
+    CGImageRef ref = CGBitmapContextCreateImage(bitmap);
+    UIImage *result = [UIImage imageWithCGImage:ref];
+    
+    CGContextRelease(bitmap);
+    CGImageRelease(ref);
+    
+    return result;
 }
 
 @end

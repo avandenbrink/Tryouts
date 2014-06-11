@@ -45,14 +45,9 @@
 
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    NSLog(@"Delegate Cell: %@", self.delegateCell);
-    if ([[self.values objectAtIndex:row] isKindOfClass:[Positions class]]) {
-        Positions *position = [self.values objectAtIndex:row];
-        self.delegateCell.detailLabel.text = position.position;
-        self.athlete.position = position.position;
-    } else {
-        self.delegateCell.detailLabel.text = [NSString stringWithFormat:@"%@",[self.values objectAtIndex:row]];
-        [self.event setValue:[self.values objectAtIndex:row] forKey:self.purpose];
+    self.delegateCell.detailTextLabel.text = [self.values objectAtIndex:row];
+    if ([_delegate respondsToSelector:@selector(VANPickerCell:didChangeToRow:withValues:)]) {
+        [_delegate VANPickerCell:self didChangeToRow:row withValues:self.values];
     }
 }
 

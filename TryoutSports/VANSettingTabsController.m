@@ -5,33 +5,24 @@
 //  Created by Aaron VandenBrink on 2013-07-15.
 //  Copyright (c) 2013 Aaron VandenBrink. All rights reserved.
 //
+
 #warning // Possible Crash Issue
 //For Some reason on this page some time when the number of teams is changed and the controller is left quickly, the number is regerstered as 1 (or 0) teams as opposed to the real number.  Possibly a cause of the Save button being pressed before the slide is done its animation, but not 100%. Seems to happen when number starts high and moves lower.
+
+
 #import "VANSettingTabsController.h"
-#import "VANNewEventViewController.h"
-#import "VANNewSkillsAndTestsController.h"
+
 
 @interface VANSettingTabsController ()
 
 @property (strong, nonatomic) UIBarButtonItem *cancelButton;
 @property (strong, nonatomic) UIBarButtonItem *saveButton;
 
-- (IBAction)saveEvent:(id)sender;
-- (void)cancel;
--(void)saveManagedObjectContext:(NSManagedObject *)managedObject;
+
 
 @end
 
 @implementation VANSettingTabsController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -42,7 +33,6 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveEvent:)];
     VANTeamColor *teamColor = [[VANTeamColor alloc] init];
     [self.view setTintColor:[teamColor findTeamColor]];
-    NSLog(@"Number of Teams Entering %@", self.event.numTeams);
 }
 
 - (void)didReceiveMemoryWarning
@@ -51,7 +41,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Tab Bar Controller Delegate Methods
+
 -(void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
+    NSLog(@"Changing View Controller");
     if ([viewController isKindOfClass:[VANNewEventViewController class]]) {
         VANNewEventViewController *controller = (VANNewEventViewController *)viewController;
         controller.event = self.event;
@@ -62,6 +55,8 @@
     }
     
 }
+
+#pragma mark - Custom Methods
 
 -(void)cancel {
     NSInteger count = [self.navigationController.viewControllers count];

@@ -7,7 +7,7 @@
 //
 
 #import "VANDateCell.h"
-#import "VANNewAthleteController.h"
+#import "VANAthleteEditController.h"
 
 @interface VANDateCell ()
 
@@ -27,10 +27,10 @@
 -(IBAction)datePickerChanged:(id)sender {
     
     NSDate *date = [self.datePicker date];
-    self.delegateCell.detailLabel.text = [__dateFormatter stringFromDate:date];
-    if ([self.delegateCell.label.text isEqualToString:@"Birthday"]) {
+    self.delegateCell.detailTextLabel.text = [__dateFormatter stringFromDate:date];
+    if ([self.delegateCell.textLabel.text isEqualToString:@"Birthday"]) {
         self.athlete.birthday = date;
-    } else if ([self.delegateCell.label.text isEqualToString:@"Event Date:"]) {
+    } else if ([self.delegateCell.textLabel.text isEqualToString:@"Event Date:"]) {
         self.event.startDate = date;
     } else {
         NSLog(@"Warning: Date Picker Changed is not Working Correctly: VANDateCell.m");

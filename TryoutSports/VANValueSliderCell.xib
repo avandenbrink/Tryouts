@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4457.9" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment defaultVersion="1552" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3682.9"/>
+        <deployment defaultVersion="1792" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -10,19 +10,19 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="sliderCell" rowHeight="70" id="rPZ-cL-B3M" customClass="VANValueSliderCell">
             <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
             <autoresizingMask key="autoresizingMask"/>
-            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rPZ-cL-B3M" id="WBC-3x-HkV">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="69"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="2.5" minValue="0.0" maxValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="P8X-VN-qPa">
-                        <rect key="frame" x="68" y="35" width="234" height="29"/>
+                        <rect key="frame" x="68" y="35" width="234" height="34"/>
                         <connections>
                             <action selector="finisedTouchingSlider:" destination="rPZ-cL-B3M" eventType="touchUpOutside" id="4p2-79-glH"/>
                             <action selector="finisedTouchingSlider:" destination="rPZ-cL-B3M" eventType="touchUpInside" id="GdB-5s-2q8"/>
                             <action selector="sliderValueChanged:" destination="rPZ-cL-B3M" eventType="valueChanged" id="Jvo-VQ-k3a"/>
                         </connections>
                     </slider>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lc4-O3-QHO">
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="751" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lc4-O3-QHO">
                         <rect key="frame" x="64" y="8" width="236" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -30,35 +30,23 @@
                     </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CfR-6u-8rB">
                         <rect key="frame" x="7" y="0.0" width="55" height="70"/>
-                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline2"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LTk-3n-hzQ">
-                        <rect key="frame" x="0.0" y="0.0" width="6" height="70"/>
-                        <color key="backgroundColor" red="0.094117656349999995" green="0.60000002379999995" blue="0.12549020350000001" alpha="1" colorSpace="deviceRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="6" id="NGb-60-zG2"/>
-                        </constraints>
-                    </imageView>
                 </subviews>
-                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-            </view>
+            </tableViewCellContentView>
             <constraints>
-                <constraint firstItem="P8X-VN-qPa" firstAttribute="leading" secondItem="rPZ-cL-B3M" secondAttribute="leading" constant="70" id="0iL-lf-TCf"/>
-                <constraint firstItem="lc4-O3-QHO" firstAttribute="top" secondItem="rPZ-cL-B3M" secondAttribute="top" constant="8" id="7Ew-GQ-Uk5"/>
-                <constraint firstItem="lc4-O3-QHO" firstAttribute="leading" secondItem="rPZ-cL-B3M" secondAttribute="leading" constant="64" id="FzO-RQ-nBr"/>
-                <constraint firstItem="P8X-VN-qPa" firstAttribute="top" secondItem="lc4-O3-QHO" secondAttribute="bottom" constant="6" id="HCv-A9-h2D"/>
-                <constraint firstAttribute="trailing" secondItem="P8X-VN-qPa" secondAttribute="trailing" constant="20" id="dwC-Ut-h4F"/>
-                <constraint firstItem="LTk-3n-hzQ" firstAttribute="bottom" secondItem="rPZ-cL-B3M" secondAttribute="bottom" id="fbm-j2-OGz"/>
-                <constraint firstItem="LTk-3n-hzQ" firstAttribute="top" secondItem="rPZ-cL-B3M" secondAttribute="top" id="kLu-hS-Iex"/>
-                <constraint firstItem="LTk-3n-hzQ" firstAttribute="leading" secondItem="rPZ-cL-B3M" secondAttribute="leading" id="nQa-3C-xbM"/>
-                <constraint firstAttribute="trailing" secondItem="lc4-O3-QHO" secondAttribute="trailing" constant="20" id="uwO-zS-IkJ"/>
-                <constraint firstAttribute="bottom" secondItem="P8X-VN-qPa" secondAttribute="bottom" constant="7" id="wbi-yW-LXv"/>
+                <constraint firstAttribute="trailing" secondItem="lc4-O3-QHO" secondAttribute="trailing" constant="20" id="11o-qU-ayr"/>
+                <constraint firstItem="lc4-O3-QHO" firstAttribute="top" secondItem="rPZ-cL-B3M" secondAttribute="top" constant="8" id="22q-Pc-yxg"/>
+                <constraint firstItem="P8X-VN-qPa" firstAttribute="leading" secondItem="rPZ-cL-B3M" secondAttribute="leading" constant="70" id="5sT-pQ-QTT"/>
+                <constraint firstItem="P8X-VN-qPa" firstAttribute="top" secondItem="lc4-O3-QHO" secondAttribute="bottom" constant="6" id="B7o-Rr-7G9"/>
+                <constraint firstAttribute="trailing" secondItem="P8X-VN-qPa" secondAttribute="trailing" constant="20" id="Dd5-aF-O3q"/>
+                <constraint firstAttribute="bottom" secondItem="P8X-VN-qPa" secondAttribute="bottom" constant="7" id="M3t-6d-2GD"/>
+                <constraint firstItem="lc4-O3-QHO" firstAttribute="leading" secondItem="rPZ-cL-B3M" secondAttribute="leading" constant="64" id="rG1-if-isA"/>
             </constraints>
             <connections>
                 <outlet property="label" destination="lc4-O3-QHO" id="Yp4-qn-kL1"/>
-                <outlet property="sideColor" destination="LTk-3n-hzQ" id="gHZ-zY-38c"/>
                 <outlet property="slider" destination="P8X-VN-qPa" id="rYA-xl-M56"/>
                 <outlet property="value" destination="CfR-6u-8rB" id="Hgz-cK-Cah"/>
             </connections>

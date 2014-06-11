@@ -14,12 +14,13 @@
 #import "VANAppDelegate.h"
 #import "VANTeamColor.h"
 #import "VANNewSkillsAndTestsController.h"
+#import "NewTableConfiguration.h"
 
-@interface VANNewEventViewController : VANManagedObjectTableViewController <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIAlertViewDelegate>
+
+@interface VANNewEventViewController : VANManagedObjectTableViewController <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIAlertViewDelegate, VANTableViewCellExpansionDelegate>
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *nextButton;
 
 - (IBAction)saveEvent:(id)sender;
-- (void)cancel;
 
 @end

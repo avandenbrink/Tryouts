@@ -26,7 +26,7 @@
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (weak, nonatomic) IBOutlet UITableView *eventsTable;
 @property (weak, nonatomic) IBOutlet UIButton *appSettings;
-@property (weak, nonatomic) IBOutlet UIImageView *cornerImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *logoImage;
 
 - (IBAction)addEvent:(id)sender;
 

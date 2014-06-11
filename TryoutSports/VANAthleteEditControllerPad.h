@@ -6,10 +6,10 @@
 //  Copyright (c) 2013 Aaron VandenBrink. All rights reserved.
 //
 
-#import "VANNewAthleteController.h"
+#import "VANAthleteEditController.h"
 #import "VANAthleteListControllerPad.h"
 
-@interface VANNewAthleteControllerPad : VANNewAthleteController <UIPopoverControllerDelegate>
+@interface VANAthleteEditControllerPad : VANAthleteEditController
 
 @property (weak, nonatomic) VANAthleteListControllerPad *controller;
 @end

@@ -7,7 +7,7 @@
 //
 #import "VANAthleteListTabController.h"
 #import "VANAthleteListsController.h"
-#import "VANNewAthleteController.h"
+#import "VANAthleteEditController.h"
 #import "VANGlobalMethods.h"
 
 @interface VANAthleteListTabController ()
@@ -34,20 +34,20 @@
 -(void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
     VANAthleteListsController *controller = (VANAthleteListsController *)viewController;
     controller.event = self.event;
-    controller.athleteList = [self.event.athletes allObjects];
+    controller.athleteList = (NSMutableArray *)[self.event.athletes allObjects];
     [controller.tableView reloadData];
 }
 
 #pragma mark - Custom Methods
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    VANNewAthleteController *controller;
+    VANAthleteEditController *controller;
     if ([segue.identifier isEqualToString:@"toNewAthlete"]) {
         NSString *device = [[UIDevice currentDevice] model];
         if ([device isEqualToString:@"iPad"]) {
             UINavigationController *nav = segue.destinationViewController;
             nav.modalPresentationStyle = UIModalPresentationFormSheet;
-            controller = (VANNewAthleteController *)[nav topViewController];
+            controller = (VANAthleteEditController *)[nav topViewController];
             controller.delegate = self;
 
         } else {

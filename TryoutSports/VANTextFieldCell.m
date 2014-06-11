@@ -30,6 +30,13 @@
     [self textFieldDidEndEditing:self.textField];
 }
 
+#pragma mark - UI Text Field Delegate Methods
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField {
+    [self.delegate adjustContentInsetsForEditing:YES];
+    NSLog(@"Text Field Being Edited");
+}
+
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
     [self.textField resignFirstResponder];
     return YES;
@@ -41,8 +48,9 @@
     if (self.test) {
         self.test.value = self.textField.text;
     } else {
-        [self.controller addTextFieldContent:self.textField.text ToContextForTitle:self.label.text];
+        [self.delegate addTextFieldContent:self.textField.text ToContextForTitle:self.label.text];
     }
+    [self.delegate adjustContentInsetsForEditing:NO];
 }
 
 

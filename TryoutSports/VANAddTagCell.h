@@ -7,13 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "VANTagsTableViewController.h"
+
+@protocol VANAddTagDelegate <NSObject>
+
+- (void)buildnewTagWithString:(NSString *)string andType:(NSInteger)type;
+- (void)VANAddTextViewDidBecomeFirstResponder;
+- (void)VANAddTextViewDidResignFirstResponder;
+
+
+@end
 
 @interface VANAddTagCell : UITableViewCell <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *addNewButton;
 @property (weak, nonatomic) IBOutlet UITextField *textView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentButton;
-@property (strong, nonatomic) VANTagsTableViewController *controller;
+@property (nonatomic, weak) id <VANAddTagDelegate> delegate;
+
+
+-(void)safeToCloseAddTagCell;
 
 @end

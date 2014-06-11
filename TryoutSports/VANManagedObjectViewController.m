@@ -11,15 +11,11 @@
 
 @implementation VANManagedObjectViewController
 
-+ (void)initialize {
-    __dateFormatt = [[NSDateFormatter alloc] init];
-    [__dateFormatt setDateStyle:NSDateFormatterLongStyle];
-}
+
 
 -(void)viewDidLoad {
     VANTeamColor *teamcolor = [[VANTeamColor alloc] init];
     [self.view setTintColor:[teamcolor findTeamColor]];
-    
 }
 
 -(void)saveManagedObjectContext:(NSManagedObject *)managedObject {
@@ -28,6 +24,10 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error saving entity", @"Error saving entity") message:[NSString stringWithFormat:NSLocalizedString(@"Error was: %@, quitting.", @"Eror was: %@, quitting."), [error localizedDescription]] delegate:self cancelButtonTitle:NSLocalizedString(@"Aw, Nuts", @"Aw, Nuts") otherButtonTitles:nil];
         [alert show];
     }
+}
+
+-(void)adjustContentInsetsForEditing:(BOOL)editing {
+    //Can be OverWriten If Needed in SubClasses
 }
 
 -(NSManagedObject *)addNewRelationship:(NSString *)relationship {
@@ -43,5 +43,6 @@
     [self saveManagedObjectContext:self.event];
     return newAthlete;
 }
+
 
 @end
