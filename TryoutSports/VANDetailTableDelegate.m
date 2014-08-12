@@ -222,9 +222,10 @@
         cell = [nibs objectAtIndex:0];
         [cell initiate];
         cell.backgroundColor = [UIColor darkGrayColor];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     cell.athlete = self.athlete;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    [cell.collectionView reloadData]; //Fixes the but where the collection cell's collection view uploads its data based on the athelete selected prior to the latest.
     
     if ([self.athlete.aTags count] < 1) {
         if (!cell.label) {
