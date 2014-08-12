@@ -55,6 +55,8 @@ typedef NS_ENUM(NSUInteger, VANStatestep) {
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labels;
 
+@property (nonatomic, assign) BOOL isNewAthlete;
+
 -(IBAction)activateCamera;
 -(IBAction)backToAthletes;
 -(IBAction)changeStepperValue:(id)sender;

@@ -19,6 +19,7 @@
 @property (nonatomic, retain) NSDate * birthYear;
 @property (nonatomic, retain) NSDate * endDate;
 @property (nonatomic, retain) NSString * location;
+@property (nonatomic, retain) NSData *logo;
 @property (nonatomic, retain) NSNumber * manageInfo;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSNumber * numTeams;

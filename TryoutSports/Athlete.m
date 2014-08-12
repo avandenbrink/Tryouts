@@ -38,5 +38,6 @@
 @dynamic skills;
 @dynamic tests;
 @dynamic checkedIn;
+@dynamic isSelfCheckedIn;
 
 @end

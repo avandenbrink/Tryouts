@@ -113,7 +113,6 @@ static NSString *profilePic = @"TSsmall-04.png";
 
 -(void)moreOptions {
 #warning need to add Functionality to these two buttons still
-
 }
 
 -(void)makeProfileImage {

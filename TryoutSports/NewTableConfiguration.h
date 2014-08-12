@@ -19,8 +19,10 @@
 
 
 @optional
+
 -(void)pickerCell:(VANPickerCell *)cell didChangeValueToRow:(NSInteger)row inArray:(NSArray *)array;
 -(void)adjustContentInsetsForEditing:(BOOL)editing;
+-(void)VANTextFieldCellsTextFieldDidClaimFirstResponder:(VANTextFieldCell *)cell;
 -(void)addTextFieldContent:(NSString *)string ToContextForTitle:(NSString *)title;
 -(UIAlertView *)createAlertViewforEmptyPickerViewCellWithPurpose:(NSString *)purpose;
 -(void)setBoolianValue:(BOOL)value forPurpose:(NSString *)purpose;

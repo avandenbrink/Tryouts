@@ -91,6 +91,27 @@
     [self.athleteStatView findPercentAndAnimateChangesForEvent:self.event];
 }
 
+
+#pragma mark - Table VIew Data Source Methods
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    NSLog(@"Warning: Number of Cell in MainMenuVieController not implemented");
+    return 0;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 0;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *cellID = @"cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+    return cell;
+}
+
 #pragma mark - Custom Controller Button Actions
 
 - (IBAction)pushtoEventSettings:(id)sender {

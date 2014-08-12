@@ -33,8 +33,14 @@
 #pragma mark - UI Text Field Delegate Methods
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField {
-    [self.delegate adjustContentInsetsForEditing:YES];
-    NSLog(@"Text Field Being Edited");
+    
+    //Tell the Delegate that the text field did claim first responder
+    if ([self.delegate respondsToSelector:@selector(adjustContentInsetsForEditing:)]) {
+        [self.delegate adjustContentInsetsForEditing:YES];
+    }
+    if ([self.delegate respondsToSelector:@selector(textFieldDidClaimFirstResponder:)]) {
+        [self.delegate textFieldDidClaimFirstResponder:self];
+    }
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -44,7 +50,6 @@
 
 -(void)textFieldDidEndEditing:(UITextField *)textField {
     self.value = self.textField.text;
-    NSLog(@"Setting Value: %@ to %@", self.textField.text, self.value);
     if (self.test) {
         self.test.value = self.textField.text;
     } else {

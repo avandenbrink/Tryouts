@@ -16,12 +16,4 @@
 @property (strong, nonatomic) Event *event;
 @property (strong, nonatomic) Athlete *athlete;
 
--(void)adjustTableForKeyboard;
--(void)saveManagedObjectContext:(NSManagedObject *)managedObject;
-
-
-//Used by VANAddTagCell to create new Characteristic also declaired in VANManagedObjectTableViewController
--(void)buildnewTagWithString:(NSString *)string andType:(NSInteger)type;
-
-
 @end

@@ -389,8 +389,9 @@ static NSString *rAthleteImages = @"Images";
     
     _tableViewDetailDelegate.athlete = athlete;
     _tableViewDetailDelegate.config.athlete = athlete;
+    
     _detailNav.topItem.title = athlete.name; // Giving the Naviagation bar above the Athlete Detail the Name for a title
-    [_tableViewDetailDelegate updateAthleteTagsCell]; //Asks UICollectionView in AthelteDetailTable cell reload
+    [_tableViewDetailDelegate updateAthleteTagsCellWithAthlete:athlete]; //Asks UICollectionView in AthelteDetailTable cell reload
     
     [_tableViewDetail reloadData];
     if (!_detailVisible) {
@@ -458,7 +459,7 @@ static NSString *rAthleteImages = @"Images";
 #pragma mark - VAN Tags Table Delegate Delegate Methods
 
 -(void)athleteTagProfileHasBeenUpdated {
-    [_tableViewDetailDelegate updateAthleteTagsCell];
+    [_tableViewDetailDelegate updateAthleteTagsCellWithAthlete:nil];
 }
 
 -(void)VANAddTagCellBecameFirstResponder {

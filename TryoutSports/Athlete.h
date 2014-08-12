@@ -24,6 +24,7 @@
 @property (nonatomic, retain) NSNumber * seen;
 @property (nonatomic, retain) NSNumber * teamSelected;
 @property (nonatomic, retain) NSNumber * checkedIn;
+@property (nonatomic, retain) NSNumber * isSelfCheckedIn;
 
 @property (nonatomic, retain) id skillsname;
 @property (nonatomic, retain) id skillsvalue;

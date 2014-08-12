@@ -15,6 +15,8 @@
 @property (nonatomic, strong, readonly) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) UIBarButtonItem *cancelButton;
 
+@property (strong, nonatomic) VANTextFieldCell *textCell;
+
 -(NSMutableArray *)getArrayofNumbersUpTo:(NSInteger)number;
 
 @end
@@ -169,11 +171,30 @@
     if ([[tableView cellForRowAtIndexPath:indexPath] isKindOfClass:[VANTextFieldCell class]]) {
         VANTextFieldCell *cell = (VANTextFieldCell *)[tableView cellForRowAtIndexPath:indexPath];
         [cell.textField becomeFirstResponder];
+        self.textCell = cell;
     } else if ([indexPath section] == 1) {
         if ([[tableView cellForRowAtIndexPath:indexPath] isKindOfClass:[UITableViewCell class]]) {
                  [self.config didSelectRowAtIndex:indexPath inTableView:tableView forTheme:[UIColor blackColor]];
-            
         }
+        if (self.textCell) {
+            [self.textCell.textField resignFirstResponder];
+            self.textCell = nil;
+        }
+    } else {
+        if (self.textCell) {
+            [self.textCell.textField resignFirstResponder];
+            self.textCell = nil;
+        }
+    }
+}
+
+#pragma mark- UI Scroll View Delegate Methods
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (self.textCell) {
+        [self.textCell.textField resignFirstResponder];
+        self.textCell = nil;
     }
 }
 
@@ -203,14 +224,6 @@
 //When "Next" is tapped, this method is called
 - (IBAction)saveEvent:(id)sender {
     [self.view endEditing:YES];
-    
-    //Log the Event qualities for debugging Purposes
-    NSLog(@"Name: %@", self.event.name);
-    NSLog(@"Date: %@", [self.event.startDate description]);
-    NSLog(@"Location: %@", self.event.location);
-    NSLog(@"Number of Teams: %@", self.event.numTeams);
-    NSLog(@"Athlete Age: %@", self.event.athleteAge);
-    NSLog(@"Athletes Per Team: %@", self.event.athletesPerTeam);
     
     self.event.numTeams = [NSNumber numberWithInt:[self.event.numTeams intValue] + 1];
     
@@ -244,6 +257,11 @@
     } else if ([purpose isEqualToString:@"info"]){
         self.event.manageInfo = [NSNumber numberWithBool:value];
     }
+}
+
+-(void)VANTextFieldCellsTextFieldDidClaimFirstResponder:(VANTextFieldCell *)cell
+{
+    self.textCell = cell;
 }
 
 #pragma mark - Segue Methods

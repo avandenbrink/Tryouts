@@ -13,7 +13,6 @@
 
 @interface VANCollectionCell ()
 
-
 @property (strong, nonatomic) VANTeamColor *teamColor;
 - (BOOL)searchAthleteTagsForTag:(NSString *)string;
 
@@ -21,7 +20,8 @@
 
 @implementation VANCollectionCell
 
-- (void)initiate {
+- (void)initiate
+{
     _teamColor = [[VANTeamColor alloc] init];
     self.collectionView.allowsSelection = NO;
     UINib *nib = [UINib nibWithNibName:@"Tag" bundle:[NSBundle mainBundle]];
@@ -32,32 +32,37 @@
 
 #pragma mark - Collection View Data Source Methods
 
--(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    [self.collectionView.collectionViewLayout invalidateLayout];
+    NSLog(@"Number Of Tags for %@: %lu",self.athlete.name, (unsigned long)[self.athlete.aTags count]);
     return 1;
 }
 
 
--(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
     NSInteger i = [self.athlete.aTags count];
-    NSLog(@"%lu",(unsigned long)i);
     return i;
 }
 
--(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
     return UIEdgeInsetsMake(7, 7, 7, 7);
 }
 
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     static NSString *CellIdentifier = @"tag";
     VANTagsCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-
     
     cell.layer.cornerRadius = 4.00f;
-    
     cell.label.textColor = [UIColor whiteColor];
+    
     AthleteTags *tag = [[self.athlete.aTags allObjects] objectAtIndex:indexPath.row];
     cell.label.text = tag.descriptor;
+    
     if (tag.type == [NSNumber numberWithInt:0]) {
         cell.backgroundColor = [_teamColor findTeamColor];
         if (cell.backgroundColor == [UIColor whiteColor]) {
@@ -74,38 +79,28 @@
     }
     return cell;
 }
-/*
--(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    UICollectionReusableView *view = nil;
-    if (kind == UICollectionElementKindSectionHeader) {
-        view = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:indexPath];
-    }
-    return view;
-}*/
 
 #pragma mark - Collection View Delegate Methods
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-}
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     AthleteTags *tag = [[self.athlete.aTags allObjects] objectAtIndex:indexPath.row];
     CGSize textSize = [tag.descriptor sizeWithAttributes:[NSDictionary dictionaryWithObjects:@[[UIFont systemFontOfSize:17]] forKeys:@[NSFontAttributeName]]];
   //  CGSize textSize = [tag.descriptor sizeWithFont:[UIFont systemFontOfSize:17]];
     return CGSizeMake(textSize.width + 24, textSize.height + 8);
 }
 
-
 #pragma mark - Custom Defined Methods
 
-- (NSString *)dataFilePathforPath:(NSString *)string {
+- (NSString *)dataFilePathforPath:(NSString *)string
+{
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     return [documentsDirectory stringByAppendingPathComponent:string];
 }
 
-- (NSMutableArray *)getPlistFileForResource:(NSString *)resource {
+- (NSMutableArray *)getPlistFileForResource:(NSString *)resource
+{
     NSString *dataPath = [NSString stringWithFormat:@"%@.plist", resource];
     NSString *filePath = [self dataFilePathforPath:dataPath];
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -119,7 +114,8 @@
     }
 }
 
-- (BOOL)searchAthleteTagsForTag:(NSString *)string {
+- (BOOL)searchAthleteTagsForTag:(NSString *)string
+{
     for (NSInteger i = 0; i < [self.tagsArray count]; i++) {
         AthleteTags *tag = [self.tagsArray objectAtIndex:i];
         if ([tag.descriptor isEqualToString:string]) {

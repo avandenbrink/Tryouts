@@ -37,7 +37,8 @@
 
 @implementation VANDetailTableDelegate
 
--(id)init {
+- (id)init
+{
     self = [super init];
     if (self) {
         [self setup];
@@ -45,7 +46,7 @@
     return self;
 }
 
--(id)initWithTableView:(UITableView *)tableView
+- (id)initWithTableView:(UITableView *)tableView
 {
     self = [super init];
     if (self) {
@@ -57,7 +58,7 @@
     return self;
 }
 
--(void)setup
+- (void)setup
 {
     self.config = [[NewTableConfiguration alloc] init];
     self.config.delegate = self;
@@ -65,7 +66,7 @@
     self.config.event = self.event;
 }
 
--(void)resetAthletesPointertoAthlete:(Athlete *)athlete
+- (void)resetAthletesPointertoAthlete:(Athlete *)athlete
 {
     self.athlete = athlete;
     self.config.athlete = athlete;
@@ -73,7 +74,7 @@
 
 #pragma mark - Table View Data Source Methods
 
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     if (!_athlete) {
         return 0;
@@ -98,7 +99,8 @@
     }
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if ([indexPath section] == 0) {
         // -------- Top Section
         if ([indexPath row] == 0) {
@@ -143,7 +145,7 @@
 #pragma mark - Cell For Row At Support Methods
 
 
--(UITableViewCell *)setupAthleteInfoCellinTable:(UITableView *)tableView forIndex:(NSIndexPath *)indexPath
+- (UITableViewCell *)setupAthleteInfoCellinTable:(UITableView *)tableView forIndex:(NSIndexPath *)indexPath
 {
     static NSString *cellID = @"detail";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
@@ -162,7 +164,7 @@
     return cell;
 }
 
--(UITableViewCell *)setupProfileImageCellinTable:(UITableView *)tableView forIndex:(NSIndexPath *)indexPath
+- (UITableViewCell *)setupProfileImageCellinTable:(UITableView *)tableView forIndex:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Profile";
     VANAthleteProfileCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -180,7 +182,7 @@
     return cell;
 }
 
--(UITableViewCell *)setupCellforTeamNumberInTable:(UITableView *)tableView forindex:(NSIndexPath *)indexPath
+- (UITableViewCell *)setupCellforTeamNumberInTable:(UITableView *)tableView forindex:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Scroll";
     VANScrollViewTeamSelectionCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -211,7 +213,7 @@
     [cell gotoPageWithAnimation:animate];
 }
 
--(UITableViewCell *)setupTagCellforTable:(UITableView *)tableView forIndex:(NSIndexPath *)indexPath
+- (UITableViewCell *)setupTagCellforTable:(UITableView *)tableView forIndex:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"tag";
     VANCollectionCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -246,7 +248,7 @@
     return cell;
 }
 
--(UITableViewCell *)setupSkillsCellforTable:(UITableView *)tableView forIndex:(NSIndexPath *)indexPath
+- (UITableViewCell *)setupSkillsCellforTable:(UITableView *)tableView forIndex:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"sliderCell";
     VANValueSliderCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -284,7 +286,7 @@
     return cell;
 }
 
--(UITableViewCell *)setupTestsCellForTable:(UITableView *)tableView forIndex:(NSIndexPath *)indexPath
+- (UITableViewCell *)setupTestsCellForTable:(UITableView *)tableView forIndex:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"textCell";
     VANTextFieldCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -324,7 +326,7 @@
 
 #pragma mark - Table View Delegate Methods
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
         if (indexPath.row == 3) {
@@ -344,7 +346,8 @@
     }
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if ([indexPath section] == 0) {
         if ([indexPath row] == 0) {
             return 40;
@@ -374,7 +377,7 @@
     }
 }
 
--(CGFloat)findNumberOfRowswithMaxWidth:(NSInteger)width withStringMargin:(NSInteger)margin cellSpacing:(NSInteger)spacing andFont:(UIFont *)font
+- (CGFloat)findNumberOfRowswithMaxWidth:(NSInteger)width withStringMargin:(NSInteger)margin cellSpacing:(NSInteger)spacing andFont:(UIFont *)font
 {
     NSMutableArray *strings = [NSMutableArray array];
     for (NSInteger i = 0; i < [self.athlete.aTags count]; i++) {
@@ -415,7 +418,7 @@
 
 #pragma mark - VANAthleteProfileCell Deletage Methods
 
--(void)VANTableViewCellrequestsActivateCameraForAthlete:(Athlete *)athlete fromCell:(VANAthleteProfileCell *)cell
+- (void)VANTableViewCellrequestsActivateCameraForAthlete:(Athlete *)athlete fromCell:(VANAthleteProfileCell *)cell
 {
     if ([self.delegate respondsToSelector:@selector(VANTableViewCellrequestsActivateCameraForAthlete:fromCell:)]) {
         [self.delegate VANTableViewCellrequestsActivateCameraForAthlete:athlete fromCell:cell];
@@ -424,7 +427,7 @@
     }
 }
 
--(void)VANTableViewCellrequestsImageInFullScreen:(UIImage *)image fromCell:(VANAthleteProfileCell *)cell
+- (void)VANTableViewCellrequestsImageInFullScreen:(UIImage *)image fromCell:(VANAthleteProfileCell *)cell
 {
     if ([self.delegate respondsToSelector:@selector(VANTableViewCellrequestsImageInFullScreen:fromCell:)]) {
         [self.delegate VANTableViewCellrequestsImageInFullScreen:image fromCell:cell];
@@ -435,7 +438,8 @@
 
 #pragma mark - VANTextFieldCell Delegate Methods NEWTableConfig Delegate Methods
 
--(void)adjustContentInsetsForEditing:(BOOL)editing {
+- (void)adjustContentInsetsForEditing:(BOOL)editing
+{
     if ([self.delegate respondsToSelector:@selector(adjustContentInsetsForEditing:)]) {
         [self.delegate adjustContentInsetsForEditing:editing];
     } else {
@@ -444,12 +448,18 @@
     
 }
 
--(void)addTextFieldContent:(NSString *)string ToContextForTitle:(NSString *)title {
+- (void)addTextFieldContent:(NSString *)string ToContextForTitle:(NSString *)title
+{
     if ([self.delegate respondsToSelector:@selector(addTextFieldContent:ToContextForTitle:)]) {
         [self.delegate addTextFieldContent:string ToContextForTitle:title];
     } else {
         NSLog(@"Warning: VANDetailTableDelegat - Delegate not prepared for addTextFieldContent");
     }
+}
+
+- (void)textFieldDidClaimFirstResponder:(VANTextFieldCell *)cell
+{
+    
 }
 
 #pragma mark - NewTableConfiguration Delegate Methods
@@ -474,6 +484,8 @@
     return nil;
 }
 
+
+
 #pragma mark - Custom Methods
 
 -(void)readjustTeamCellWithAnimation:(BOOL)animate
@@ -492,11 +504,13 @@
  [self.pictureTaker callImagePickerController];
  }*/
 
--(IBAction)keyboardResign:(id)sender {
+-(IBAction)keyboardResign:(id)sender
+{
     [sender resignFirstResponder];
 }
 
--(AthleteSkills *)compareSkillAndValueforSkill:(Skills *)object inArray:(NSArray *)array {
+-(AthleteSkills *)compareSkillAndValueforSkill:(Skills *)object inArray:(NSArray *)array
+{
     for (AthleteSkills *skill in array) {
         NSString *attribute = skill.attribute;
         NSString *value = object.descriptor;
@@ -507,8 +521,8 @@
     return nil;
 }
 
--(AthleteTest *)compareTestAndValueforTest:(Tests *)object inArray:(NSArray *)array {
-    
+-(AthleteTest *)compareTestAndValueforTest:(Tests *)object inArray:(NSArray *)array
+{
     for (AthleteTest *test in array) {
         
         NSString *attribute = test.attribute;
@@ -520,7 +534,8 @@
     return nil;
 }
 
--(AthleteSkills *)addNewAthleteSkillRelationship {
+-(AthleteSkills *)addNewAthleteSkillRelationship
+{
     NSMutableSet *relationshipSet = [self.athlete mutableSetValueForKey:@"skills"];
     NSLog(@"Adding New Skill, athleteDetailController.m - addNewAthleteSkillRelationship");
     NSEntityDescription *entity = [self.athlete entity];
@@ -535,7 +550,8 @@
     return newAthleteSkill;
 }
 
--(AthleteTest *)addNewAthleteTestRelationship {
+-(AthleteTest *)addNewAthleteTestRelationship
+{
     NSMutableSet *relationshipSet = [self.athlete mutableSetValueForKey:@"tests"];
     NSLog(@"Adding New Test, athleteDetailController.m - addNewAthleteTestRelationship");
     NSEntityDescription *entity = [self.athlete entity];
@@ -553,7 +569,8 @@
 
 
 
--(void)cleanUpExcessSkillsAndTests {
+-(void)cleanUpExcessSkillsAndTests
+{
     NSMutableArray *athleteSkillsArray = (NSMutableArray *)[self.athlete.skills allObjects];
     NSMutableArray *eventSkillsArray = (NSMutableArray *)[self.event.skills allObjects];
     if ([athleteSkillsArray count] > [eventSkillsArray count]) {
@@ -576,7 +593,8 @@
     }
 }
 
--(BOOL)deleteUnusedSkills:(AthleteSkills *)skill inSkills:(NSMutableArray *)skills {
+-(BOOL)deleteUnusedSkills:(AthleteSkills *)skill inSkills:(NSMutableArray *)skills
+{
     for (Skills *eSkill in skills) {
         if ([eSkill.descriptor isEqualToString:skill.attribute]) {
             return YES;
@@ -585,7 +603,8 @@
     return NO;
 }
 
--(BOOL)deleteUnusedTests:(AthleteTest *)test inTests:(NSMutableArray *)tests {
+-(BOOL)deleteUnusedTests:(AthleteTest *)test inTests:(NSMutableArray *)tests
+{
     for (Tests *eTest in tests) {
         if ([eTest.descriptor isEqualToString:test.attribute]) {
             return YES;
@@ -594,7 +613,8 @@
     return NO;
 }
 
--(void)buildFullScreenImageViewWithImage {
+-(void)buildFullScreenImageViewWithImage
+{
     /*    [self setContentOffset:CGPointMake(0, -63)];
      self.scrollEnabled = NO;
      
@@ -619,13 +639,17 @@
      }*/
 }
 
--(void)updateAthleteTagsCell
+-(void)updateAthleteTagsCellWithAthlete:(Athlete *)athlete
 {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
     VANCollectionCell *cell = (VANCollectionCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+    if (athlete) {
+        cell.athlete = athlete;
+    }
+    [cell.collectionView.collectionViewLayout invalidateLayout];
     [cell.collectionView reloadData];
+    [cell.collectionView reloadItemsAtIndexPaths:[cell.collectionView indexPathsForVisibleItems]];
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-
 }
 
 @end

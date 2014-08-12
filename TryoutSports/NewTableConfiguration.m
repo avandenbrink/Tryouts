@@ -55,6 +55,13 @@
     }
 }
 
+-(void)textFieldDidClaimFirstResponder:(VANTextFieldCell *)cell
+{
+    if ([self.delegate respondsToSelector:@selector(VANTextFieldCellsTextFieldDidClaimFirstResponder:)]) {
+        [self.delegate VANTextFieldCellsTextFieldDidClaimFirstResponder:cell];
+    }
+}
+
 #pragma mark - Other Custom Methods
 
 //IOS 7 Updates

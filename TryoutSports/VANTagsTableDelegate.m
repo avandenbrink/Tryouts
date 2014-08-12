@@ -260,37 +260,47 @@ static NSString *kTagTypeKey = @"type";
     if (indexPath.section == 1 && indexPath.row == 0) {
         // Do Nothing --- Filter Button Cell
     } else if (indexPath.section == 1 && indexPath.row == 1) {
+        
         // Add new tag Cell
         _tagCell.addNewButton.enabled = YES;
         _tagCell.segmentButton.hidden = NO;
         [_tagCell.textView becomeFirstResponder];
-        
         if ([_delegate respondsToSelector:@selector(VANAddTagCellBecameFirstResponder)]) {
             [_delegate VANAddTagCellBecameFirstResponder];
         }
     } else {
+        
+        //Select a Tag
         if (indexPath.section == 0) {
+            // Tag is will become deselected
             NSDictionary *dic = [self.selectedTagsArray objectAtIndex:indexPath.row];
-            
             AthleteTags *tag = [self returnManagedObjectwithString:[dic valueForKey:kTagNameKey] fromSet:self.athlete.aTags];
+            
             [self removeTagFromAthleteProfile:tag];
             [self.selectedTagsArray removeObjectAtIndex:indexPath.row];
             [self.otherTagsArray addObject:dic];
+            
             UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-            cell.accessoryType = UITableViewCellAccessoryNone;
             NSIndexPath *destination = [NSIndexPath indexPathForRow:[_otherTagsArray count] inSection:1];
+            
+            cell.accessoryType = UITableViewCellAccessoryNone;
             [tableView moveRowAtIndexPath:indexPath toIndexPath:destination];
         } else {
+            // Tag will become selected
             NSDictionary *dic = [self.otherTagsArray objectAtIndex:indexPath.row-2];
             NSNumber *count = [dic valueForKey:kTagCountKey];
             NSNumber *addOne = [NSNumber numberWithInt:[count intValue]+1];
             [dic setValue:addOne forKey:kTagCountKey];
+            
             [self addNewTagToAthleteProfile:dic];
             [self.otherTagsArray removeObjectAtIndex:indexPath.row-2];
             [self.selectedTagsArray addObject:dic];
+            
             UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+            NSIndexPath *destination = [NSIndexPath indexPathForRow:[self.selectedTagsArray count]-1 inSection:0];
+
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
-            [tableView moveRowAtIndexPath:indexPath toIndexPath:[NSIndexPath indexPathForRow:[self.selectedTagsArray count]-1 inSection:0]];
+            [tableView moveRowAtIndexPath:indexPath toIndexPath:destination];
         }
         
         if ([_delegate respondsToSelector:@selector(athleteTagProfileHasBeenUpdated)]) {
@@ -580,8 +590,9 @@ static NSString *kTagTypeKey = @"type";
 - (void)removeTagFromAthleteProfile:(NSManagedObject *)object {
     NSManagedObjectContext *context = [self.athlete managedObjectContext];
     [context deleteObject:object];
+    VANGlobalMethods *methods = [[VANGlobalMethods alloc] initwithEvent:self.event];
+    [methods saveManagedObject:self.athlete];
     NSLog(@"Athlete 1 %lu",(unsigned long)[self.athlete.aTags count]);
-
 }
 
 //Works with this Controller's viewDidLoad method to return a NSMutableArray object from a plistFile in the NSDocumentDirectory Bundle named Characteristics.plist

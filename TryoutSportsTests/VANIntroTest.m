@@ -37,8 +37,9 @@
     XCTAssertTrue([self.intro respondsToSelector:@selector(config)], @"expecte Intro to fetchControllers properlly");
 }
 
-- (void)contextExists {
-    XCTAssertTrue([self.init respondsToSelector:@selector(managedObjectContext)], @"Context Exists");
+- (void)testContext
+{
+    XCTAssertTrue([self.intro respondsToSelector:@selector(managedObjectContext)], @"Passing Now");
 }
 
 @end

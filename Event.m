@@ -21,6 +21,7 @@
 @dynamic birthYear;
 @dynamic endDate;
 @dynamic location;
+@dynamic logo;
 @dynamic manageInfo;
 @dynamic name;
 @dynamic numTeams;
@@ -32,15 +33,6 @@
 
 @dynamic teamAthlete;
 
--(void)awakeFromInsert {
-    self.startDate = [NSDate date];
-    self.numTeams = [NSNumber numberWithInt:2];
-    self.athleteAge = [NSNumber numberWithInt:1];
-    self.athletesPerTeam = [NSNumber numberWithInt:1];
-    self.athleteSignIn = [NSNumber numberWithInt:1];
-    self.manageInfo = [NSNumber numberWithInt:1];
-    
-    [super awakeFromInsert];
-}
+
 
 @end

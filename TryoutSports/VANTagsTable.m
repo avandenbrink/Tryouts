@@ -225,7 +225,7 @@ static NSString *kTagTypeKey = @"type";
                 tags = [tags stringByAppendingString:[NSString stringWithFormat:@"%@, ",d.descriptor]];
             }
             NSLog(@"Deslected: %@", tags);
-            [self.delegateController.tableViewDetailDelegate updateAthleteTagsCell];
+            [self.delegateController.tableViewDetailDelegate updateAthleteTagsCellWithAthlete:nil];
             [self.delegateController.tableViewDetail reloadData];
             
         } else {
@@ -239,7 +239,7 @@ static NSString *kTagTypeKey = @"type";
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
             [tableView moveRowAtIndexPath:indexPath toIndexPath:[NSIndexPath indexPathForRow:[self.selectedTagsArray count]-1 inSection:0]];
             
-            [self.delegateController.tableViewDetailDelegate updateAthleteTagsCell];
+            [self.delegateController.tableViewDetailDelegate updateAthleteTagsCellWithAthlete:nil];
             [self.delegateController.tableViewDetail reloadData];
         }
     }
@@ -445,14 +445,16 @@ static NSString *kTagTypeKey = @"type";
     [relationshipSet addObject:tag];
     tag.descriptor = [dict valueForKey:kTagNameKey];
     tag.type = [dict valueForKey:kTagTypeKey];
-    [self saveManagedObjectContext:self.athlete];
+    VANGlobalMethods *methods = [[VANGlobalMethods alloc] initwithEvent:self.event];
+    [methods saveManagedObject:self.athlete];
 }
 
 //Works with this Controller's didSelectItemAtIndex method to remove an AthleteTag instance and its relationship to self.athlete from the managedObjectContext
 - (void)removeTagFromAthleteProfile:(NSManagedObject *)object {
     NSManagedObjectContext *context = [self.athlete managedObjectContext];
     [context deleteObject:object];
-    [self saveManagedObjectContext:self.athlete];
+    VANGlobalMethods *methods = [[VANGlobalMethods alloc] initwithEvent:self.event];
+    [methods saveManagedObject:self.athlete];
 }
 
 //Returns a string value of the full filepath for a file with name of the input value "sting"

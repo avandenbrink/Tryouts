@@ -22,12 +22,14 @@ const NSInteger kMaxCellSpacing = 4;
 
 @implementation VANLeftAlignedFlowLayout
 
--(void)prepareLayout {
+- (void)prepareLayout
+{
     [super prepareLayout];
     self.sectionInset = UIEdgeInsetsMake(9, 9, 9, 9);
 }
 
-- (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {
+- (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect
+{
     NSArray* attributesToReturn = [super layoutAttributesForElementsInRect:rect];
     for (UICollectionViewLayoutAttributes* attributes in attributesToReturn) {
         if (nil == attributes.representedElementKind) {
@@ -38,11 +40,13 @@ const NSInteger kMaxCellSpacing = 4;
     return attributesToReturn;
 }
 
--(BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
+- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds
+{
     return YES;
 }
  
-- (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     UICollectionViewLayoutAttributes* currentItemAttributes =
     [super layoutAttributesForItemAtIndexPath:indexPath];
     

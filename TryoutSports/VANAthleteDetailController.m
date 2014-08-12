@@ -69,7 +69,7 @@
     [super viewWillAppear:animated];
     
     [self.tableView reloadData];
-    [_tableDelegate reloadTagsCollectionViewCell];
+    [_tableDelegate updateAthleteTagsCellWithAthlete:self.athlete];
     self.navigationItem.title = self.athlete.name;
 
 }
@@ -77,7 +77,6 @@
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [_tableDelegate moveTeamScrollViewWithAnimation:NO];
-
 }
 
 - (void)didReceiveMemoryWarning

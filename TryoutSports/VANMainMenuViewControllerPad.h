@@ -25,10 +25,23 @@ typedef NS_ENUM(NSUInteger, VANNotificationAction) {
 
 @interface VANMainMenuViewControllerPad : VANMainMenuViewController <UIActionSheetDelegate>
 
-@property (weak, nonatomic) IBOutlet UITableView *notificationTable;
+
+@property (weak, nonatomic) IBOutlet UIView *buttonContainer;
+@property (weak, nonatomic) IBOutlet UIView *infoContainer;
+
+//inside button Container
 @property (weak, nonatomic) IBOutlet UIView *logoBGView;
 @property (weak, nonatomic) IBOutlet UIImageView *logo;
-@property (weak, nonatomic) IBOutlet UIView *logoSeparator;
+
+@property (weak, nonatomic) IBOutlet UIImageView *athletesImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *decisionRoomImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *signInImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *settingsImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *connectImageView;
+
+//Inside info Container
+@property (weak, nonatomic) IBOutlet UITableView *notificationTable;
+
 
 -(void)releaseAthleteDetailViews;
 -(IBAction)toAthleteSignIn:(id)sender;

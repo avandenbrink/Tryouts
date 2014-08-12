@@ -9,15 +9,6 @@
 #import "VANAthleteSignInController.h"
 
 
-@interface VANAthleteSignInController ()
-
-@property (nonatomic, assign) BOOL isInputing;
-
-@property (strong, nonatomic) NSMutableArray *athleteArray;
-@property (nonatomic, assign) NSInteger stringLength;
-
-@end
-
 static NSInteger kSpacingMargin = 10;
 static NSInteger kMiniSpacing = 2;
 
@@ -38,7 +29,25 @@ static float xBox = 0.28f; // 0.35f;
 static float xImage = 0.575f;
 static float xText = 0.36f; //0.55f;
 
+static NSInteger kSuccessViewx = 500;
+
+static NSString *kSuccessLabelText = @"Sign-In Complete";
+
 static NSString *kTryoutSportsImage = @"icon60.png";
+
+
+
+@interface VANAthleteSignInController ()
+
+@property (nonatomic, assign) BOOL isInputing;
+
+@property (strong, nonatomic) NSMutableArray *athleteArray;
+@property (nonatomic, assign) NSInteger stringLength;
+
+@property (strong, nonatomic) UIView *successView;
+
+@end
+
 
 @implementation VANAthleteSignInController
 
@@ -172,13 +181,13 @@ static NSString *kTryoutSportsImage = @"icon60.png";
     if ([self.athleteArray count] == 0) {
         return 1;
     } else {
-        return [self.athleteArray count];
+        return [self.athleteArray count]+1;
     }
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([self.athleteArray count] == 0) {
+    if ([self.athleteArray count] == 0 || indexPath.row == [self.athleteArray count]) {
         return [self tableView:tableView emptyTableCellForIndexPath:indexPath];
     }
 
@@ -208,9 +217,10 @@ static NSString *kTryoutSportsImage = @"icon60.png";
     static NSString *cellID = @"name";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
     
-    cell.textLabel.text = @"No athletes found";
-    cell.textLabel.textColor = [UIColor darkGrayColor];
-    cell.detailTextLabel.text = @"Create a New Profile";
+    cell.textLabel.text = @"Can't Find your Name?";
+    cell.textLabel.textColor = [UIColor lightGrayColor];
+    cell.detailTextLabel.text = @"Sign Up Now";
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     return cell;
 }
@@ -221,14 +231,21 @@ static NSString *kTryoutSportsImage = @"icon60.png";
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if ([self.athleteArray count] == 0) {
-        NSLog(@"Build New Athlete");
+    if ([self.athleteArray count] == 0 || indexPath.row == [self.athleteArray count]) {
+        VANGlobalMethods *methods = [[VANGlobalMethods alloc] initwithEvent:self.event];
+        Athlete *newAthelte = (Athlete *)[methods addNewRelationship:@"athletes" toManagedObject:self.event andSave:NO];
+        newAthelte.checkedIn = [NSNumber numberWithBool:NO];
+        newAthelte.isSelfCheckedIn = [NSNumber numberWithBool:YES];
+        newAthelte.number = [NSNumber numberWithInteger:[self.event.athletes count]];
+        
+        [self performSegueWithIdentifier:@"toAthleteSpecifics" sender:newAthelte];
     } else {
         Athlete *athlete = [self.athleteArray objectAtIndex:indexPath.row];
         if (![athlete.checkedIn boolValue]) {
             [self performSegueWithIdentifier:@"toAthleteSpecifics" sender:athlete];
         }
     }
+    [self.textField resignFirstResponder];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -330,10 +347,34 @@ static NSString *kTryoutSportsImage = @"icon60.png";
 -(void)popViewControllerandReset {
     [self.navigationController popViewControllerAnimated:YES];
     [self cancelAthleteLookup];
-    
     [self.textField resignFirstResponder];
     
-    
+    if (!self.successView) {
+        self.successView = [[UIView alloc] initWithFrame:CGRectMake((self.view.frame.size.width-kSuccessViewx)/2, (self.view.frame.size.height-kSuccessViewx)/2, kSuccessViewx, kSuccessViewx)];
+        self.successView.layer.cornerRadius = 30;
+        [self.view addSubview:self.successView];
+        self.successView.translatesAutoresizingMaskIntoConstraints = NO;
+        self.successView.backgroundColor = [UIColor darkGrayColor];
+        
+        UILabel *label = [[UILabel alloc] initWithFrame:self.successView.frame];
+        label.translatesAutoresizingMaskIntoConstraints = NO;
+        label.text = kSuccessLabelText;
+        label.textColor = [UIColor whiteColor];
+        label.backgroundColor = [UIColor greenColor];
+        [self.successView addSubview:label];
+        
+    }
+    self.successView.layer.opacity = 0;
+    self.successView.hidden = NO;
+    [UIView animateWithDuration:0.5 animations:^{
+        self.successView.layer.opacity = 0.95;
+    } completion:^(BOOL success){
+        [UIView animateWithDuration:0.5 delay:2 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            self.successView.layer.opacity = 0;
+        } completion:^(BOOL success){
+            self.successView.hidden = YES;
+        }];
+    }];
     
 }
 

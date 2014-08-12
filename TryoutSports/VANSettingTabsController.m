@@ -6,9 +6,6 @@
 //  Copyright (c) 2013 Aaron VandenBrink. All rights reserved.
 //
 
-#warning // Possible Crash Issue
-//For Some reason on this page some time when the number of teams is changed and the controller is left quickly, the number is regerstered as 1 (or 0) teams as opposed to the real number.  Possibly a cause of the Save button being pressed before the slide is done its animation, but not 100%. Seems to happen when number starts high and moves lower.
-
 
 #import "VANSettingTabsController.h"
 
@@ -17,8 +14,6 @@
 
 @property (strong, nonatomic) UIBarButtonItem *cancelButton;
 @property (strong, nonatomic) UIBarButtonItem *saveButton;
-
-
 
 @end
 

@@ -40,9 +40,8 @@
 
 -(id)initWithTableView:(UITableView *)tableView;
 -(void)moveTeamScrollViewWithAnimation:(BOOL)animate;
--(void)reloadTagsCollectionViewCell;
-
 -(void)resetAthletesPointertoAthlete:(Athlete *)athlete;
 -(void)readjustTeamCellWithAnimation:(BOOL)animate;
--(void)updateAthleteTagsCell;
+-(void)updateAthleteTagsCellWithAthlete:(Athlete *)athlete;
+
 @end

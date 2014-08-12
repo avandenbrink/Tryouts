@@ -10,10 +10,13 @@
 #import "VANMotherCell.h"
 #import "VANManagedObjectTableViewController.h"
 
+@class VANTextFieldCell;
+
 @protocol VANTextFieldCellDelegate <NSObject>
 
 -(void)adjustContentInsetsForEditing:(BOOL)editing;
 -(void)addTextFieldContent:(NSString *)string ToContextForTitle:(NSString *)title;
+-(void)textFieldDidClaimFirstResponder:(VANTextFieldCell *)cell;
 
 @end
 

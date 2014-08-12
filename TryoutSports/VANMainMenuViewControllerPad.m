@@ -27,6 +27,9 @@ static NSString const *kToAthleteListUnseen = @"unseen";
 static NSInteger logoBGCornerRadus = 105;
 static NSInteger logoCornerRadius = 100;
 
+static NSInteger kinfoContainerHeightPortrait = 300;
+static NSInteger kinfoContainerWidthLandscape = 250;
+
 @interface VANMainMenuViewControllerPad ()
 
 @property (strong, nonatomic) NSMutableArray *notifications;
@@ -41,7 +44,6 @@ static NSInteger logoCornerRadius = 100;
     //On First Load, Build notifications for the Table View Based on current event state
     VANTeamColor *color = [[VANTeamColor alloc] init];
     
-    _logoSeparator.backgroundColor = [color findTeamColor];
     _logoBGView.backgroundColor = [color findTeamColor];
     _logoBGView.layer.masksToBounds = YES;
     _logoBGView.layer.cornerRadius = logoBGCornerRadus;
@@ -61,6 +63,14 @@ static NSInteger logoCornerRadius = 100;
         button.layer.masksToBounds = YES;
         button.layer.cornerRadius = logoCornerRadius;
     }
+
+    if ([self.event.athleteSignIn isEqualToNumber:[NSNumber numberWithBool:NO]]) {
+        _signInImageView.backgroundColor = [UIColor darkGrayColor];
+    } else {
+        _signInImageView.backgroundColor = [UIColor navyBlue];
+    }
+    
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -71,45 +81,31 @@ static NSInteger logoCornerRadius = 100;
     [self.notificationTable reloadData];
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"toNewAthletes"]) {
-        UINavigationController *nav = [segue destinationViewController];
-        UISplitViewController *split = (UISplitViewController *)[nav topViewController];
-        UINavigationController *nav1 = [split.viewControllers objectAtIndex:0];
-        VANAthleteListViewController *controller = (VANAthleteListViewController *)[nav1 topViewController];
-        controller.event = self.event;
-        UINavigationController *nav2 = [split.viewControllers objectAtIndex:1];
-        VANAthleteDetailControllerPad *detailController = (VANAthleteDetailControllerPad *)[nav2 topViewController];
-        detailController.delegate = self;
-        detailController.event = self.event;
-        
-    } if ([segue.identifier isEqualToString:@"toEventSettings"]) {
-        VANFullNavigationViewController *nav = segue.destinationViewController;
-        nav.modalPresentationStyle = UIModalPresentationFormSheet;
-        VANSettingTabsControllerPad *tabBarController = (VANSettingTabsControllerPad *)nav.topViewController;
-        tabBarController.delegate = tabBarController;
-        tabBarController.superView = self;
-        // Temporarily decreasing Event Teams to account for 0 being no team. Will be added back when view disappears
-        self.event.numTeams = [NSNumber numberWithInt:[self.event.numTeams intValue]-1];
-        tabBarController.event = self.event;
-        tabBarController.selectedIndex = 0;
-        VANNewEventViewController *controller = (VANNewEventViewController *)[tabBarController.viewControllers objectAtIndex:0];
-        controller.event = self.event;
-    }else if ([segue.identifier isEqualToString:@"toEventPicker"]){
-        NSLog(@"To Event Picker");
-        UINavigationController *nav = [segue destinationViewController];
-        VANIntroViewControllerPad *controller = (VANIntroViewControllerPad *)[nav topViewController];
-        controller.delegate = self;
-    } else if ([segue.identifier isEqualToString:@"toAthleteList"]) {
-        VANAthleteListControllerPad *controller = segue.destinationViewController;
-        controller.tabBar.selectedItem = [controller.tabBar.items objectAtIndex:0];
-        controller.event = self.event;
-    } else if ([segue.identifier isEqualToString:@"toAthleteSignIn"]) {
-        VANAthleteSignInController *controller = segue.destinationViewController;
-        controller.event = self.event;
+-(void)viewDidLayoutSubviews
+{
+    if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
+        [self moveFramesForLandscapeOrientation];
     } else {
-        [super prepareForSegue:segue sender:sender];
+        [self moveFramesForPortraitOrientation];
     }
+}
+
+-(void)moveFramesForLandscapeOrientation
+{
+    CGRect buttonRect = CGRectMake(0, 0, self.view.frame.size.width-kinfoContainerWidthLandscape, self.view.frame.size.height);
+    [_buttonContainer setFrame:buttonRect];
+    
+    CGRect infoRect = CGRectMake(self.view.frame.size.width-kinfoContainerWidthLandscape, 0, kinfoContainerWidthLandscape, self.view.frame.size.height);
+    [_infoContainer setFrame:infoRect];
+}
+
+-(void)moveFramesForPortraitOrientation
+{
+    CGRect buttonRect = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-kinfoContainerHeightPortrait);
+    [_buttonContainer setFrame:buttonRect];
+    
+    CGRect infoRect = CGRectMake(0, self.view.frame.size.height-kinfoContainerHeightPortrait, self.view.frame.size.width, kinfoContainerHeightPortrait);
+    [_infoContainer setFrame:infoRect];
 }
 
 -(void)releaseAthleteDetailViews {
@@ -170,6 +166,8 @@ static NSInteger logoCornerRadius = 100;
     NSNumber *number = [dic valueForKey:nAction];
     if ([number integerValue] == VANNotificationActionToAthletes) {
         [self performSegueWithIdentifier:@"toAthleteList" sender:self.event];
+    } else if ([number integerValue] == VANNotificationActionToAthletesFlagged) {
+        
     }
     
     
@@ -303,6 +301,49 @@ static NSInteger logoCornerRadius = 100;
         return nil;
     }
     return  array;
+}
+
+#pragma mark - Segue Method
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"toNewAthletes"]) {
+        UINavigationController *nav = [segue destinationViewController];
+        UISplitViewController *split = (UISplitViewController *)[nav topViewController];
+        UINavigationController *nav1 = [split.viewControllers objectAtIndex:0];
+        VANAthleteListViewController *controller = (VANAthleteListViewController *)[nav1 topViewController];
+        controller.event = self.event;
+        UINavigationController *nav2 = [split.viewControllers objectAtIndex:1];
+        VANAthleteDetailControllerPad *detailController = (VANAthleteDetailControllerPad *)[nav2 topViewController];
+        detailController.delegate = self;
+        detailController.event = self.event;
+        
+    } if ([segue.identifier isEqualToString:@"toEventSettings"]) {
+        VANFullNavigationViewController *nav = segue.destinationViewController;
+        nav.modalPresentationStyle = UIModalPresentationFormSheet;
+        VANSettingTabsControllerPad *tabBarController = (VANSettingTabsControllerPad *)nav.topViewController;
+        tabBarController.delegate = tabBarController;
+        tabBarController.superView = self;
+        // Temporarily decreasing Event Teams to account for 0 being no team. Will be added back when view disappears
+        self.event.numTeams = [NSNumber numberWithInt:[self.event.numTeams intValue]-1];
+        tabBarController.event = self.event;
+        tabBarController.selectedIndex = 0;
+        VANNewEventViewController *controller = (VANNewEventViewController *)[tabBarController.viewControllers objectAtIndex:0];
+        controller.event = self.event;
+    }else if ([segue.identifier isEqualToString:@"toEventPicker"]){
+        NSLog(@"To Event Picker");
+        UINavigationController *nav = [segue destinationViewController];
+        VANIntroViewControllerPad *controller = (VANIntroViewControllerPad *)[nav topViewController];
+        controller.delegate = self;
+    } else if ([segue.identifier isEqualToString:@"toAthleteList"]) {
+        VANAthleteListControllerPad *controller = segue.destinationViewController;
+        controller.tabBar.selectedItem = [controller.tabBar.items objectAtIndex:0];
+        controller.event = self.event;
+    } else if ([segue.identifier isEqualToString:@"toAthleteSignIn"]) {
+        VANAthleteSignInController *controller = segue.destinationViewController;
+        controller.event = self.event;
+    } else {
+        [super prepareForSegue:segue sender:sender];
+    }
 }
 
 @end

@@ -6,6 +6,7 @@
         <attribute name="checkedIn" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="flagged" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="isSelfCheckedIn" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="number" optional="YES" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
         <attribute name="phoneNumber" optional="YES" attributeType="String" syncable="YES"/>
@@ -20,7 +21,7 @@
         <relationship name="aTags" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="AthleteTags" inverseName="athlete" inverseEntity="AthleteTags" syncable="YES"/>
         <relationship name="event" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Event" inverseName="athletes" inverseEntity="Event" syncable="YES"/>
         <relationship name="images" optional="YES" toMany="YES" minCount="1" deletionRule="Cascade" destinationEntity="Image" inverseName="athlete" inverseEntity="Image" syncable="YES"/>
-        <relationship name="profileImage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Image" syncable="YES"/>
+        <relationship name="profileImage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Image" inverseName="keyImage" inverseEntity="Image" syncable="YES"/>
         <relationship name="skills" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="AthleteSkills" inverseName="athlete" inverseEntity="AthleteSkills" syncable="YES"/>
         <relationship name="tests" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="AthleteTest" inverseName="athlete" inverseEntity="AthleteTest" syncable="YES"/>
         <fetchedProperty name="teamAtheltes" optional="YES" syncable="YES">
@@ -65,6 +66,7 @@
     <entity name="Image" representedClassName="Image" syncable="YES">
         <attribute name="headShot" optional="YES" attributeType="Transformable" syncable="YES"/>
         <relationship name="athlete" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Athlete" inverseName="images" inverseEntity="Athlete" syncable="YES"/>
+        <relationship name="keyImage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Athlete" inverseName="profileImage" inverseEntity="Athlete" syncable="YES"/>
     </entity>
     <entity name="Positions" representedClassName="Positions" syncable="YES">
         <attribute name="position" optional="YES" attributeType="String" syncable="YES"/>

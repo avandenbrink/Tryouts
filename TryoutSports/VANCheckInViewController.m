@@ -15,8 +15,8 @@ static NSInteger kButtonWidth = 100;
 
 static NSInteger kImageStep1 = 500;
 static NSInteger kImageStep2 = 200;
-static NSInteger kImageOffsetH = 30;
-static NSInteger kImageOffsetV = 85;
+static NSInteger kImageOffsetH = 35;
+static NSInteger kImageOffsetV = 100;
 
 static NSInteger kClipboardWidth = 570;
 static NSInteger kClipboardHeight = 640;
@@ -25,27 +25,33 @@ static NSInteger kClipboardMinTop = 60;
 static NSInteger kKeyboardHeightLandscape = 392;
 static NSInteger kKeyboardHeightPortrait = 304;
 
-static NSInteger kStep2IDTop = 225;
-static NSInteger kStep2IDWidth = 198;
+static NSInteger kStep2IDTop = 270;
+static NSInteger kStep2IDWidth = 178;
 static NSInteger kStep2TopTextLeft = 250;
-static NSInteger kStep2NameTop = 135;
-static NSInteger kStep2NameWidth = 300;
-static NSInteger kStep2EmailTop = 300;
-static NSInteger kStep2PhoneTop = 340;
-static NSInteger kStep2BirthdayTop = 385;
-static NSInteger kStep2LabelWidth = 385;
-static NSInteger kStep2BottomTextLeft = 155;
+static NSInteger kStep2NameTop = 185;
+static NSInteger kStep2NameWidth = 280;
+static NSInteger kStep2EmailTop = 310;
+static NSInteger kStep2PhoneTop = 350;
+static NSInteger kStep2BirthdayTop = 390;
+static NSInteger kStep2LabelWidth = 360;
+static NSInteger kStep2BottomTextLeft = 170;
+static NSInteger kStep2DatePickerLeft = 20;
+static NSInteger kStep2DatePickerWidth = 530;
 
 static NSInteger kTextFieldHeight = 30;
 
-static NSInteger kStep3IDTop = 85;
-static NSInteger kStep3IDLeft = 220;
-static NSInteger kStep3TextFieldLeft = 260;
-static NSInteger kStep3NameTop = 95;
-static NSInteger kStep3EmailTop = 145;
-static NSInteger kStep3PhoneTop = 195;
-static NSInteger kStep3BirthdayTop = 245;
+static NSInteger kStep3IDTop = 120;
+static NSInteger kStep3IDLeft = 210;
+static NSInteger kStep3TextFieldLeft = 250;
+static NSInteger kStep3TextFieldLeftB = 260;
+static NSInteger kStep3NameTop = 160;
+static NSInteger kStep3EmailTop = 220;
+static NSInteger kStep3PhoneTop = 245;
+static NSInteger kStep3BirthdayTop = 195;
 static NSInteger kStep3LabelWidth = 280;
+static NSInteger kNumberBackGroundx = 50;
+static NSInteger kNumberBGTop = 110;
+static NSInteger kNumberBGLeft = 200;
 
 static NSInteger kTableViewHeight = 300;
 
@@ -75,6 +81,7 @@ static NSString *defaultImagePic = @"headshot.png";
 @property (strong, nonatomic) NSArray *positionArray;
 
 @property (strong, nonatomic) UITableViewCell *selectedCell;
+@property (strong, nonatomic) UIView *numberBackgroundView;
 
 @end
 
@@ -93,6 +100,11 @@ static NSString *defaultImagePic = @"headshot.png";
     _textFieldIDNumber.translatesAutoresizingMaskIntoConstraints = YES;
     _stepper.translatesAutoresizingMaskIntoConstraints = YES;
     _datePicker.translatesAutoresizingMaskIntoConstraints = YES;
+    _birthdayLabel.translatesAutoresizingMaskIntoConstraints = YES;
+    for (UILabel *label in self.labels) {
+        label.translatesAutoresizingMaskIntoConstraints = YES;
+        label.textAlignment = NSTextAlignmentLeft;
+    }
 
     _steps = 1;
     
@@ -114,6 +126,12 @@ static NSString *defaultImagePic = @"headshot.png";
     self.dateFormatter = [[NSDateFormatter alloc] init];
     self.dateFormatter.dateStyle = NSDateFormatterLongStyle;
     self.birthdayLabel.text = [self.dateFormatter stringFromDate:startDate];
+    
+    UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:self.contentView.frame];
+    [self.contentView insertSubview:backgroundImage atIndex:0];
+    backgroundImage.image = [UIImage imageNamed:@"clipboard.png"];
+    
+    self.birthdayLabel.textAlignment = NSTextAlignmentLeft;
 }
 
 -(void)viewDidLayoutSubviews
@@ -238,6 +256,7 @@ static NSString *defaultImagePic = @"headshot.png";
     self.textFieldIDNumber.placeholder = @"1";
     CGRect iDRect = CGRectMake(kStep2TopTextLeft, kStep2IDTop, kStep2IDWidth, kTextFieldHeight);
     [self.textFieldIDNumber setFrame:iDRect];
+    self.textFieldIDNumber.textAlignment = NSTextAlignmentCenter;
     
     self.textFieldEmail.placeholder = @"yourEmail@TryoutSports.com";
     CGRect emailRect = CGRectMake(kStep2BottomTextLeft, kStep2EmailTop, kStep2LabelWidth, kTextFieldHeight);
@@ -253,14 +272,19 @@ static NSString *defaultImagePic = @"headshot.png";
     
     CGRect birthdayRect = CGRectMake(kStep2BottomTextLeft, kStep2BirthdayTop, kStep2LabelWidth, kTextFieldHeight);
     [self.birthdayLabel setFrame:birthdayRect];
+    self.birthdayLabel.textAlignment = NSTextAlignmentLeft;
     
     //Hide the PickerView
     CGRect oldPickerFrame = self.datePicker.frame;
-    [self.datePicker setFrame:CGRectMake(30, self.contentView.frame.size.height-oldPickerFrame.size.height, oldPickerFrame.size.width, oldPickerFrame.size.height)];
+    [self.datePicker setFrame:CGRectMake(kStep2DatePickerLeft, self.contentView.frame.size.height-oldPickerFrame.size.height, kStep2DatePickerWidth, oldPickerFrame.size.height)];
     
     if (self.tableView) {
-        CGRect tableRect = CGRectMake(30, self.contentView.frame.size.height, self.contentView.frame.size.width-60, kTableViewHeight);
+        CGRect tableRect = CGRectMake(kStep2DatePickerLeft, self.contentView.frame.size.height, kStep2DatePickerWidth, kTableViewHeight);
         [self.tableView setFrame:tableRect];
+    }
+    
+    if (self.numberBackgroundView) {
+        self.numberBackgroundView.layer.opacity = 0;
     }
 }
 
@@ -273,6 +297,7 @@ static NSString *defaultImagePic = @"headshot.png";
     self.secondaryProfileImage.image = self.profileImage.image;
     self.secondaryProfileImage.hidden = NO;
     self.profileImage.hidden = YES;
+    self.stepper.hidden = NO;
     
     _profileButton.hidden = YES;
     [_profileButton removeTarget:self action:@selector(activateCamera) forControlEvents:UIControlEventTouchUpInside];
@@ -281,6 +306,12 @@ static NSString *defaultImagePic = @"headshot.png";
     self.textFieldEmail.borderStyle = UITextBorderStyleRoundedRect;
     self.textFieldName.borderStyle = UITextBorderStyleRoundedRect;
     self.textFieldPhoneNumber.borderStyle = UITextBorderStyleRoundedRect;
+    
+    self.textFieldIDNumber.textColor = [UIColor blackColor];
+    self.textFieldEmail.textColor = [UIColor blackColor];
+    self.textFieldName.textColor = [UIColor blackColor];
+    self.textFieldPhoneNumber.textColor = [UIColor blackColor];
+    self.birthdayLabel.textColor = [UIColor blackColor];
     
     self.textFieldIDNumber.userInteractionEnabled = YES;
     self.textFieldEmail.userInteractionEnabled = YES;
@@ -315,6 +346,12 @@ static NSString *defaultImagePic = @"headshot.png";
     self.textFieldName.userInteractionEnabled = NO;
     self.textFieldPhoneNumber.userInteractionEnabled = NO;
     
+    self.textFieldIDNumber.textColor = [UIColor lightGrayColor];
+    self.textFieldEmail.textColor = [UIColor lightGrayColor];
+    self.textFieldName.textColor = [UIColor lightGrayColor];
+    self.textFieldPhoneNumber.textColor = [UIColor lightGrayColor];
+    self.birthdayLabel.textColor = [UIColor lightGrayColor];
+    
     //Ensure that the TableView is loaded and built
     if (!self.tableView) {
         CGRect tableFrame = CGRectMake(30, self.contentView.frame.size.height, self.contentView.frame.size.width-60, kTableViewHeight);
@@ -329,6 +366,15 @@ static NSString *defaultImagePic = @"headshot.png";
         self.positionArray = [_positionArray sortedArrayUsingDescriptors:@[sort]];
         
         [self.contentView addSubview:_tableView];
+    }
+    
+    //Build small View around Number
+    if (!self.numberBackgroundView) {
+        self.numberBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(kNumberBGLeft, kNumberBGTop, kNumberBackGroundx, kNumberBackGroundx)];
+        self.numberBackgroundView.backgroundColor = [UIColor blackColor];
+        self.numberBackgroundView.layer.cornerRadius = kNumberBackGroundx/2;
+        [self.contentView insertSubview:self.numberBackgroundView belowSubview:self.textFieldIDNumber];
+        self.numberBackgroundView.layer.opacity = 0;
     }
 
     [UIView animateWithDuration:0.4 animations:^{
@@ -351,20 +397,21 @@ static NSString *defaultImagePic = @"headshot.png";
         self.textFieldIDNumber.placeholder = @"";
         CGRect iDRect = CGRectMake(kStep3IDLeft, kStep3IDTop, 30, kTextFieldHeight);
         [self.textFieldIDNumber setFrame:iDRect];
+        self.textFieldIDNumber.textAlignment = NSTextAlignmentCenter;
         
         self.textFieldEmail.placeholder = @"";
-        CGRect emailRect = CGRectMake(kStep3TextFieldLeft, kStep3EmailTop, kStep3LabelWidth, kTextFieldHeight);
+        CGRect emailRect = CGRectMake(kStep3TextFieldLeftB, kStep3EmailTop, kStep3LabelWidth, kTextFieldHeight);
         [self.textFieldEmail setFrame:emailRect];
 
         self.textFieldName.placeholder = @"";
-        CGRect nameRect = CGRectMake(kStep3TextFieldLeft, kStep3NameTop, kStep3LabelWidth, kTextFieldHeight);
+        CGRect nameRect = CGRectMake(kStep3TextFieldLeft-2, kStep3NameTop, kStep3LabelWidth, kTextFieldHeight);
         [self.textFieldName setFrame:nameRect];
 
         self.textFieldPhoneNumber.placeholder = @"";
-        CGRect phoneRect = CGRectMake(kStep3TextFieldLeft, kStep3PhoneTop, kStep3LabelWidth, kTextFieldHeight);
+        CGRect phoneRect = CGRectMake(kStep3TextFieldLeftB-4, kStep3PhoneTop, kStep3LabelWidth, kTextFieldHeight);
         [self.textFieldPhoneNumber setFrame:phoneRect];
 
-        CGRect birthdayRect = CGRectMake(kStep3TextFieldLeft, kStep3BirthdayTop, kStep3LabelWidth, kTextFieldHeight);
+        CGRect birthdayRect = CGRectMake(kStep3TextFieldLeftB, kStep3BirthdayTop, kStep3LabelWidth, kTextFieldHeight);
         [self.birthdayLabel setFrame:birthdayRect];
 
         //Hide the PickerView and the Stepper
@@ -372,9 +419,11 @@ static NSString *defaultImagePic = @"headshot.png";
         [self.datePicker setFrame:CGRectMake(oldPickerFrame.origin.x, self.view.frame.size.height, oldPickerFrame.size.width, oldPickerFrame.size.height)];
         self.stepper.hidden = YES;
         
-        CGRect tableRect = CGRectMake(30, self.contentView.frame.size.height-kTableViewHeight, self.contentView.frame.size.width-60, kTableViewHeight);
+        CGRect tableRect = CGRectMake(kStep2DatePickerLeft, self.contentView.frame.size.height-(kTableViewHeight+kStep2DatePickerLeft), kStep2DatePickerWidth, kTableViewHeight);
         [self.tableView setFrame:tableRect];
         [self.tableView reloadData];
+        
+        self.numberBackgroundView.layer.opacity = 1;
 
     }];
 }
@@ -406,6 +455,10 @@ static NSString *defaultImagePic = @"headshot.png";
 
 -(IBAction)backToAthletes
 {
+    if (self.athlete.isSelfCheckedIn) {
+        NSManagedObjectContext *context = self.event.managedObjectContext;
+        [context deleteObject:self.athlete];
+    }
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -717,7 +770,6 @@ static NSString *defaultImagePic = @"headshot.png";
         next.hidden = YES;
     }
     return accessoryView;
-#warning  Jazz This View up a little more
 }
 
 
