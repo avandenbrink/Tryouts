@@ -9,29 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TryoutSports/VANGlobalMethods.m"
-            timestampString = "429510773.223594"
+            filePath = "TryoutSports/VANAthleteListControllerPad.m"
+            timestampString = "429512230.914356"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
-            landmarkName = "-addNewRelationship:toManagedObject:andSave:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TryoutSports/VANDetailTableDelegate.m"
-            timestampString = "429511218.697143"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "220"
-            endingLineNumber = "220"
-            landmarkName = "-setupTagCellforTable:forIndex:"
+            startingLineNumber = "572"
+            endingLineNumber = "572"
+            landmarkName = "-passBackSelectedImageData:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

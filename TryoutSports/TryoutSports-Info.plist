@@ -6,6 +6,27 @@
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
 	<string>${PRODUCT_NAME}</string>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeIconFiles</key>
+			<array/>
+			<key>CFBundleTypeName</key>
+			<string>tryoutsports</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>tryoutsports</string>
+			</array>
+		</dict>
+	</array>
+	<key>CFBundleDocumentsType</key>
+	<array>
+		<dict>
+			<key>CFBundelTypeName</key>
+			<string>Tryout Sports Document</string>
+		</dict>
+		<array/>
+	</array>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIcons</key>
@@ -28,6 +49,8 @@
 	<string>1.0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UIFileSharingEnabled</key>
+	<true/>
 	<key>UIMainStoryboardFile</key>
 	<string>Main_iPhone</string>
 	<key>UIMainStoryboardFile~ipad</key>
@@ -46,16 +69,6 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>UIFileSharingEnabled</key>
-	<true/>
-	<key>CFBundleDocumentsType</key>
-	<array>
-		<dict>
-			<key>CFBundelTypeName</key>
-			<string>Tryout Sports Document</string>
-		</dict>
-		<array/>
 	</array>
 	<key>UTExprtedTypeDeclarations</key>
 	<array/>

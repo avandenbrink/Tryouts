@@ -13,6 +13,7 @@
 @interface VANTeamColor : UIColor
 
 @property (strong, nonatomic) UIColor *teamColor;
+@property (strong, nonatomic) UIColor *washedColor;
 
 -(UIColor *)findTeamColor;
 -(UIColor *)washedColor;

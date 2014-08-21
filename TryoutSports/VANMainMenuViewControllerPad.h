@@ -43,6 +43,7 @@ typedef NS_ENUM(NSUInteger, VANNotificationAction) {
 @property (weak, nonatomic) IBOutlet UITableView *notificationTable;
 
 
+- (IBAction)sendToDevice:(id)sender;
 -(void)releaseAthleteDetailViews;
 -(IBAction)toAthleteSignIn:(id)sender;
 

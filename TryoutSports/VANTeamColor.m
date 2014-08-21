@@ -13,6 +13,14 @@
 
 @implementation VANTeamColor
 
+-(instancetype)init {
+    
+    self.teamColor = [self findTeamColor];
+    self.washedColor = [self washedColor];
+    return self;
+}
+
+
 -(UIColor *)findTeamColor {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSInteger number = [defaults integerForKey:kTeamColor];

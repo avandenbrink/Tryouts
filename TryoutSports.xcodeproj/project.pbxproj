@@ -99,6 +99,7 @@
 		C76B6B0617F4B5C5005B1C33 /* TSIconB.png in Resources */ = {isa = PBXBuildFile; fileRef = C76B6B0517F4B5C5005B1C33 /* TSIconB.png */; };
 		C76B6B0917F4D04A005B1C33 /* VANAthleteListsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C76B6B0817F4D04A005B1C33 /* VANAthleteListsController.m */; };
 		C76B6B0C17F4DC8F005B1C33 /* VANGlobalMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = C76B6B0B17F4DC8F005B1C33 /* VANGlobalMethods.m */; };
+		C76DE0491999EAC500CDFF4D /* VANTryoutDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = C76DE0481999EAC500CDFF4D /* VANTryoutDocument.m */; };
 		C774B56917F1FBCF00C400DC /* VANComparisonController.m in Sources */ = {isa = PBXBuildFile; fileRef = C774B56817F1FBCF00C400DC /* VANComparisonController.m */; };
 		C774B56E17F2052300C400DC /* VANCompareImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C774B56D17F2052300C400DC /* VANCompareImageCell.m */; };
 		C774B57117F2052C00C400DC /* VANCompareNameCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C774B57017F2052C00C400DC /* VANCompareNameCell.m */; };
@@ -349,6 +350,8 @@
 		C76B6B0817F4D04A005B1C33 /* VANAthleteListsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANAthleteListsController.m; sourceTree = "<group>"; };
 		C76B6B0A17F4DC8F005B1C33 /* VANGlobalMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANGlobalMethods.h; sourceTree = "<group>"; };
 		C76B6B0B17F4DC8F005B1C33 /* VANGlobalMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANGlobalMethods.m; sourceTree = "<group>"; };
+		C76DE0471999EAC500CDFF4D /* VANTryoutDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANTryoutDocument.h; sourceTree = "<group>"; };
+		C76DE0481999EAC500CDFF4D /* VANTryoutDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANTryoutDocument.m; sourceTree = "<group>"; };
 		C774B56717F1FBCF00C400DC /* VANComparisonController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANComparisonController.h; sourceTree = "<group>"; };
 		C774B56817F1FBCF00C400DC /* VANComparisonController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANComparisonController.m; sourceTree = "<group>"; };
 		C774B56C17F2052300C400DC /* VANCompareImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANCompareImageCell.h; sourceTree = "<group>"; };
@@ -728,6 +731,8 @@
 				C703D66517AB06DC00471194 /* VANIntroViewControllerPad.m */,
 				C703D67717AB076600471194 /* VANIntroViewControllerPhone.h */,
 				C703D67817AB076600471194 /* VANIntroViewControllerPhone.m */,
+				C76DE0471999EAC500CDFF4D /* VANTryoutDocument.h */,
+				C76DE0481999EAC500CDFF4D /* VANTryoutDocument.m */,
 			);
 			name = "Intro View Controller";
 			sourceTree = "<group>";
@@ -1233,6 +1238,7 @@
 				C703D63117AB066A00471194 /* VANTextFieldCell.m in Sources */,
 				C7E6FE3D17AB018400A14674 /* VANFullNavigationViewController.m in Sources */,
 				C703D60517AB060600471194 /* VANFetchObjectConfiguration.m in Sources */,
+				C76DE0491999EAC500CDFF4D /* VANTryoutDocument.m in Sources */,
 				C703D63C17AB066A00471194 /* VANNewAthleteProfileCell.m in Sources */,
 				C703D60917AB060600471194 /* VANLeftAlignedFlowLayout.m in Sources */,
 				C7B2D4F81853AC3700F42C99 /* VANCompareController.m in Sources */,

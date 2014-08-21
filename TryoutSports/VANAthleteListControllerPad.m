@@ -23,7 +23,7 @@ static int kInsetTopDetailTable = 104.0f;
 static int kInsetBottom = 55;
 static int kInsetBottomActive = 350;
 
-static NSString *rAthleteImages = @"Images";
+static NSString *rAthleteImages = @"images";
 
 @interface VANAthleteListControllerPad ()
 
