@@ -9,6 +9,7 @@
 #import "VANIntroViewControllerPhone.h"
 #import "VANSettingTabsController.h"
 
+
 @interface VANIntroViewControllerPhone ()
 
 @end
@@ -43,21 +44,42 @@
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Event Detail Error", @"Event Detail Error") message:NSLocalizedString(@"Error Showing Detail",@"Error Showing Detail") delegate:self cancelButtonTitle:NSLocalizedString(@"OK", @"OK") otherButtonTitles:nil];
             [alert show];
         }
-    } else if ([segue.identifier isEqualToString:@"toEventSettings"]) {
-        VANSettingTabsController *tabBarController = segue.destinationViewController;
-        tabBarController.delegate = tabBarController;
-        tabBarController.event = sender;
-        tabBarController.selectedIndex = 0;
-        if (tabBarController.selectedIndex == 1) {
-            VANNewSkillsAndTestsController *controller = (VANNewSkillsAndTestsController *)[tabBarController.viewControllers objectAtIndex:1];
-            controller.event = sender;
+    } else if ([segue.identifier isEqualToString:@"toNewEventSettings"]) {
+        if ([sender isKindOfClass:[NSArray class]]) {
+            VANNewEventViewController *controller = segue.destinationViewController;
+            controller.event = [sender firstObject];
+            controller.document = [sender lastObject];
+            controller.isNewEvent = YES;
+            controller.delegate = self;
         } else {
-            VANNewEventViewController *controller = (VANNewEventViewController *)[tabBarController.viewControllers objectAtIndex:0];
-            controller.event = tabBarController.event;
+            NSLog(@"Sender is not an array!");
         }
+
+        
+//        VANSettingTabsController *tabBarController = segue.destinationViewController;
+//        tabBarController.delegate = tabBarController;
+//        tabBarController.event = sender;
+//        tabBarController.selectedIndex = 0;
+//        if (tabBarController.selectedIndex == 1) {
+//            VANNewSkillsAndTestsController *controller = (VANNewSkillsAndTestsController *)[tabBarController.viewControllers objectAtIndex:1];
+//            controller.event = sender;
+//        } else {
+//            VANNewEventViewController *controller = (VANNewEventViewController *)[tabBarController.viewControllers objectAtIndex:0];
+//            controller.event = tabBarController.event;
+//        }
     } else {
         [super prepareForSegue:segue sender:sender];
     }
+}
+#pragma mark - Add new Event to iPhone
+
+- (IBAction)addEvent:(id)sender
+{
+    [self createNewFileWithName:defaultName]; //Requires the listener function completeNewEventCreationWithEvent
+}
+
+-(void)completeNewEventCreationWithEvent:(Event *)event inDocument:(VANTryoutDocument *)document {
+    [self performSegueWithIdentifier:@"toNewEventSettings" sender:@[event, document]];
 }
 
 @end

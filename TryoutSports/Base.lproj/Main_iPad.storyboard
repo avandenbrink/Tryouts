@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6154.17" systemVersion="14A314h" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="v70-ZG-AqD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6206.8" systemVersion="14A329f" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="v70-ZG-AqD">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6153.11"/>
+        <deployment defaultVersion="1792" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7026.1"/>
+        <capability name="Constraints with attributes relative to the layout margin" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Full Navigation View Controller-->
@@ -20,7 +22,7 @@
             </objects>
             <point key="canvasLocation" x="-393" y="-129"/>
         </scene>
-        <!--New Event View Controller - Settings-->
+        <!--Settings-->
         <scene sceneID="way-yz-jfH">
             <objects>
                 <tableViewController id="ohn-MY-8Hl" customClass="VANNewEventViewController" sceneMemberID="viewController">
@@ -29,7 +31,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="8PR-2l-cAO">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="8PR-2l-cAO">
                                 <rect key="frame" x="0.0" y="55" width="540" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8PR-2l-cAO" id="ekm-AX-fCy">
@@ -50,7 +52,7 @@
             </objects>
             <point key="canvasLocation" x="-614" y="-1269"/>
         </scene>
-        <!--New Skills And Tests Controller - Stats-->
+        <!--Stats-->
         <scene sceneID="c1h-ba-Dun">
             <objects>
                 <tableViewController id="9DL-hq-P6R" customClass="VANNewSkillsAndTestsController" sceneMemberID="viewController">
@@ -59,7 +61,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Add" textLabel="XNH-Mg-J3v" style="IBUITableViewCellStyleDefault" id="mG9-aT-LA6">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Add" textLabel="XNH-Mg-J3v" style="IBUITableViewCellStyleDefault" id="mG9-aT-LA6">
                                 <rect key="frame" x="0.0" y="55" width="540" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mG9-aT-LA6" id="1Rd-7d-3Mr">
@@ -134,6 +136,9 @@
                                         <state key="normal" title="Connection Center">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="toConnectCentre:" destination="7C2-Jd-0fP" eventType="touchUpInside" id="Kwx-34-WAV"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eSt-bm-In6">
                                         <rect key="frame" x="0.0" y="71" width="385" height="149"/>
@@ -194,7 +199,7 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     </view>
-                                    <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PCe-6q-LlW">
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PCe-6q-LlW">
                                         <rect key="frame" x="614" y="121" width="72" height="30"/>
                                         <state key="normal" title="Send Data">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -251,7 +256,7 @@
                                             <constraint firstAttribute="width" constant="391" id="z74-eS-SPi"/>
                                         </constraints>
                                         <prototypes>
-                                            <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" textLabel="PFF-Y9-JYU" rowHeight="35" style="IBUITableViewCellStyleDefault" id="l2z-SF-4uP">
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" textLabel="PFF-Y9-JYU" rowHeight="35" style="IBUITableViewCellStyleDefault" id="l2z-SF-4uP">
                                                 <rect key="frame" x="0.0" y="22" width="391" height="35"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="l2z-SF-4uP" id="Luj-VM-VLD">
@@ -293,7 +298,10 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="San-8Q-7uT"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics">
+                        <size key="portraitSize" width="768" height="1024"/>
+                        <size key="landscapeSize" width="1024" height="768"/>
+                    </simulatedScreenMetrics>
                     <connections>
                         <outlet property="athleteSignIn" destination="4pN-Ry-Y4e" id="Pq3-bg-JeY"/>
                         <outlet property="athleteStatView" destination="pMy-8F-IFa" id="a1R-zV-CID"/>
@@ -311,13 +319,57 @@
                         <segue destination="npb-pJ-fUF" kind="push" identifier="toAthleteList" id="U0b-cF-1cg"/>
                         <segue destination="zgi-al-yla" kind="push" identifier="toDecisionRoom" id="jxu-sa-apM"/>
                         <segue destination="Ml9-VJ-nvh" kind="push" identifier="toAthleteSignIn" id="TWv-mz-h13"/>
+                        <segue destination="CQu-F5-psq" kind="push" identifier="toConnect" id="Mxk-WH-TbC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UNa-v4-hRn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="671" y="-129"/>
+            <point key="canvasLocation" x="747" y="-129"/>
         </scene>
-        <!--Decision Room View Controller Pad - Decision Room-->
+        <!--Connect Centre Controller Pad-->
+        <scene sceneID="T1x-xx-8vU">
+            <objects>
+                <viewController id="CQu-F5-psq" customClass="VANConnectCentreControllerPad" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tvl-Au-bQo"/>
+                        <viewControllerLayoutGuide type="bottom" id="QaQ-0Q-Hbw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Lwz-ZL-6RD">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="dJV-jw-j5G">
+                                <rect key="frame" x="0.0" y="980" width="768" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="KIV-mx-6nR"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem systemItem="action" id="uGZ-v8-5HI">
+                                        <connections>
+                                            <action selector="sendViaAirdrop:" destination="CQu-F5-psq" id="HMJ-Na-Eap"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="dJV-jw-j5G" firstAttribute="leading" secondItem="Lwz-ZL-6RD" secondAttribute="leadingMargin" id="6uA-Rg-35O"/>
+                            <constraint firstItem="QaQ-0Q-Hbw" firstAttribute="top" secondItem="dJV-jw-j5G" secondAttribute="bottom" id="PGe-rz-g9o"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="dJV-jw-j5G" secondAttribute="trailing" id="yHd-Fo-CBa"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="E6V-km-DZR"/>
+                    <connections>
+                        <outlet property="airdrop" destination="uGZ-v8-5HI" id="GOW-Gg-Z7V"/>
+                        <outlet property="toolbar" destination="dJV-jw-j5G" id="iUn-fV-KPf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="phK-kC-XDa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2425" y="403"/>
+        </scene>
+        <!--Decision Room-->
         <scene sceneID="nu2-d3-FAb">
             <objects>
                 <viewController id="zgi-al-yla" customClass="VANDecisionRoomViewControllerPad" sceneMemberID="viewController">
@@ -352,7 +404,7 @@
                                 <rect key="frame" x="688" y="230" width="316" height="518"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Klg-ac-W8M">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Klg-ac-W8M">
                                         <rect key="frame" x="0.0" y="55" width="316" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Klg-ac-W8M" id="EIS-es-ece">
@@ -366,7 +418,7 @@
                                 <rect key="frame" x="20" y="230" width="314" height="249"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="ZJx-TM-c3q">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="ZJx-TM-c3q">
                                         <rect key="frame" x="0.0" y="55" width="314" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZJx-TM-c3q" id="Dlm-Fw-H2M">
@@ -380,7 +432,7 @@
                                 <rect key="frame" x="354" y="230" width="314" height="249"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="EKI-d8-LpJ">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="EKI-d8-LpJ">
                                         <rect key="frame" x="0.0" y="55" width="314" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EKI-d8-LpJ" id="Fps-v3-zCh">
@@ -394,7 +446,7 @@
                                 <rect key="frame" x="354" y="499" width="314" height="249"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="28f-z3-bHB">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="28f-z3-bHB">
                                         <rect key="frame" x="0.0" y="55" width="314" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="28f-z3-bHB" id="IrK-K3-kxj">
@@ -408,7 +460,7 @@
                                 <rect key="frame" x="20" y="499" width="314" height="249"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="COh-SQ-36U">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="COh-SQ-36U">
                                         <rect key="frame" x="0.0" y="55" width="314" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="COh-SQ-36U" id="7ch-ni-eMH">
@@ -447,7 +499,6 @@
                             <constraint firstItem="YTS-xI-qEc" firstAttribute="top" secondItem="t4B-n0-lIz" secondAttribute="bottom" constant="20" id="yRb-zh-1WH"/>
                             <constraint firstItem="sHz-iK-fe1" firstAttribute="top" secondItem="YTS-xI-qEc" secondAttribute="bottom" constant="20" id="zXD-Og-jyi"/>
                         </constraints>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <navigationItem key="navigationItem" title="Decision Room" id="VKb-9v-HxA"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -489,7 +540,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="0xv-Tj-Lkq">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="name" textLabel="Iqh-7X-0N1" detailTextLabel="Cwk-zt-dck" style="IBUITableViewCellStyleValue1" id="6ks-GB-gDu">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="name" textLabel="Iqh-7X-0N1" detailTextLabel="Cwk-zt-dck" style="IBUITableViewCellStyleValue1" id="6ks-GB-gDu">
                                         <rect key="frame" x="0.0" y="22" width="1024" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6ks-GB-gDu" id="lFY-ZR-n3N">
@@ -544,7 +595,6 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="4pY-ND-XW7"/>
@@ -650,7 +700,7 @@
                                             <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Cup-Y8-y6O">
                                                 <rect key="frame" x="20" y="423" width="530" height="216"/>
                                                 <date key="date" timeIntervalSinceReferenceDate="408346800.944556">
-                                                    <!--<__NSDate Class=2013-12-10 05:40:00 +0000 timeInterval=408346800.944556 ISO8601=2013-12-09T21:40:00.945-0800>-->
+                                                    <!--2013-12-10 05:40:00 +0000-->
                                                 </date>
                                             </datePicker>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Birthday:" textAlignment="right" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="teN-aI-W21">
@@ -809,7 +859,7 @@
             </objects>
             <point key="canvasLocation" x="1961" y="2030"/>
         </scene>
-        <!--Athlete Edit Controller Pad - Edit Athlete-->
+        <!--Edit Athlete-->
         <scene sceneID="YTF-kL-QqS">
             <objects>
                 <tableViewController id="Iae-HQ-RzS" customClass="VANAthleteEditControllerPad" sceneMemberID="viewController">
@@ -818,7 +868,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="bAS-aM-hj9">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="bAS-aM-hj9">
                                 <rect key="frame" x="0.0" y="119" width="540" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bAS-aM-hj9" id="w9V-wc-Ylj">
@@ -826,7 +876,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="VANNewAthleteProfileCell" rowHeight="211" id="6DG-7o-UY7" customClass="VANNewAthleteProfileCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="VANNewAthleteProfileCell" rowHeight="211" id="6DG-7o-UY7" customClass="VANNewAthleteProfileCell">
                                 <rect key="frame" x="0.0" y="163" width="540" height="211"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6DG-7o-UY7" id="yAO-n9-7gd">
@@ -927,7 +977,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="64" id="SjY-EM-gxT">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="64" id="SjY-EM-gxT">
                                         <rect key="frame" x="0.0" y="22" width="768" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SjY-EM-gxT" id="957-wY-a3n">
@@ -936,7 +986,7 @@
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="90" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
-                                    <tableViewCell autoresizesSubviews="NO" contentMode="scaleToFill" ambiguous="YES" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="84" id="l4d-42-613" customClass="VANAthleteListCellPad">
+                                    <tableViewCell autoresizesSubviews="NO" contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="84" id="l4d-42-613" customClass="VANAthleteListCellPad">
                                         <rect key="frame" x="0.0" y="86" width="768" height="84"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" autoresizesSubviews="NO" opaque="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="l4d-42-613" id="SVv-Vz-eiH">
@@ -1079,7 +1129,7 @@
             </objects>
             <point key="canvasLocation" x="-7" y="-845"/>
         </scene>
-        <!--Setting Tabs Controller Pad - New Event-->
+        <!--New Event-->
         <scene sceneID="tTc-16-jcd">
             <objects>
                 <tabBarController definesPresentationContext="YES" id="vk4-Ng-Gr4" customClass="VANSettingTabsControllerPad" sceneMemberID="viewController">
@@ -1122,7 +1172,7 @@
                                 <rect key="frame" x="185" y="485" width="399" height="400"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="TJA-LU-nUe" detailTextLabel="d9W-zY-LG7" style="IBUITableViewCellStyleValue1" id="Lnv-JE-0zl">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="TJA-LU-nUe" detailTextLabel="d9W-zY-LG7" style="IBUITableViewCellStyleValue1" id="Lnv-JE-0zl">
                                         <rect key="frame" x="0.0" y="55" width="399" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Lnv-JE-0zl" id="KGp-0y-sDD">
@@ -1192,7 +1242,7 @@
             </objects>
             <point key="canvasLocation" x="-207" y="-129"/>
         </scene>
-        <!--App Settings View Controller - App Settings-->
+        <!--App Settings-->
         <scene sceneID="IZF-Mz-0vF">
             <objects>
                 <tableViewController id="H16-fq-tDK" customClass="VANAppSettingsViewController" sceneMemberID="viewController">
@@ -1203,7 +1253,7 @@
                         <sections>
                             <tableViewSection headerTitle="Club Settings" id="r54-hW-WoG">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="HXc-4c-Hll">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="HXc-4c-Hll">
                                         <rect key="frame" x="0.0" y="119" width="540" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HXc-4c-Hll" id="e0X-Tm-OfR">
@@ -1228,7 +1278,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Pv4-uM-kEE">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Pv4-uM-kEE">
                                         <rect key="frame" x="0.0" y="163" width="540" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Pv4-uM-kEE" id="kcV-zw-syB">
@@ -1253,7 +1303,7 @@
                                             <segue destination="3Cx-4H-BTz" kind="push" id="8zN-vq-Jbf"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="ipH-vX-nPk">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="ipH-vX-nPk">
                                         <rect key="frame" x="0.0" y="207" width="540" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ipH-vX-nPk" id="7mS-bk-i8W">
@@ -1282,7 +1332,7 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="App Settings" id="gwl-tV-guO">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="5m0-ZA-a80" style="IBUITableViewCellStyleDefault" id="Jro-oB-cmO">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="5m0-ZA-a80" style="IBUITableViewCellStyleDefault" id="Jro-oB-cmO">
                                         <rect key="frame" x="0.0" y="299" width="540" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Jro-oB-cmO" id="rmh-YL-2gR">
@@ -1324,7 +1374,7 @@
             </objects>
             <point key="canvasLocation" x="-238" y="981"/>
         </scene>
-        <!--Team Color Changer View Controller - Team Color:-->
+        <!--Team Color:-->
         <scene sceneID="t9g-Bf-Bf7">
             <objects>
                 <tableViewController id="3Cx-4H-BTz" customClass="VANTeamColorChangerViewController" sceneMemberID="viewController">
@@ -1333,7 +1383,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="J5H-vS-zPd" style="IBUITableViewCellStyleDefault" id="hrV-8u-Xm4">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="J5H-vS-zPd" style="IBUITableViewCellStyleDefault" id="hrV-8u-Xm4">
                                 <rect key="frame" x="0.0" y="86" width="540" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hrV-8u-Xm4" id="W7n-Xo-jXC">
@@ -1394,7 +1444,7 @@
                                 <rect key="frame" x="0.0" y="229" width="540" height="278"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="xXj-1r-1ey" style="IBUITableViewCellStyleDefault" id="Lfq-yI-yC8">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="xXj-1r-1ey" style="IBUITableViewCellStyleDefault" id="Lfq-yI-yC8">
                                         <rect key="frame" x="0.0" y="22" width="540" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Lfq-yI-yC8" id="BVc-Sl-Bzc">
@@ -1474,7 +1524,10 @@
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackOpaque"/>
         <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination"/>
+        <simulatedScreenMetrics key="destination">
+            <size key="portraitSize" width="768" height="1024"/>
+            <size key="landscapeSize" width="1024" height="768"/>
+        </simulatedScreenMetrics>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="wtR-KT-D4S"/>

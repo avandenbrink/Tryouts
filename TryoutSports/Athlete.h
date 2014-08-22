@@ -2,8 +2,8 @@
 //  Athlete.h
 //  TryoutSports
 //
-//  Created by Aaron VandenBrink on 12/4/2013.
-//  Copyright (c) 2013 Aaron VandenBrink. All rights reserved.
+//  Created by Aaron VandenBrink on 2014-08-20.
+//  Copyright (c) 2014 Aaron VandenBrink. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -15,22 +15,22 @@
 
 @property (nonatomic, retain) NSNumber * age;
 @property (nonatomic, retain) NSDate * birthday;
+@property (nonatomic, retain) NSNumber * checkedIn;
 @property (nonatomic, retain) NSString * email;
 @property (nonatomic, retain) NSNumber * flagged;
+@property (nonatomic, retain) NSNumber * isSelfCheckedIn;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSNumber * number;
 @property (nonatomic, retain) NSString * phoneNumber;
 @property (nonatomic, retain) NSString * position;
 @property (nonatomic, retain) NSNumber * seen;
-@property (nonatomic, retain) NSNumber * teamSelected;
-@property (nonatomic, retain) NSNumber * checkedIn;
-@property (nonatomic, retain) NSNumber * isSelfCheckedIn;
-
 @property (nonatomic, retain) id skillsname;
 @property (nonatomic, retain) id skillsvalue;
 @property (nonatomic, retain) id tags;
+@property (nonatomic, retain) NSNumber * teamSelected;
 @property (nonatomic, retain) id testname;
 @property (nonatomic, retain) id testvalue;
+@property (nonatomic, retain) NSString * coach;
 @property (nonatomic, retain) NSSet *aTags;
 @property (nonatomic, retain) Event *event;
 @property (nonatomic, retain) NSSet *images;

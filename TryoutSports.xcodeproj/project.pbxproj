@@ -86,6 +86,7 @@
 		C721D2E817CBC48B00E4B2B8 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B1C08317A9F27F00EF8C93 /* XCTest.framework */; };
 		C721D2E917CBC48B00E4B2B8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B1C06117A9F27F00EF8C93 /* Foundation.framework */; };
 		C721D2EA17CBC48B00E4B2B8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B1C06517A9F27F00EF8C93 /* UIKit.framework */; };
+		C72B0BC419A6B136001FF689 /* VANConnectCentreControllerPad.m in Sources */ = {isa = PBXBuildFile; fileRef = C72B0BC319A6B136001FF689 /* VANConnectCentreControllerPad.m */; };
 		C7386F3917B357CF00F08FDB /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = C7386F3817B357CF00F08FDB /* Event.m */; };
 		C738EC6117FE23A300876A0F /* VANHeadShotController.m in Sources */ = {isa = PBXBuildFile; fileRef = C738EC6017FE23A300876A0F /* VANHeadShotController.m */; };
 		C738EC6517FE2FF500876A0F /* VANHeadshotCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C738EC6417FE2FF500876A0F /* VANHeadshotCell.m */; };
@@ -144,8 +145,9 @@
 		C7B1C09017A9F28000EF8C93 /* TryoutSportsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B1C08F17A9F28000EF8C93 /* TryoutSportsTests.m */; };
 		C7B1C09A17A9F29D00EF8C93 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B1C09917A9F29D00EF8C93 /* QuartzCore.framework */; };
 		C7B1C09C17A9F2AE00EF8C93 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B1C09B17A9F2AE00EF8C93 /* CoreData.framework */; };
-		C7B2D4F5184FAB2E00F42C99 /* Athlete.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B2D4F4184FAB2E00F42C99 /* Athlete.m */; };
 		C7B2D4F81853AC3700F42C99 /* VANCompareController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B2D4F71853AC3700F42C99 /* VANCompareController.m */; };
+		C7B99BCA19A5934D00EA2F6D /* TeamName.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B99BC919A5934D00EA2F6D /* TeamName.m */; };
+		C7B99BCD19A5934E00EA2F6D /* Athlete.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B99BCC19A5934E00EA2F6D /* Athlete.m */; };
 		C7CB0A29184D137C00610B14 /* Event+_new.m in Sources */ = {isa = PBXBuildFile; fileRef = C7CB0A28184D137C00610B14 /* Event+_new.m */; };
 		C7CB0A2C184D2C8A00610B14 /* VANDetailTableDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C7CB0A2B184D2C8A00610B14 /* VANDetailTableDelegate.m */; };
 		C7CED92417BD28360042BAA7 /* ArrowRight.png in Resources */ = {isa = PBXBuildFile; fileRef = C7CED92317BD28360042BAA7 /* ArrowRight.png */; };
@@ -325,6 +327,8 @@
 		C711CB6718347C3D0044CD48 /* VANAthleteListCellPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANAthleteListCellPad.m; sourceTree = "<group>"; };
 		C721D2E117CBC09B00E4B2B8 /* VANIntroTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANIntroTest.m; sourceTree = "<group>"; };
 		C721D2E717CBC48B00E4B2B8 /* TryoutSports Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "TryoutSports Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C72B0BC219A6B136001FF689 /* VANConnectCentreControllerPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANConnectCentreControllerPad.h; sourceTree = "<group>"; };
+		C72B0BC319A6B136001FF689 /* VANConnectCentreControllerPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANConnectCentreControllerPad.m; sourceTree = "<group>"; };
 		C7386F3717B357CF00F08FDB /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Event.h; path = ../Event.h; sourceTree = "<group>"; };
 		C7386F3817B357CF00F08FDB /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Event.m; path = ../Event.m; sourceTree = "<group>"; };
 		C738EC5F17FE23A300876A0F /* VANHeadShotController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANHeadShotController.h; sourceTree = "<group>"; };
@@ -414,10 +418,12 @@
 		C7B1C08F17A9F28000EF8C93 /* TryoutSportsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TryoutSportsTests.m; sourceTree = "<group>"; };
 		C7B1C09917A9F29D00EF8C93 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C7B1C09B17A9F2AE00EF8C93 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		C7B2D4F3184FAB2E00F42C99 /* Athlete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Athlete.h; sourceTree = "<group>"; };
-		C7B2D4F4184FAB2E00F42C99 /* Athlete.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Athlete.m; sourceTree = "<group>"; };
 		C7B2D4F61853AC3700F42C99 /* VANCompareController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANCompareController.h; sourceTree = "<group>"; };
 		C7B2D4F71853AC3700F42C99 /* VANCompareController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANCompareController.m; sourceTree = "<group>"; };
+		C7B99BC819A5934D00EA2F6D /* TeamName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamName.h; sourceTree = "<group>"; };
+		C7B99BC919A5934D00EA2F6D /* TeamName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamName.m; sourceTree = "<group>"; };
+		C7B99BCB19A5934E00EA2F6D /* Athlete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Athlete.h; sourceTree = "<group>"; };
+		C7B99BCC19A5934E00EA2F6D /* Athlete.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Athlete.m; sourceTree = "<group>"; };
 		C7CB0A27184D137C00610B14 /* Event+_new.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Event+_new.h"; sourceTree = "<group>"; };
 		C7CB0A28184D137C00610B14 /* Event+_new.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Event+_new.m"; sourceTree = "<group>"; };
 		C7CB0A2A184D2C8A00610B14 /* VANDetailTableDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANDetailTableDelegate.h; sourceTree = "<group>"; };
@@ -613,10 +619,12 @@
 			isa = PBXGroup;
 			children = (
 				C703D67F17AB0E2F00471194 /* Model.xcdatamodeld */,
-				C7B2D4F3184FAB2E00F42C99 /* Athlete.h */,
-				C7B2D4F4184FAB2E00F42C99 /* Athlete.m */,
+				C7B99BCB19A5934E00EA2F6D /* Athlete.h */,
+				C7B99BCC19A5934E00EA2F6D /* Athlete.m */,
 				C7CED92D17BEDBFD0042BAA7 /* Athlete+addNew.h */,
 				C7CED92E17BEDBFD0042BAA7 /* Athlete+addNew.m */,
+				C7B99BC819A5934D00EA2F6D /* TeamName.h */,
+				C7B99BC919A5934D00EA2F6D /* TeamName.m */,
 				C7386F3717B357CF00F08FDB /* Event.h */,
 				C7386F3817B357CF00F08FDB /* Event.m */,
 				C7CB0A27184D137C00610B14 /* Event+_new.h */,
@@ -846,6 +854,8 @@
 			children = (
 				C7CED92717BD5E3F0042BAA7 /* VANConnectCentreController.h */,
 				C7CED92817BD5E3F0042BAA7 /* VANConnectCentreController.m */,
+				C72B0BC219A6B136001FF689 /* VANConnectCentreControllerPad.h */,
+				C72B0BC319A6B136001FF689 /* VANConnectCentreControllerPad.m */,
 			);
 			name = "Connection Center";
 			sourceTree = "<group>";
@@ -1191,6 +1201,7 @@
 				C774B58717F3541100C400DC /* VANTabController.m in Sources */,
 				C774B58417F351C800C400DC /* VANAthleteListTabController.m in Sources */,
 				C703D5E517AB05CF00471194 /* VANNewSkillsAndTestsController.m in Sources */,
+				C7B99BCD19A5934E00EA2F6D /* Athlete.m in Sources */,
 				C7E6FE3817AB015400A14674 /* VANEventSettingsViewController.m in Sources */,
 				C7E6FE3717AB015400A14674 /* UIPopover+iPhone.m in Sources */,
 				C703D66117AB068900471194 /* AthleteTags.m in Sources */,
@@ -1201,6 +1212,7 @@
 				C703D63317AB066A00471194 /* VANValueSliderCell.m in Sources */,
 				C703D5ED17AB05CF00471194 /* VANPictureTaker.m in Sources */,
 				C774B56917F1FBCF00C400DC /* VANComparisonController.m in Sources */,
+				C72B0BC419A6B136001FF689 /* VANConnectCentreControllerPad.m in Sources */,
 				C7E16C5B17B14AE60023FCDD /* VANTagsTableViewController.m in Sources */,
 				C7CB0A2C184D2C8A00610B14 /* VANDetailTableDelegate.m in Sources */,
 				C774B5A217F35C6400C400DC /* VANAthleteNameViewController.m in Sources */,
@@ -1222,6 +1234,7 @@
 				C703D63E17AB066A00471194 /* VANScrollViewTeamSelectionCell.m in Sources */,
 				C762142217E3C45600C7DB2D /* VANFilterButtonCell.m in Sources */,
 				C7A60F42182822DB00ED86E8 /* VANProfileView.m in Sources */,
+				C7B99BCA19A5934D00EA2F6D /* TeamName.m in Sources */,
 				C7CED92917BD5E3F0042BAA7 /* VANConnectCentreController.m in Sources */,
 				C703D5E217AB05CF00471194 /* VANAppSettingsViewController.m in Sources */,
 				C703D65D17AB068900471194 /* Skills.m in Sources */,
@@ -1264,7 +1277,6 @@
 				C703D67417AB06DC00471194 /* VANAthleteListControllerPad.m in Sources */,
 				C703D67217AB06DC00471194 /* VANSplitControllerPad.m in Sources */,
 				C78EFFB5182B106C00749A37 /* VANTagsTable.m in Sources */,
-				C7B2D4F5184FAB2E00F42C99 /* Athlete.m in Sources */,
 				C74DBA3E1856492D00E17841 /* VANAthleteSignInController.m in Sources */,
 				C703D66017AB068900471194 /* AthleteTest.m in Sources */,
 				C79172C2183C0DA00073390E /* VANDecisionRoomViewControllerPad.m in Sources */,

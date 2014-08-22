@@ -2,8 +2,8 @@
 //  Athlete.m
 //  TryoutSports
 //
-//  Created by Aaron VandenBrink on 12/4/2013.
-//  Copyright (c) 2013 Aaron VandenBrink. All rights reserved.
+//  Created by Aaron VandenBrink on 2014-08-20.
+//  Copyright (c) 2014 Aaron VandenBrink. All rights reserved.
 //
 
 #import "Athlete.h"
@@ -18,8 +18,10 @@
 
 @dynamic age;
 @dynamic birthday;
+@dynamic checkedIn;
 @dynamic email;
 @dynamic flagged;
+@dynamic isSelfCheckedIn;
 @dynamic name;
 @dynamic number;
 @dynamic phoneNumber;
@@ -31,13 +33,12 @@
 @dynamic teamSelected;
 @dynamic testname;
 @dynamic testvalue;
+@dynamic coach;
 @dynamic aTags;
 @dynamic event;
 @dynamic images;
 @dynamic profileImage;
 @dynamic skills;
 @dynamic tests;
-@dynamic checkedIn;
-@dynamic isSelfCheckedIn;
 
 @end

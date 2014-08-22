@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3396" systemVersion="13A603" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3396" systemVersion="14A329f" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Athlete" representedClassName="Athlete" syncable="YES">
         <attribute name="age" optional="YES" transient="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="birthday" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="checkedIn" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="coach" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="flagged" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="isSelfCheckedIn" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -23,6 +24,7 @@
         <relationship name="images" optional="YES" toMany="YES" minCount="1" deletionRule="Cascade" destinationEntity="Image" inverseName="athlete" inverseEntity="Image" syncable="YES"/>
         <relationship name="profileImage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Image" inverseName="keyImage" inverseEntity="Image" syncable="YES"/>
         <relationship name="skills" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="AthleteSkills" inverseName="athlete" inverseEntity="AthleteSkills" syncable="YES"/>
+        <relationship name="teamName" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TeamName" inverseName="athletes" inverseEntity="TeamName" syncable="YES"/>
         <relationship name="tests" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="AthleteTest" inverseName="athlete" inverseEntity="AthleteTest" syncable="YES"/>
         <fetchedProperty name="teamAtheltes" optional="YES" syncable="YES">
             <fetchRequest name="fetchedPropertyFetchRequest" entity="Athlete" predicateString="Self.teamSelected &lt; 0"/>
@@ -58,9 +60,10 @@
         <relationship name="athletes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Athlete" inverseName="event" inverseEntity="Athlete" syncable="YES"/>
         <relationship name="positions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Positions" inverseName="event" inverseEntity="Positions" syncable="YES"/>
         <relationship name="skills" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Skills" inverseName="event" inverseEntity="Skills" syncable="YES"/>
+        <relationship name="teamNames" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TeamName" inverseName="event" inverseEntity="TeamName" syncable="YES"/>
         <relationship name="tests" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Tests" inverseName="event" inverseEntity="Tests" syncable="YES"/>
         <fetchedProperty name="teamAthlete" optional="YES" syncable="YES">
-            <fetchRequest name="fetchedPropertyFetchRequest" entity="Athlete" predicateString="teamSelected > 0"/>
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="Athlete" predicateString="teamSelected &gt; 0"/>
         </fetchedProperty>
     </entity>
     <entity name="Image" representedClassName="Image" syncable="YES">
@@ -81,6 +84,12 @@
     <entity name="Tags" representedClassName="Tags" syncable="YES">
         <attribute name="tagName" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="TeamName" representedClassName="TeamName" syncable="YES">
+        <attribute name="index" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="athletes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Athlete" inverseName="teamName" inverseEntity="Athlete" syncable="YES"/>
+        <relationship name="event" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Event" inverseName="teamNames" inverseEntity="Event" syncable="YES"/>
+    </entity>
     <entity name="Tests" representedClassName="Tests" syncable="YES">
         <attribute name="descriptor" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="eventName" optional="YES" attributeType="String" syncable="YES"/>
@@ -97,6 +106,7 @@
         <element name="Positions" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Skills" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Tags" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="TeamName" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Tests" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

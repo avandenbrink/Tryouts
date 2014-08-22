@@ -14,6 +14,7 @@
 @property (strong, nonatomic) NewTableConfiguration *config;
 @property (nonatomic, strong, readonly) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) UIBarButtonItem *cancelButton;
+@property (strong, nonatomic) UIBarButtonItem *nextButton;
 
 @property (strong, nonatomic) VANTextFieldCell *textCell;
 
@@ -38,7 +39,6 @@
     [super viewDidLoad];
     
 	// Do any additional setup after loading the view.
-    
     self.config = [[NewTableConfiguration alloc] init];
     self.config.delegate = self;
     self.config.event = self.event;
@@ -46,6 +46,12 @@
     self.navigationItem.hidesBackButton = YES;
     self.cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel)];
     self.navigationItem.leftBarButtonItem = self.cancelButton;
+    
+    if (self.isNewEvent) {
+        self.nextButton = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(next)];
+        self.navigationItem.rightBarButtonItem = self.nextButton;
+    }
+    
     self.tableView.backgroundView = nil;
     self.tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
     self.event.numTeams = [NSNumber numberWithInteger:[self.event.numTeams integerValue] -1];;
@@ -235,6 +241,19 @@
         [self saveManagedObjectContext:self.event];
         [self performSegueWithIdentifier:@"toNext" sender:self.event];
     }
+}
+
+-(void)next
+{
+    [self.view endEditing:YES];
+    [self.delegate changNameOfDocument:self.document to:self.event.name];
+}
+
+-(void)cancel
+{
+    [self.navigationController popViewControllerAnimated:YES];
+    [self.delegate removeDocument:self.document];
+   
 }
 
 #pragma mark - NewTableConfiguration Delegate Methods

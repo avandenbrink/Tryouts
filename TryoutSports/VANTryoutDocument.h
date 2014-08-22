@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VANTryoutDocument : UIManagedDocument
+@interface VANTryoutDocument : UIManagedDocument <UIActivityItemSource>
+
+@property (strong, nonatomic) NSMutableArray *moveEventListeners;
 
 @end

@@ -82,6 +82,12 @@
             [alert show];
         }
     } else /*if ([segue.identifier isEqualToString:@"toAthleteList"])*/ {
+        if ([sender isKindOfClass:[NSArray class]]) {
+            VANManagedObjectViewController *controller = segue.destinationViewController;
+            controller.event = [sender firstObject];
+            controller.document = [sender lastObject];
+        }
+        
         VANAthleteListViewController *viewController = segue.destinationViewController;
         viewController.event = sender;
     }
@@ -140,7 +146,7 @@
 }
 
 - (IBAction)toConnectCentre:(id)sender {
-    [self performSegueWithIdentifier:@"toConnect" sender:self.event];
+    [self performSegueWithIdentifier:@"toConnect" sender:@[self.event, self.document]];
 }
 
 - (IBAction)toDecisionRoom:(id)sender {

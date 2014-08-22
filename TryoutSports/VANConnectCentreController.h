@@ -8,10 +8,16 @@
 
 #import <MessageUI/MessageUI.h>
 #import "VANManagedObjectViewController.h"
+#import "VANMainMenuViewController.h"
 
 
 @interface VANConnectCentreController : VANManagedObjectViewController <MFMailComposeViewControllerDelegate>
 
+
+@property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *airdrop;
+
+- (IBAction)sendViaAirdrop:(id)sender;
 
 - (IBAction)exportEvent:(id)sender;
 

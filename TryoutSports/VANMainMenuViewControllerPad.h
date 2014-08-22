@@ -23,7 +23,7 @@ typedef NS_ENUM(NSUInteger, VANNotificationAction) {
     VANNotificationActionToAthletesSeen,
 };
 
-@interface VANMainMenuViewControllerPad : VANMainMenuViewController <UIActionSheetDelegate>
+@interface VANMainMenuViewControllerPad : VANMainMenuViewController <UIActionSheetDelegate, UIActivityItemSource>
 
 
 @property (weak, nonatomic) IBOutlet UIView *buttonContainer;

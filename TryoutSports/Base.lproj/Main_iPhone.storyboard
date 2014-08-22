@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6154.17" systemVersion="14A314h" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vZm-eW-6jz">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6206.8" systemVersion="14A329f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vZm-eW-6jz">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6153.11"/>
+        <deployment defaultVersion="1792" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7026.1"/>
     </dependencies>
     <scenes>
         <!--Full Navigation View Controller-->
@@ -10,7 +11,10 @@
                 <navigationController definesPresentationContext="YES" id="vZm-eW-6jz" customClass="VANFullNavigationViewController" sceneMemberID="viewController">
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4">
+                        <size key="portraitSize" width="320" height="568"/>
+                        <size key="landscapeSize" width="568" height="320"/>
+                    </simulatedScreenMetrics>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="UTQ-1k-KqS">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -31,7 +35,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="PCV-gl-ICa" style="IBUITableViewCellStyleDefault" id="7An-rV-w5c">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="PCV-gl-ICa" style="IBUITableViewCellStyleDefault" id="7An-rV-w5c">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7An-rV-w5c" id="MKt-0j-b3h">
@@ -60,7 +64,7 @@
             </objects>
             <point key="canvasLocation" x="352" y="1727"/>
         </scene>
-        <!--App Settings View Controller - App Settings-->
+        <!--App Settings-->
         <scene sceneID="xvP-r6-c6d">
             <objects>
                 <tableViewController id="nBC-pk-Eaf" customClass="VANAppSettingsViewController" sceneMemberID="viewController">
@@ -71,7 +75,7 @@
                         <sections>
                             <tableViewSection headerTitle="Club Settings" id="tnH-1P-nvI">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="gjU-sc-dSI">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="gjU-sc-dSI">
                                         <rect key="frame" x="0.0" y="119" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gjU-sc-dSI" id="siI-66-j8K">
@@ -96,7 +100,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="9Ec-wk-3LF" detailTextLabel="YEs-1q-bdU" style="IBUITableViewCellStyleValue1" id="Ih4-Px-Swh">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="9Ec-wk-3LF" detailTextLabel="YEs-1q-bdU" style="IBUITableViewCellStyleValue1" id="Ih4-Px-Swh">
                                         <rect key="frame" x="0.0" y="163" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ih4-Px-Swh" id="jDh-Ey-PhK">
@@ -123,7 +127,7 @@
                                             <segue destination="kwl-o1-S2e" kind="push" identifier="changeColor" id="dNN-vi-PgR"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="NeF-d7-fcq">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="NeF-d7-fcq">
                                         <rect key="frame" x="0.0" y="207" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NeF-d7-fcq" id="FZd-Td-dhB">
@@ -151,7 +155,7 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Tags" id="tvb-WI-pwu">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="nvu-Cc-hsW" style="IBUITableViewCellStyleDefault" id="W96-r0-Jad">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="nvu-Cc-hsW" style="IBUITableViewCellStyleDefault" id="W96-r0-Jad">
                                         <rect key="frame" x="0.0" y="299" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="W96-r0-Jad" id="Ujr-qf-zAG">
@@ -205,12 +209,12 @@
             </objects>
             <point key="canvasLocation" x="352" y="595"/>
         </scene>
-        <!--New Event View Controller - Settings-->
+        <!--Settings-->
         <scene sceneID="vA1-iK-Zhb">
             <objects>
                 <tableViewController id="8kO-OM-SK9" customClass="VANNewEventViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="XHn-PM-XRE">
-                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <connections>
@@ -220,12 +224,13 @@
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="Settings" id="xFk-Fa-FDF"/>
+                    <navigationItem key="navigationItem" id="3zc-BO-pH5"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9gd-g1-DW3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="158" y="-1376"/>
         </scene>
-        <!--New Skills And Tests Controller - Criteria + Positions-->
+        <!--Criteria + Positions-->
         <scene sceneID="Rga-3X-0YA">
             <objects>
                 <tableViewController id="qsm-gB-Ykz" customClass="VANNewSkillsAndTestsController" sceneMemberID="viewController">
@@ -234,7 +239,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Add" textLabel="f0A-J5-2ef" style="IBUITableViewCellStyleDefault" id="7kk-Td-NqA">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Add" textLabel="f0A-J5-2ef" style="IBUITableViewCellStyleDefault" id="7kk-Td-NqA">
                                 <rect key="frame" x="0.0" y="55" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7kk-Td-NqA" id="6u5-mO-eUJ">
@@ -289,7 +294,7 @@
                                 <rect key="frame" x="0.0" y="165" width="320" height="403"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="gKv-Z8-Htf" style="IBUITableViewCellStyleDefault" id="DDt-Qz-dEU">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="gKv-Z8-Htf" style="IBUITableViewCellStyleDefault" id="DDt-Qz-dEU">
                                         <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DDt-Qz-dEU" id="JN8-de-hHW">
@@ -380,7 +385,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="K2t-ul-zIe" detailTextLabel="zRy-kW-ELR" rowHeight="60" style="IBUITableViewCellStyleValue1" id="dHE-va-kM5">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="K2t-ul-zIe" detailTextLabel="zRy-kW-ELR" rowHeight="60" style="IBUITableViewCellStyleValue1" id="dHE-va-kM5">
                                         <rect key="frame" x="0.0" y="86" width="320" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dHE-va-kM5" id="rcP-Fv-m0K">
@@ -452,6 +457,7 @@
                         <outlet property="eventsTable" destination="Jhg-Sk-bUT" id="asn-W0-wf4"/>
                         <segue destination="LlU-F5-ayc" kind="push" identifier="toEventSettings" id="7MP-jz-n7J"/>
                         <segue destination="0ws-Qk-Zmh" kind="push" identifier="pushToMain" id="PtI-Nr-d0D"/>
+                        <segue destination="8kO-OM-SK9" kind="push" identifier="toNewEventSettings" id="mNm-bq-Pq2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tnh-fB-QBq" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -474,7 +480,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell autoresizesSubviews="NO" contentMode="scaleToFill" ambiguous="YES" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="84" id="3Zs-hq-mEX" customClass="VANAthleteListCell">
+                                    <tableViewCell autoresizesSubviews="NO" contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="84" id="3Zs-hq-mEX" customClass="VANAthleteListCell">
                                         <rect key="frame" x="0.0" y="86" width="320" height="84"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" autoresizesSubviews="NO" opaque="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3Zs-hq-mEX" id="Yud-u2-ocz">
@@ -595,7 +601,7 @@
             </objects>
             <point key="canvasLocation" x="1114" y="-62"/>
         </scene>
-        <!--Athlete Edit Controller - Edit Athlete-->
+        <!--Edit Athlete-->
         <scene sceneID="aAJ-4G-MrR">
             <objects>
                 <tableViewController id="QZj-ga-Wwx" customClass="VANAthleteEditController" sceneMemberID="viewController">
@@ -604,7 +610,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="VANNewAthleteProfileCell" rowHeight="170" id="h9e-90-XNw" customClass="VANNewAthleteProfileCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="VANNewAthleteProfileCell" rowHeight="170" id="h9e-90-XNw" customClass="VANNewAthleteProfileCell">
                                 <rect key="frame" x="0.0" y="119" width="320" height="170"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="h9e-90-XNw" id="aUK-Os-w0I">
@@ -679,7 +685,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="tag" textLabel="z89-oG-1pE" rowHeight="35" style="IBUITableViewCellStyleDefault" id="1mP-Tv-jDP">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="tag" textLabel="z89-oG-1pE" rowHeight="35" style="IBUITableViewCellStyleDefault" id="1mP-Tv-jDP">
                                 <rect key="frame" x="0.0" y="119" width="320" height="35"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1mP-Tv-jDP" id="c2x-wC-pZf">
@@ -696,7 +702,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="add" id="5vT-I8-2oO" customClass="VANAddTagCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="add" id="5vT-I8-2oO" customClass="VANAddTagCell">
                                 <rect key="frame" x="0.0" y="154" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5vT-I8-2oO" id="e16-lo-9y2">
@@ -737,7 +743,7 @@
                                     <outlet property="textView" destination="YVJ-IQ-ZWH" id="L3V-WK-Afu"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="filter" id="olc-Jo-aU7" customClass="VANFilterButtonCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="filter" id="olc-Jo-aU7" customClass="VANFilterButtonCell">
                                 <rect key="frame" x="0.0" y="198" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="olc-Jo-aU7" id="XKR-TO-kYK">
@@ -780,7 +786,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="detail" textLabel="dNB-7e-iHC" detailTextLabel="54b-cQ-Tr9" rowHeight="40" style="IBUITableViewCellStyleValue1" id="Zp9-Rr-5tg" customClass="VANCollectionCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="detail" textLabel="dNB-7e-iHC" detailTextLabel="54b-cQ-Tr9" rowHeight="40" style="IBUITableViewCellStyleValue1" id="Zp9-Rr-5tg" customClass="VANCollectionCell">
                                 <rect key="frame" x="0.0" y="86" width="320" height="40"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Zp9-Rr-5tg" id="XZz-fO-TtP">
@@ -805,7 +811,7 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Tags" rowHeight="119" id="pzt-sn-5Sl" customClass="VANCollectionCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Tags" rowHeight="119" id="pzt-sn-5Sl" customClass="VANCollectionCell">
                                 <rect key="frame" x="0.0" y="126" width="320" height="119"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" tableViewCell="pzt-sn-5Sl" id="M0C-uG-Gx7">
@@ -1110,7 +1116,7 @@
             </objects>
             <point key="canvasLocation" x="729" y="-62"/>
         </scene>
-        <!--Teams Controller - Teams-->
+        <!--Teams-->
         <scene sceneID="ypJ-d1-qpQ">
             <objects>
                 <viewController id="mZ3-YB-vFF" customClass="VANTeamsController" sceneMemberID="viewController">
@@ -1142,7 +1148,7 @@
             </objects>
             <point key="canvasLocation" x="1114" y="-717"/>
         </scene>
-        <!--Connect Centre Controller - Connections-->
+        <!--Connections-->
         <scene sceneID="V1J-92-cGK">
             <objects>
                 <viewController id="1IR-e1-WI3" customClass="VANConnectCentreController" sceneMemberID="viewController">
@@ -1261,7 +1267,7 @@
             </objects>
             <point key="canvasLocation" x="1886" y="1277"/>
         </scene>
-        <!--Decision Room View Controller - Decision Room-->
+        <!--Decision Room-->
         <scene sceneID="2lz-17-Zby">
             <objects>
                 <viewController id="fWE-8m-VhO" customClass="VANDecisionRoomViewController" sceneMemberID="viewController">
@@ -1363,7 +1369,7 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <inset key="scrollIndicatorInsets" minX="0.0" minY="40" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="compareImage" rowHeight="159" id="f2a-7y-xL7" customClass="VANCompareImageCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="compareImage" rowHeight="159" id="f2a-7y-xL7" customClass="VANCompareImageCell">
                                         <rect key="frame" x="0.0" y="55" width="320" height="159"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="f2a-7y-xL7" id="k6U-1G-nW5">
@@ -1396,7 +1402,7 @@
                                             <outlet property="athleteB" destination="SaS-bu-wge" id="weU-sc-gPU"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="compareName" rowHeight="30" id="KcA-4s-HB3" customClass="VANCompareNameCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="compareName" rowHeight="30" id="KcA-4s-HB3" customClass="VANCompareNameCell">
                                         <rect key="frame" x="0.0" y="214" width="320" height="30"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KcA-4s-HB3" id="5rE-J9-Fsa">
@@ -1424,7 +1430,7 @@
                                             <outlet property="athleteB" destination="2PZ-JW-wys" id="J26-IC-23y"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="compareStats" rowHeight="50" id="bry-HI-zgR" customClass="VANCompareStatsCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="compareStats" rowHeight="50" id="bry-HI-zgR" customClass="VANCompareStatsCell">
                                         <rect key="frame" x="0.0" y="244" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bry-HI-zgR" id="zvr-Ut-U1N">
@@ -1455,7 +1461,7 @@
                                             <outlet property="athleteStat" destination="zzQ-Nh-GrO" id="GKd-T4-Mnp"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="compareTags" rowHeight="50" id="Z47-YD-jzZ" customClass="VANCompareTagsCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="compareTags" rowHeight="50" id="Z47-YD-jzZ" customClass="VANCompareTagsCell">
                                         <rect key="frame" x="0.0" y="294" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Z47-YD-jzZ" id="QjK-l8-xoE">
@@ -1548,14 +1554,18 @@
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination"/>
+        <simulatedScreenMetrics key="destination">
+            <size key="portraitSize" width="320" height="480"/>
+            <size key="landscapeSize" width="480" height="320"/>
+        </simulatedScreenMetrics>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="vXh-rp-DjC"/>
-        <segue reference="ta9-jt-gUE"/>
         <segue reference="PtI-Nr-d0D"/>
-        <segue reference="JBw-Zl-VdO"/>
+        <segue reference="mNm-bq-Pq2"/>
+        <segue reference="7MP-jz-n7J"/>
         <segue reference="F0z-Id-3fs"/>
+        <segue reference="ta9-jt-gUE"/>
         <segue reference="XdU-4g-aJg"/>
+        <segue reference="vXh-rp-DjC"/>
     </inferredMetricsTieBreakers>
 </document>

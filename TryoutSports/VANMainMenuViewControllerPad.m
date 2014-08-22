@@ -109,16 +109,14 @@ static NSInteger kinfoContainerWidthLandscape = 250;
 }
 
 - (IBAction)sendToDevice:(id)sender {
-    UIActivityViewController *activityView = [[UIActivityViewController alloc] initWithActivityItems:@[self.event] applicationActivities:nil];
-    [self presentViewController:activityView animated:YES completion:nil];
-    
-    
-    
+
 }
 
 -(void)releaseAthleteDetailViews {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+#pragma mark - Activity Item Source Methods
+
 
 #pragma mark - TableView Data Source Methods
 

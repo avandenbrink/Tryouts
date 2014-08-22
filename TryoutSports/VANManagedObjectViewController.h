@@ -15,9 +15,12 @@
 #import "VANAppDelegate.h"
 #import "VANTeamColor.h"
 #import "VANGlobalMethods.h"
+#import "VANTryoutDocument.h"
 
 
 @interface VANManagedObjectViewController : UIViewController
+
+@property (strong, nonatomic) VANTryoutDocument *document;
 
 @property (strong, nonatomic) Event *event;
 @property (strong, nonatomic) Athlete *athlete;
