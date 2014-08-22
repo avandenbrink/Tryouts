@@ -16,7 +16,7 @@
 			<key>CFBundleTypeName</key>
 			<string>tryoutsports</string>
 			<key>LSHandlerRank</key>
-			<string>Default</string>
+			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>com.avbrink.TryoutSports.tryoutsports</string>
@@ -98,24 +98,18 @@
 			<string>Tryout Sports Doucment Type</string>
 			<key>UTTypeIdentifier</key>
 			<string>com.avbrink.TryoutSports.tryoutsports</string>
-			<key>public.filename-extension</key>
-			<string>tryoutsports</string>
+			<key>UTTypeSize320IconFile</key>
+			<string>icon60</string>
+			<key>UTTypeSize64IconFile</key>
+			<string>icon29</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<string>tryoutsports</string>
+			</dict>
 		</dict>
 	</array>
 	<key>UTExprtedTypeDeclarations</key>
 	<array/>
-	<key>UTImportedTypeDeclarations</key>
-	<array>
-		<dict>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>public.data</string>
-			</array>
-			<key>UTTypeDescription</key>
-			<string>Tryout Sports Doucment Type</string>
-			<key>UTTypeIdentifier</key>
-			<string>com.avbrink.TryoutSports.tryoutsports</string>
-		</dict>
-	</array>
 </dict>
 </plist>

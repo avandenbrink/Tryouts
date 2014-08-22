@@ -26,7 +26,7 @@
 - (IBAction)exportEvent:(id)sender {
     
     UIActivityViewController *activityView = [[UIActivityViewController alloc] initWithActivityItems:@[self.document] applicationActivities:nil];
-    activityView.excludedActivityTypes = @[UIActivityTypeAddToReadingList,UIActivityTypeAssignToContact,UIActivityTypeCopyToPasteboard, UIActivityTypePostToFacebook, UIActivityTypePostToFlickr, UIActivityTypePostToTencentWeibo, UIActivityTypePostToTwitter, UIActivityTypePostToVimeo, UIActivityTypePrint, UIActivityTypeSaveToCameraRoll, UIActivityTypeMessage, UIActivityTypeMail];
+    activityView.excludedActivityTypes = @[UIActivityTypeAddToReadingList,UIActivityTypeAssignToContact,UIActivityTypeCopyToPasteboard, UIActivityTypePostToFacebook, UIActivityTypePostToFlickr, UIActivityTypePostToTencentWeibo, UIActivityTypePostToTwitter, UIActivityTypePostToVimeo, UIActivityTypePrint, UIActivityTypeSaveToCameraRoll, UIActivityTypeMessage, UIActivityTypeMail, UIActivityTypeAddToReadingList];
     [self presentViewController:activityView animated:YES completion:nil];
     
 //    
