@@ -24,9 +24,6 @@ static NSString const *kToTeamView = @"team";
 static NSString const *kToAthleteListFlagged = @"flagged";
 static NSString const *kToAthleteListUnseen = @"unseen";
 
-static NSInteger logoBGCornerRadus = 105;
-static NSInteger logoCornerRadius = 100;
-
 static NSInteger kinfoContainerHeightPortrait = 300;
 static NSInteger kinfoContainerWidthLandscape = 250;
 
@@ -40,36 +37,6 @@ static NSInteger kinfoContainerWidthLandscape = 250;
 
 -(void)viewDidLoad {
     [super viewDidLoad];
-    
-    //On First Load, Build notifications for the Table View Based on current event state
-    VANTeamColor *color = [[VANTeamColor alloc] init];
-    
-    _logoBGView.backgroundColor = [color findTeamColor];
-    _logoBGView.layer.masksToBounds = YES;
-    _logoBGView.layer.cornerRadius = logoBGCornerRadus;
-    
-    _logo.layer.masksToBounds = YES;
-    _logo.layer.cornerRadius = logoCornerRadius;
-    _logo.backgroundColor = [UIColor whiteColor];
-    
-    if (self.event.logo) {
-        NSData *imageData = self.event.logo;
-        UIImage *image = [UIImage imageWithData:imageData];
-        _logo.image = image;
-    } else {
-        UIButton *button = [[UIButton alloc] initWithFrame:_logo.frame];
-        [_logoBGView addSubview:button];
-        [button addTarget:self action:@selector(pickOrTakePicture) forControlEvents:UIControlEventTouchUpInside];
-        button.layer.masksToBounds = YES;
-        button.layer.cornerRadius = logoCornerRadius;
-    }
-
-    if ([self.event.athleteSignIn isEqualToNumber:[NSNumber numberWithBool:NO]]) {
-        _signInImageView.backgroundColor = [UIColor darkGrayColor];
-    } else {
-        _signInImageView.backgroundColor = [UIColor navyBlue];
-    }
-    
     
 }
 
@@ -92,7 +59,17 @@ static NSInteger kinfoContainerWidthLandscape = 250;
 
 -(void)moveFramesForLandscapeOrientation
 {
+//    self.viewTrailingConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"view" options:<#(NSLayoutFormatOptions)#> metrics:<#(NSDictionary *)#> views:<#(NSDictionary *)#>]
+//    constraint.priority = 100;
+//    
+    
+    
+    
     CGRect buttonRect = CGRectMake(0, 0, self.view.frame.size.width-kinfoContainerWidthLandscape, self.view.frame.size.height);
+    
+    
+    
+    
     [_buttonContainer setFrame:buttonRect];
     
     CGRect infoRect = CGRectMake(self.view.frame.size.width-kinfoContainerWidthLandscape, 0, kinfoContainerWidthLandscape, self.view.frame.size.height);
@@ -194,11 +171,6 @@ static NSInteger kinfoContainerWidthLandscape = 250;
 }
 
 #pragma mark - Custom Methods for Notifications
-
--(void)pickOrTakePicture {
-    UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:@"Image From:" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Pick From Library" otherButtonTitles:@"Take a Picture", nil];
-    [action showFromRect:_logoBGView.frame inView:self.view animated:YES];
-}
 
 -(void)buildNotifications
 {

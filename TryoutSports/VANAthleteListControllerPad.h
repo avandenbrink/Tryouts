@@ -25,8 +25,7 @@
 @interface VANAthleteListControllerPad : VANAthleteListViewController <UITabBarDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, VANAthleteProfileDelegate, VANPictureTakerDelegate, VANSoloImageViewerDelegate, VANDetailTableDelegate, VANTagsTableViewDelegate>
 
 
-@property (strong, nonatomic) NSMutableDictionary *athleteLister;
-@property (strong, nonatomic) NSMutableArray *sectionArray;
+
 @property (weak, nonatomic) IBOutlet UILabel *starterLabel;
 @property (weak, nonatomic) IBOutlet UIButton *closeTabsButton;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;

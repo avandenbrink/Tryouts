@@ -20,7 +20,7 @@
 -(void)introduceTagsViewWithAnimation:(BOOL)animate;
 // ------ Forwarded from AThelteProfileCell Delegate
 -(void)VANTableViewCellrequestsActivateCameraForAthlete:(Athlete *)athlete fromCell:(VANAthleteProfileCell *)cell;
--(void)VANTableViewCellrequestsImageInFullScreen:(UIImage *)image fromCell:(VANAthleteProfileCell *)cell;
+-(void)VANTableViewCellrequestsImageforAthete:(Athlete *)athlete fromCell:(VANAthleteProfileCell *)cell;
 // ------- Optional based on If the TextField is used or not; Forwarded from VANTextFieldCell Delegate
 -(void)addTextFieldContent:(NSString *)string ToContextForTitle:(NSString *)title;
 -(void)adjustContentInsetsForEditing:(BOOL)editing;
@@ -42,6 +42,6 @@
 -(void)moveTeamScrollViewWithAnimation:(BOOL)animate;
 -(void)resetAthletesPointertoAthlete:(Athlete *)athlete;
 -(void)readjustTeamCellWithAnimation:(BOOL)animate;
--(void)updateAthleteTagsCellWithAthlete:(Athlete *)athlete;
+-(void)updateAthleteTagsCellWithAthlete:(Athlete *)athlete andReloadCell:(BOOL)reload;
 
 @end

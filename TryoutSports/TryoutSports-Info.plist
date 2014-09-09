@@ -21,6 +21,20 @@
 			<array>
 				<string>com.avbrink.TryoutSports.tryoutsports</string>
 			</array>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>csv</string>
+			<key>Description</key>
+			<string>CSV Files</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>com.avbrink.${PRODUCT_NAME:rfc1034identifier}</string>
+			</array>
 		</dict>
 	</array>
 	<key>CFBundleDocumentsType</key>
@@ -55,10 +69,10 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.avbrink.TryoutSports.tryoutsports</string>
+			<string>com.avbrink.TryoutSports</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>adcs</string>
+				<string>tryoutsports</string>
 			</array>
 		</dict>
 	</array>
@@ -92,7 +106,20 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string>public.content</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeIdentifier</key>
+			<string>com.avbrink.${PRODUCT_NAME:rfc1034identifier}</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<string>csv</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>com.avbrink.package</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Tryout Sports Doucment Type</string>
@@ -106,6 +133,8 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<string>tryoutsports</string>
+				<key>public.mime-type</key>
+				<string>application/x-tryoutsports</string>
 			</dict>
 		</dict>
 	</array>

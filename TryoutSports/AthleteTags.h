@@ -13,7 +13,7 @@
 
 @interface AthleteTags : NSManagedObject
 
-@property (nonatomic, retain) NSString * descriptor;
+@property (nonatomic, retain) NSString * attribute;
 @property (nonatomic, retain) NSNumber * type;
 @property (nonatomic, retain) Athlete *athlete;
 

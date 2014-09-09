@@ -21,13 +21,13 @@ static NSString* const managedObjectEvent = @"Event";
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 
--(void)getLocalFiles;
-
 @end
 
 @implementation VANIntroViewController
 
 @synthesize fetchedResultsController = _fetchedResultsController;
+
+#pragma mark - Init Methods
 
 + (void)initialize {
     __dateFormatter = [[NSDateFormatter alloc] init];
@@ -76,6 +76,7 @@ static NSString* const managedObjectEvent = @"Event";
 }
 
 -(void)viewWillAppear:(BOOL)animated {
+    [self getLocalFiles];
     [super viewWillAppear:animated];
 }
 
@@ -88,7 +89,7 @@ static NSString* const managedObjectEvent = @"Event";
     return self.containerURL != nil;
 }
 
-#pragma mark - Table view data source
+#pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -133,7 +134,7 @@ static NSString* const managedObjectEvent = @"Event";
     cell.detailTextLabel.text = [__dateFormatter stringFromDate:date];
 }
 
-#pragma mark - Table view delegate
+#pragma mark - Table View Delegate Methods
 
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewCellEditingStyleDelete;
@@ -154,8 +155,9 @@ static NSString* const managedObjectEvent = @"Event";
     VANTryoutDocument *document = [self createDocument:[self.fileList objectAtIndex:indexPath.row]];
     
     [document openWithCompletionHandler:^(BOOL success) {
-        if (!success) {
-            [NSException raise:NSGenericException format:@"Could Not Open File %@", [self.fileList objectAtIndex:indexPath.row]];
+        if (!success) {            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error Openning" message:@"This document could not be opened, please select another" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
         } else {
             
             NSManagedObjectContext *context = document.managedObjectContext;
@@ -180,84 +182,7 @@ static NSString* const managedObjectEvent = @"Event";
     }];
 }
 
-#pragma mark - FetchResultsController Setter
-
--(NSFetchedResultsController *)fetchedResultsController {
-    if (_fetchedResultsController != nil) {
-        return _fetchedResultsController;
-    }
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:self.managedObjectContext];
-    [fetchRequest setEntity:entity];
-    
-    //set Batch Size
-    [fetchRequest setFetchBatchSize:20];
-    
-    //edit the sort key
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
-    
-    [fetchRequest setSortDescriptors:@[sortDescriptor]];
-    
-    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Master"];
-    _fetchedResultsController.delegate = self;
-    
-    NSError *error = nil;
-	if (![self.fetchedResultsController performFetch:&error]) {
-        // Replace this implementation with code to handle the error appropriately.
-        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-	    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-	    abort();
-	}
-    
-    return _fetchedResultsController;
-}
-
-
-
-#pragma mark - FetchResultsController Delegate Methods
-
--(void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-    [self.eventsTable beginUpdates];
-}
-
--(void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    [self.eventsTable endUpdates];
-}
-
--(void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
-    UITableView *tableView = self.eventsTable;
-    
-    switch (type) {
-        case NSFetchedResultsChangeInsert:
-            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-        case NSFetchedResultsChangeDelete:
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-        case NSFetchedResultsChangeUpdate:
-            [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
-            break;
-        case NSFetchedResultsChangeMove:
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-    }
-}
-
--(void)controller:(NSFetchedResultsController *)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
-    switch (type) {
-        case NSFetchedResultsChangeInsert:
-            [self.eventsTable insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-        case NSFetchedResultsChangeDelete:
-            [self.eventsTable deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-        default:
-            break;
-    }
-}
-
-#pragma mark - Other Custom Methods and PrepareForSegue
+#pragma mark - Seque Methods
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -266,7 +191,7 @@ static NSString* const managedObjectEvent = @"Event";
             VANMainMenuViewController *viewController = segue.destinationViewController;
             viewController.event = [sender firstObject];
             viewController.document = [sender lastObject];
-            
+
         } else {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Event Detail Error", @"Event Detail Error") message:NSLocalizedString(@"Error Showing Detail",@"Error Showing Detail") delegate:self cancelButtonTitle:NSLocalizedString(@"OK", @"OK") otherButtonTitles:nil];
             [alert show];
@@ -275,6 +200,8 @@ static NSString* const managedObjectEvent = @"Event";
         NSLog(@"We Don't Currently have a Segue by the Name: %@ Sent to IntroViewController", segue.identifier);
     }
 }
+
+#pragma mark - App Settings Delegate Methods
 
 - (void)appSettingsViewControllerDidFinish:(VANAppSettingsViewController *)controller
 {
@@ -286,17 +213,6 @@ static NSString* const managedObjectEvent = @"Event";
     [controllers.navigationBar setTintColor:[teamColor findTeamColor]];
     [self.view setNeedsDisplay];
 }
-
-- (IBAction)addEvent:(id)sender
-{
-    NSLog(@"This addEvent Button should be implemented somewhere else");
-//    NSManagedObjectContext *managedObjectContext = [self.fetchedResultsController managedObjectContext];
-//    NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
-//    NSManagedObject *newEvent = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:managedObjectContext];
-//
-//    [self performSegueWithIdentifier:@"toEventSettings" sender:newEvent];
-}
-
 
 #pragma mark - Get File Methods
 
@@ -315,7 +231,6 @@ static NSString* const managedObjectEvent = @"Event";
         NSString *name = [URLname absoluteString];
         if ([name rangeOfString:fileNameType].location != NSNotFound) {
             NSURL *url = [URLname URLByResolvingSymlinksInPath];
-            NSLog(@"%@",url);
             [contents addObject:url];
         }
     }
@@ -453,13 +368,24 @@ static NSString* const managedObjectEvent = @"Event";
     
 }
 
+#pragma mark - Create/Delete File Methods
+
+- (IBAction)addEvent:(id)sender
+{
+    NSLog(@"This addEvent Button should be implemented somewhere else");
+    //    NSManagedObjectContext *managedObjectContext = [self.fetchedResultsController managedObjectContext];
+    //    NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
+    //    NSManagedObject *newEvent = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:managedObjectContext];
+    //
+    //    [self performSegueWithIdentifier:@"toEventSettings" sender:newEvent];
+}
+
 -(void)createNewFileWithName:(NSString *)name {
     
     NSString *fileName = [NSString stringWithFormat:@"%@%@",name, fileNameType];
     
     NSURL *documentURL = [self.localURL URLByAppendingPathComponent:fileName];
     VANTryoutDocument *newDocument = [self createDocument:name];
-    
     [newDocument saveToURL:documentURL forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success) {
         if (!success) {
             [[NSFileManager defaultManager] removeItemAtURL:documentURL error:nil];
@@ -562,7 +488,7 @@ static NSString* const managedObjectEvent = @"Event";
     }
     NSString *fileNameFull = [fileName stringByAppendingString:fileNameType];
     
-    NSURL* url = [self.urlsForFileNames valueForKey:fileNameFull];
+    NSURL *url = [self.urlsForFileNames valueForKey:fileNameFull];
     
     // if we don't have a valid URL, create a local url
     if (url == nil) {
@@ -572,11 +498,9 @@ static NSString* const managedObjectEvent = @"Event";
     }
     
     // Now Create our document
-    VANTryoutDocument* document = [[VANTryoutDocument alloc] initWithFileURL:url];
-    
+    VANTryoutDocument *document = [[VANTryoutDocument alloc] initWithFileURL:url];
     
     document.persistentStoreOptions = options;
-    
     return document;
 }
 
@@ -585,7 +509,6 @@ static NSString* const managedObjectEvent = @"Event";
 
 
 -(BOOL)changNameOfDocument:(VANTryoutDocument *)document to:(NSString *)name {
-    
     NSString *fileName = [name stringByAppendingString:fileNameType];
     NSURL *newURL = [self.localURL URLByAppendingPathComponent:fileName];
     
@@ -654,6 +577,7 @@ static NSString* const managedObjectEvent = @"Event";
 }
 
 #pragma mark - NewEventViewController Delegate Methods
+
 -(void)removeDocument:(VANTryoutDocument *)document {
     [self deleteEventDocumentWithName:document orName:nil];
 }

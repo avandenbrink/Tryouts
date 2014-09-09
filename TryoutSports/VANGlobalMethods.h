@@ -19,7 +19,7 @@ static NSString *testRelationship = @"test";
 
 @property (strong, nonatomic) Event *event;
 -(id)initwithEvent:(Event *)event;
--(void)saveManagedObject:(NSManagedObject *)managedObject;
++ (void)saveManagedObject:(NSManagedObject *)managedObject;
 -(NSManagedObject *)addNewRelationship:(NSString *)relationship;
 
 

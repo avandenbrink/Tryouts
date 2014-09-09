@@ -20,6 +20,10 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak ,nonatomic) IBOutlet UITabBar *tabBar;
 @property (strong, nonatomic) VANTeamColor *teamColor;
+@property (strong, nonatomic) NSMutableDictionary *imageCache;
+
+@property (strong, nonatomic) NSMutableDictionary *athleteLister;
+@property (strong, nonatomic) NSMutableArray *sectionArray;
 
 @property (nonatomic, assign) NSInteger currentFlagged;
 

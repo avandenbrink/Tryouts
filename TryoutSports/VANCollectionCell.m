@@ -35,7 +35,6 @@
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     [self.collectionView.collectionViewLayout invalidateLayout];
-    NSLog(@"Number Of Tags for %@: %lu",self.athlete.name, (unsigned long)[self.athlete.aTags count]);
     return 1;
 }
 
@@ -61,7 +60,7 @@
     cell.label.textColor = [UIColor whiteColor];
     
     AthleteTags *tag = [[self.athlete.aTags allObjects] objectAtIndex:indexPath.row];
-    cell.label.text = tag.descriptor;
+    cell.label.text = tag.attribute;
     
     if (tag.type == [NSNumber numberWithInt:0]) {
         cell.backgroundColor = [_teamColor findTeamColor];
@@ -85,7 +84,7 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     AthleteTags *tag = [[self.athlete.aTags allObjects] objectAtIndex:indexPath.row];
-    CGSize textSize = [tag.descriptor sizeWithAttributes:[NSDictionary dictionaryWithObjects:@[[UIFont systemFontOfSize:17]] forKeys:@[NSFontAttributeName]]];
+    CGSize textSize = [tag.attribute sizeWithAttributes:[NSDictionary dictionaryWithObjects:@[[UIFont systemFontOfSize:17]] forKeys:@[NSFontAttributeName]]];
   //  CGSize textSize = [tag.descriptor sizeWithFont:[UIFont systemFontOfSize:17]];
     return CGSizeMake(textSize.width + 24, textSize.height + 8);
 }
@@ -118,7 +117,7 @@
 {
     for (NSInteger i = 0; i < [self.tagsArray count]; i++) {
         AthleteTags *tag = [self.tagsArray objectAtIndex:i];
-        if ([tag.descriptor isEqualToString:string]) {
+        if ([tag.attribute isEqualToString:string]) {
             return YES;
         }
     }

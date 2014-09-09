@@ -61,6 +61,8 @@ static NSString* const managedObjectEvent = @"Event";
         CGRect startLogoFrame = CGRectMake(0,0,0,0);
         
         if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
+
+            
             startFromTableFrame = CGRectMake(self.view.frame.size.width, (self.view.frame.size.height-tableHeight)/2, tableWidth, tableHeight);
             startLogoFrame = CGRectMake((self.view.frame.size.width-logoWidth)/2, (self.view.frame.size.height-logoWidth)/2, logoWidth,logoWidth);
         } else {
@@ -73,6 +75,8 @@ static NSString* const managedObjectEvent = @"Event";
         CGRect toTableFrame = CGRectMake(0,0,0,0);
         CGRect toLogoFrame = CGRectMake(0,0,0,0);
         if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
+            
+            
             toTableFrame = CGRectMake((self.view.frame.size.width-tableWidth)-marginSpacing, (self.view.frame.size.height-tableHeight)/2, tableWidth, tableHeight);
             toLogoFrame = CGRectMake(((self.view.frame.size.width/2)-logoWidth)/2, (self.view.frame.size.height-logoWidth)/2, logoWidth,logoWidth);
         } else {

@@ -13,7 +13,7 @@
 @implementation AthleteTags
 
 @dynamic type;
-@dynamic descriptor;
+@dynamic attribute;
 @dynamic athlete;
 
 @end

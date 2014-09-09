@@ -25,6 +25,7 @@ static int kInsetBottomActive = 350;
 
 static NSString *rAthleteImages = @"images";
 
+
 @interface VANAthleteListControllerPad ()
 
 @property (nonatomic) BOOL detailVisible;
@@ -69,8 +70,8 @@ static NSString *rAthleteImages = @"images";
     self.detailVisible = NO;
     self.tagVisible = NO;
     
-    //Make sure Tab Bar has Ordered by Name selected First
-    self.tabBar.selectedItem = [self.tabBar.items objectAtIndex:0];
+    // Make List View desplay base on previous setting used.
+
     if ([self.teamColor findTeamColor] == [UIColor whiteColor]) { //If Team Color is White need to make special arangments
         self.tabBar.tintColor = [UIColor blackColor];
     }
@@ -110,10 +111,8 @@ static NSString *rAthleteImages = @"images";
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self sortAthletesByName];
     
     //Set up AthleteDetailTable if it is not already built as well as its DataSource and Delegate;
-    
     
     if (!_tableViewDetail) {
         
@@ -227,102 +226,7 @@ static NSString *rAthleteImages = @"images";
 
 #pragma mark - Sorting Methods
 
--(void)sortAthletesByName {
-    NSArray *array = [self.event.athletes allObjects];
-    self.athleteLister = [NSMutableDictionary dictionary];
-    self.sectionArray = [NSMutableArray array];
-    NSSortDescriptor *sortByName = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
-    NSArray *sortedArray = [array sortedArrayUsingDescriptors:@[sortByName]];
-    for (Athlete *athlete in sortedArray) {
-        NSString *name = athlete.name;
-        NSString *firstLetter = [name substringToIndex:1];
-        if (![self.athleteLister objectForKey:firstLetter]) {
-            NSMutableArray *array = [NSMutableArray arrayWithObject:athlete];
-            [self.athleteLister setValue:array forKey:firstLetter];
-            [self.sectionArray addObject:firstLetter];
-        } else {
-            NSMutableArray *array = [self.athleteLister objectForKey:firstLetter];
-            [array addObject:athlete];
-        }
-    }
-}
 
--(void)sortAthletesByPosition {
-    NSArray *array = [self.event.athletes allObjects];
-    self.athleteLister = [NSMutableDictionary dictionary];
-    self.sectionArray = [NSMutableArray array];
-    NSSortDescriptor *sortByName = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
-    NSSortDescriptor *sortByPosition = [NSSortDescriptor sortDescriptorWithKey:@"position" ascending:YES];
-    NSArray *sortedArray = [array sortedArrayUsingDescriptors:@[sortByPosition, sortByName]];
-    for (Athlete *athlete in sortedArray) {
-        NSString *position = athlete.position;
-        if (!athlete.position) {
-            position = @"No Position Yet";
-        }
-        if (![self.athleteLister objectForKey:position]) {
-            NSMutableArray *array = [NSMutableArray arrayWithObject:athlete];
-            [self.athleteLister setValue:array forKey:position];
-            [self.sectionArray addObject:position];
-        } else {
-            NSMutableArray *array = [self.athleteLister objectForKey:position];
-            [array addObject:athlete];
-        }
-    }
-}
-
--(void)sortAthletesBySeen {
-    NSArray *array = [self.event.athletes allObjects];
-    self.athleteLister = [NSMutableDictionary dictionary];
-    self.sectionArray = [NSMutableArray arrayWithObjects:@"Unseen", @"Seen", nil];
-
-    NSSortDescriptor *sortByName = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
-    NSArray *sortedArray = [array sortedArrayUsingDescriptors:@[sortByName]];
-    
-    for (Athlete *athlete in sortedArray) {
-        BOOL seen = [athlete.seen boolValue];
-        if (![self.athleteLister objectForKey:[self.sectionArray objectAtIndex:0]]) {
-            NSMutableArray *arrayA = [NSMutableArray array];
-            NSMutableArray *arrayB = [NSMutableArray array];
-            [self.athleteLister setValue:arrayA forKey:[self.sectionArray objectAtIndex:0]];
-            [self.athleteLister setValue:arrayB forKey:[self.sectionArray objectAtIndex:1]];
-        }
-        if (!seen) {
-            NSMutableArray *array = [self.athleteLister objectForKey:[self.sectionArray objectAtIndex:0]];
-            [array addObject:athlete];
-        } else {
-            NSMutableArray *array = [self.athleteLister objectForKey:[self.sectionArray objectAtIndex:1]];
-            [array addObject:athlete];
-        }
-    }
-}
-
-
--(void)sortAthletesByNumber {
-    NSArray *array = [self.event.athletes allObjects];
-    self.athleteLister = [NSMutableDictionary dictionary];
-    self.sectionArray = [NSMutableArray arrayWithObject:@"Numbers"];
-    NSSortDescriptor *sortByNumber = [NSSortDescriptor sortDescriptorWithKey:@"number" ascending:YES];
-    NSArray *sortedArray = [array sortedArrayUsingDescriptors:@[sortByNumber]];
-    [self.athleteLister setObject:sortedArray forKey:[self.sectionArray objectAtIndex:0]];
-}
-
--(void)sortAthletesByFlagged {
-    NSArray *array = [self.event.athletes allObjects];
-    self.athleteLister = [NSMutableDictionary dictionary];
-    self.sectionArray = [NSMutableArray arrayWithObject:@"Flagged"];
-    
-    NSSortDescriptor *sortByNumber = [NSSortDescriptor sortDescriptorWithKey:@"number" ascending:YES];
-    NSArray *sortedArray = [array sortedArrayUsingDescriptors:@[sortByNumber]];
-    
-    NSMutableArray *filteredArray = [NSMutableArray array];
-    //Filter Array
-    for (Athlete *athlete in sortedArray) {
-        if ([athlete.flagged boolValue]) {
-            [filteredArray addObject:athlete];
-        }
-    }
-    [self.athleteLister setObject:filteredArray forKey:[self.sectionArray objectAtIndex:0]];
-}
 
 /*
 -(void)addNewAthlete:(id)sender {
@@ -343,9 +247,8 @@ static NSString *rAthleteImages = @"images";
     return [array count];
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     VANAthleteListCellPad *cell = (VANAthleteListCellPad *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
     
     NSArray *array = [self.athleteLister valueForKey:[self.sectionArray objectAtIndex:indexPath.section]];
@@ -391,7 +294,7 @@ static NSString *rAthleteImages = @"images";
     _tableViewDetailDelegate.config.athlete = athlete;
     
     _detailNav.topItem.title = athlete.name; // Giving the Naviagation bar above the Athlete Detail the Name for a title
-    [_tableViewDetailDelegate updateAthleteTagsCellWithAthlete:athlete]; //Asks UICollectionView in AthelteDetailTable cell reload
+    [_tableViewDetailDelegate updateAthleteTagsCellWithAthlete:athlete andReloadCell:NO]; //Asks UICollectionView in AthelteDetailTable cell reload
     
     [_tableViewDetail reloadData];
     if (!_detailVisible) {
@@ -439,8 +342,7 @@ static NSString *rAthleteImages = @"images";
         //CGRect f = cell.contentView.frame;
     }];*/
     
-    VANGlobalMethods *global = [[VANGlobalMethods alloc] initwithEvent:self.event];
-    [global saveManagedObject:self.event];
+    [VANGlobalMethods saveManagedObject:self.event];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -455,11 +357,10 @@ static NSString *rAthleteImages = @"images";
 
 #pragma mark - VAN Detail Table Delegate's Delegate Methods
 
-
 #pragma mark - VAN Tags Table Delegate Delegate Methods
 
 -(void)athleteTagProfileHasBeenUpdated {
-    [_tableViewDetailDelegate updateAthleteTagsCellWithAthlete:nil];
+    [_tableViewDetailDelegate updateAthleteTagsCellWithAthlete:nil andReloadCell:YES];
 }
 
 -(void)VANAddTagCellBecameFirstResponder {
@@ -468,38 +369,6 @@ static NSString *rAthleteImages = @"images";
 
 -(void)VANAddTagCellIsReleasingFirstResponder {
     [self adjustContentInsetsForEditing:NO];
-}
-
-
-#pragma mark - Tab Bar Delegate Methods
-
--(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
-    //A. Will Deselect active cell before animating and record its Name Value to find and reselect afterwards
-    VANGlobalMethods *methods = [[VANGlobalMethods alloc] initwithEvent:self.event];
-    [methods saveManagedObject:self.event];
-    
-    switch (item.tag) {
-        case 0:
-            [self sortAthletesByName];
-            break;
-        case 1:
-            [self sortAthletesByNumber];
-            break;
-        case 2:
-            [self sortAthletesBySeen];
-            break;
-        case 3:
-            [self sortAthletesByPosition];
-            break;
-        case 4:
-            [self sortAthletesByFlagged];
-            self.currentFlagged = 0;
-            item.badgeValue = nil;
-            break;
-        default:
-            break;
-    }
-    [self.tableView reloadData];
 }
 
 #pragma mark - VAN Athlete Image Profile Cell Delegate Methods
@@ -513,15 +382,13 @@ static NSString *rAthleteImages = @"images";
     [self presentViewController:self.pictureTaker.imagePicker animated:YES completion:nil];
 }
 
-- (void)VANTableViewCellrequestsImageInFullScreen:(UIImage *)image fromCell:(VANAthleteProfileCell *)cell
+- (void)VANTableViewCellrequestsImageforAthete:(Athlete *)athlete fromCell:(VANAthleteProfileCell *)cell
 {
-    NSLog(@"Requesting Full Screen");
-    
     [self.tableViewDetail setContentOffset:CGPointMake(0, -104)];
     
     CGPoint offset = cell.imageScrollView.contentOffset;
     CGFloat imageNumber = offset.x/cell.imageScrollView.frame.size.width;
-    NSArray *images = [self.athlete.images allObjects];
+    NSArray *images = [athlete.images allObjects];
     Image *headshot = [images objectAtIndex:imageNumber];
     
     if (!self.darkView) {
@@ -544,11 +411,15 @@ static NSString *rAthleteImages = @"images";
 
 -(void)deleteImagefromSoloImageViewer:(Image *)image {
     [self.tableViewDetail reloadData];
-    NSLog(@"Delete Image");
+
 }
 
 -(void)closeSoloImageViewer {
     NSLog(@"Close Solo Image Viewer");
+}
+
+-(void)requiresUIUpdating {
+    
 }
 
 #pragma mark - VAN Picture Taker Deletage Methods
@@ -559,19 +430,27 @@ static NSString *rAthleteImages = @"images";
 }
 
 -(void)passBackSelectedImageData:(NSData *)imageData
-{
-    //It Passes back our ImageData to us, now we do what we wish with it
+{   // Image is passed back from camera
     
-    //A. Send it to Our Table View cell to display
-    VANAthleteProfileCell *cell =  (VANAthleteProfileCell *)[self.tableViewDetail cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-    [cell addNewImageFromData:imageData];
-    
-    //B. Create a new Image object and attach it to our selected athlete.
-    Athlete *selectedAthlete = _tableViewDetailDelegate.athlete;
+    // Firstly collect the image that we are currently editing:
     VANGlobalMethods *methods = [[VANGlobalMethods alloc] initwithEvent:self.event];
+    Athlete *selectedAthlete = self.tableViewDetailDelegate.athlete;
     
+    // Create a new Image and bind it to this athlete
     Image *newImage = (Image *)[methods addNewRelationship:rAthleteImages toManagedObject:selectedAthlete andSave:NO];
     newImage.headShot = imageData;
+    
+    // Make this image the profile image if it is the only image attached to the athlete
+    if ([selectedAthlete.images count] == 1) {
+        selectedAthlete.profileImage = newImage;
+    }
+    
+    //Update our Athlete Detail Cell to include this new image
+    VANAthleteProfileCell *cell =  (VANAthleteProfileCell *)[self.tableViewDetail cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    [cell addNewImageFromData:imageData];
+    [VANGlobalMethods saveManagedObject:selectedAthlete];
+    
+    [self.imageCache setValue:[UIImage imageWithData:imageData] forKey:selectedAthlete.name];
     
     [self.tableViewDetail reloadData];
 }

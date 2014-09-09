@@ -479,10 +479,10 @@ static NSString *defaultImagePic = @"headshot.png";
     VANGlobalMethods *methods = [[VANGlobalMethods alloc] initwithEvent:self.event];
     Image *image = (Image *)[methods addNewRelationship:rAthleteImages toManagedObject:self.athlete andSave:NO];
     image.headShot = _athleteImage;
-    
+    self.athlete.profileImage = image;
     self.athlete.checkedIn = [NSNumber numberWithBool:YES];
     
-    [methods saveManagedObject:self.athlete];
+    [VANGlobalMethods saveManagedObject:self.athlete];
     
     
     //B. Display a note saying successful sign-in

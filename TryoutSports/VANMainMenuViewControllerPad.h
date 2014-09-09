@@ -29,15 +29,10 @@ typedef NS_ENUM(NSUInteger, VANNotificationAction) {
 @property (weak, nonatomic) IBOutlet UIView *buttonContainer;
 @property (weak, nonatomic) IBOutlet UIView *infoContainer;
 
-//inside button Container
-@property (weak, nonatomic) IBOutlet UIView *logoBGView;
-@property (weak, nonatomic) IBOutlet UIImageView *logo;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewTrailingConstraints;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewBottomConstraint;
 
 @property (weak, nonatomic) IBOutlet UIImageView *athletesImageView;
-@property (weak, nonatomic) IBOutlet UIImageView *decisionRoomImageView;
-@property (weak, nonatomic) IBOutlet UIImageView *signInImageView;
-@property (weak, nonatomic) IBOutlet UIImageView *settingsImageView;
-@property (weak, nonatomic) IBOutlet UIImageView *connectImageView;
 
 //Inside info Container
 @property (weak, nonatomic) IBOutlet UITableView *notificationTable;

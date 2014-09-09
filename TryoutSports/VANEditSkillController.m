@@ -86,10 +86,9 @@ self.config.optionIndex Explained:
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Can't Save Empty String" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
     } else {
-        VANGlobalMethods *method = [[VANGlobalMethods alloc] initwithEvent:self.event];
         if (self.skill == nil && self.position == nil) {
             self.test.descriptor = self.skillOrTest.text;
-            [method saveManagedObject:self.test];
+            [VANGlobalMethods saveManagedObject:self.test];
             NSMutableArray *array = [self.config getPlistFileForResource:kTestKey];
             if (self.config.optionsArray == nil) {
                 self.config.optionsArray = [[NSMutableArray alloc] initWithObjects:self.skillOrTest.text, nil];
@@ -104,7 +103,7 @@ self.config.optionIndex Explained:
         } else if (self.position == nil){
 
             [self.skill setValue:self.skillOrTest.text forKey:@"descriptor"];
-            [method saveManagedObject:self.skill];
+            [VANGlobalMethods saveManagedObject:self.skill];
             NSMutableArray *array = [self.config getPlistFileForResource:kSkillsKey];
             if (self.config.optionsArray == nil) {
                 self.config.optionsArray = [[NSMutableArray alloc] initWithObjects:self.skillOrTest.text, nil];
@@ -119,7 +118,7 @@ self.config.optionIndex Explained:
         } else {
 
             [self.position setValue:self.skillOrTest.text forKey:@"position"];
-            [method saveManagedObject:self.position];
+            [VANGlobalMethods saveManagedObject:self.position];
             NSMutableArray *array = [self.config getPlistFileForResource:kPositionsKey];
             if (self.config.optionsArray == nil) {
                 self.config.optionsArray = [[NSMutableArray alloc] initWithObjects:self.skillOrTest.text, nil];

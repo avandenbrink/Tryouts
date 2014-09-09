@@ -22,7 +22,7 @@
 }
 
 
--(void)saveManagedObject:(NSManagedObject *)managedObject {
++ (void)saveManagedObject:(NSManagedObject *)managedObject {
     NSError *error = nil;
     if (![managedObject.managedObjectContext save:&error]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error saving entity", @"Error saving entity") message:[NSString stringWithFormat:NSLocalizedString(@"Error was: %@, quitting.", @"Eror was: %@, quitting."), [error localizedDescription]] delegate:self cancelButtonTitle:NSLocalizedString(@"Aw, Nuts", @"Aw, Nuts") otherButtonTitles:nil];
@@ -40,7 +40,7 @@
     
     NSManagedObject *newAthlete = [NSEntityDescription insertNewObjectForEntityForName:[destEntity name] inManagedObjectContext:[self.event managedObjectContext]];
     [relationshipSet addObject:newAthlete];
-    [self saveManagedObject:self.event];
+    [VANGlobalMethods saveManagedObject:self.event];
     return newAthlete;
 }
 
@@ -52,7 +52,7 @@
     NSMutableSet *relationshipSet = [self.event mutableSetValueForKey:key];
     NSManagedObject *relationshipObject = [[relationshipSet allObjects] objectAtIndex:[indexPath row]];
     [relationshipSet removeObject:relationshipObject];
-    [self saveManagedObject:self.event];
+    [VANGlobalMethods saveManagedObject:self.event];
 }
 
 -(NSManagedObject *)addNewRelationship:(NSString *)relationship toManagedObject:(NSManagedObject *)managedObject andSave:(BOOL)save {
@@ -66,7 +66,7 @@
     NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[destEntity name] inManagedObjectContext:managedObject.managedObjectContext];
     [relationshipSet addObject:newManagedObject];
     if (save) {
-        [self saveManagedObject:managedObject];
+        [VANGlobalMethods saveManagedObject:managedObject];
         
     }
     return newManagedObject;

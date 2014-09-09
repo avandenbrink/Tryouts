@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VANAppDelegate : UIResponder <UIApplicationDelegate>
+
+@interface VANAppDelegate : UIResponder <UIApplicationDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
-- (void)saveContext;
-- (NSURL *)applicationDocumentsDirectory;
+-(void)removeAthleteatIndex:(NSInteger)index;
 
 @end

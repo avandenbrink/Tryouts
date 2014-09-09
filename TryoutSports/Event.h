@@ -2,14 +2,14 @@
 //  Event.h
 //  TryoutSports
 //
-//  Created by Aaron VandenBrink on 2013-08-08.
-//  Copyright (c) 2013 Aaron VandenBrink. All rights reserved.
+//  Created by Aaron VandenBrink on 2014-08-24.
+//  Copyright (c) 2014 Aaron VandenBrink. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Athlete, Positions, Skills, Tests;
+@class Athlete, Positions, Skills, TeamName, Tests;
 
 @interface Event : NSManagedObject
 
@@ -19,7 +19,7 @@
 @property (nonatomic, retain) NSDate * birthYear;
 @property (nonatomic, retain) NSDate * endDate;
 @property (nonatomic, retain) NSString * location;
-@property (nonatomic, retain) NSData *logo;
+@property (nonatomic, retain) id logo;
 @property (nonatomic, retain) NSNumber * manageInfo;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSNumber * numTeams;
@@ -27,18 +27,16 @@
 @property (nonatomic, retain) NSSet *athletes;
 @property (nonatomic, retain) NSSet *positions;
 @property (nonatomic, retain) NSSet *skills;
+@property (nonatomic, retain) NSSet *teamNames;
 @property (nonatomic, retain) NSSet *tests;
-
-@property (nonatomic, retain) NSArray *teamAthlete;
-
 @end
 
 @interface Event (CoreDataGeneratedAccessors)
 
-- (void)addAthleteObject:(Athlete *)value;
-- (void)removeAthleteObject:(Athlete *)value;
-- (void)addAthlete:(NSSet *)values;
-- (void)removeAthlete:(NSSet *)values;
+- (void)addAthletesObject:(Athlete *)value;
+- (void)removeAthletesObject:(Athlete *)value;
+- (void)addAthletes:(NSSet *)values;
+- (void)removeAthletes:(NSSet *)values;
 
 - (void)addPositionsObject:(Positions *)value;
 - (void)removePositionsObject:(Positions *)value;
@@ -49,6 +47,11 @@
 - (void)removeSkillsObject:(Skills *)value;
 - (void)addSkills:(NSSet *)values;
 - (void)removeSkills:(NSSet *)values;
+
+- (void)addTeamNamesObject:(TeamName *)value;
+- (void)removeTeamNamesObject:(TeamName *)value;
+- (void)addTeamNames:(NSSet *)values;
+- (void)removeTeamNames:(NSSet *)values;
 
 - (void)addTestsObject:(Tests *)value;
 - (void)removeTestsObject:(Tests *)value;

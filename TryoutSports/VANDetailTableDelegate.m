@@ -272,17 +272,23 @@
     cell.sideColor.backgroundColor = [teamColor findTeamColor];
     
     AthleteSkills *aSkill = [self compareSkillAndValueforSkill:object inArray:[self.athlete.skills allObjects]];
-    if (aSkill != nil) {
-        cell.slider.value = [aSkill.value floatValue];
-        cell.skill = aSkill;
-        cell.value.text = [NSString stringWithFormat:@"%.00f", [aSkill.value floatValue]];
+
+    if (!aSkill) {
+        aSkill = [self addNewAthleteSkillRelationship];
+        aSkill.attribute = object.descriptor;
+        aSkill.value = nil;
+    }
+    
+    cell.skill = aSkill;
+    //     newValue.value = [NSNumber numberWithFloat:cell.slider.value];
+
+    if (!aSkill.value) {
+        cell.slider.value = 0;
+        cell.value.text = @"";
     } else {
-        AthleteSkills *newValue = [self addNewAthleteSkillRelationship];
-        cell.slider.value = 2.5;
-        cell.skill = newValue;
-        newValue.value = [NSNumber numberWithFloat:cell.slider.value];
-        cell.value.text = @"2.5";
-        newValue.attribute = object.descriptor;
+        float value = [aSkill.value floatValue];
+        cell.slider.value = value;
+        cell.value.text = [NSString stringWithFormat:@"%.01f", [aSkill.value floatValue]];
     }
     return cell;
 }
@@ -298,6 +304,7 @@
         cell.label.textColor = [UIColor whiteColor];
         cell.textField.textColor = [UIColor whiteColor];
         cell.textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Insert Value" attributes:@{NSForegroundColorAttributeName: [UIColor lightGrayColor]}];
+        cell.textField.keyboardType = UIKeyboardTypeDecimalPad;
         cell.delegate = self;
     }
     NSMutableSet *set = [self.event mutableSetValueForKey:@"tests"];
@@ -314,7 +321,7 @@
     
     //  cell.controller = self;
     AthleteTest *aTest = [self compareTestAndValueforTest:object inArray:[self.athlete.tests allObjects]];
-    if (aTest != nil) {
+    if (aTest) {
         cell.textField.text = aTest.value;
         cell.test = aTest;
     } else {
@@ -383,10 +390,10 @@
     NSMutableArray *strings = [NSMutableArray array];
     for (NSInteger i = 0; i < [self.athlete.aTags count]; i++) {
         AthleteTags *tag = [[self.athlete.aTags allObjects] objectAtIndex:i];
-        if (tag.descriptor == nil) {
+        if (tag.attribute == nil) {
             [strings addObject:@""];
         } else {
-            [strings addObject:tag.descriptor];
+            [strings addObject:tag.attribute];
         }
     }
     
@@ -397,15 +404,11 @@
     for (NSString *string in strings) {
         self.itemsInRow++;
         CGSize stringSize = [string sizeWithAttributes:[NSDictionary dictionaryWithObjects:@[font] forKeys:@[NSFontAttributeName]]];
-        //        NSLog(@"String: %@ has width: %f", string, stringSize.width);
         self.rowWidth += stringSize.width + (margin * 2);
         if (self.itemsInRow != 1) {
-            //            NSLog(@"Adding extra %ld", (long)spacing);
             self.rowWidth += spacing;
         }
-        //       NSLog(@"Current Row Length: %ld", (long)self.rowWidth);
         if (self.rowWidth > width) {
-            //            NSLog(@"    Adding Row because %ld is larger than %ld", (long)self.rowWidth, (long)width);
             self.rows++;
             self.rowWidth = stringSize.width + (margin * 2);
             self.itemsInRow = 1;
@@ -428,10 +431,10 @@
     }
 }
 
-- (void)VANTableViewCellrequestsImageInFullScreen:(UIImage *)image fromCell:(VANAthleteProfileCell *)cell
+- (void)VANTableViewCellrequestsImageforAthete:(Athlete *)athlete fromCell:(VANAthleteProfileCell *)cell
 {
-    if ([self.delegate respondsToSelector:@selector(VANTableViewCellrequestsImageInFullScreen:fromCell:)]) {
-        [self.delegate VANTableViewCellrequestsImageInFullScreen:image fromCell:cell];
+    if ([self.delegate respondsToSelector:@selector(VANTableViewCellrequestsImageforAthete:fromCell:)]) {
+        [self.delegate VANTableViewCellrequestsImageforAthete:athlete fromCell:cell];
     } else {
         NSLog(@"Table View Delegates Delegate not responding to request");
     }
@@ -538,7 +541,6 @@
 -(AthleteSkills *)addNewAthleteSkillRelationship
 {
     NSMutableSet *relationshipSet = [self.athlete mutableSetValueForKey:@"skills"];
-    NSLog(@"Adding New Skill, athleteDetailController.m - addNewAthleteSkillRelationship");
     NSEntityDescription *entity = [self.athlete entity];
     NSDictionary *relationships = [entity relationshipsByName];
     NSRelationshipDescription *destRelationship = [relationships objectForKey:@"skills"];
@@ -546,15 +548,13 @@
     
     AthleteSkills *newAthleteSkill = [NSEntityDescription insertNewObjectForEntityForName:[destEntity name] inManagedObjectContext:[self.athlete managedObjectContext]];
     [relationshipSet addObject:newAthleteSkill];
-    VANGlobalMethods *method = [[VANGlobalMethods alloc] initwithEvent:self.event];
-    [method saveManagedObject:self.athlete];
+    [VANGlobalMethods saveManagedObject:self.athlete];
     return newAthleteSkill;
 }
 
 -(AthleteTest *)addNewAthleteTestRelationship
 {
     NSMutableSet *relationshipSet = [self.athlete mutableSetValueForKey:@"tests"];
-    NSLog(@"Adding New Test, athleteDetailController.m - addNewAthleteTestRelationship");
     NSEntityDescription *entity = [self.athlete entity];
     NSDictionary *relationships = [entity relationshipsByName];
     NSRelationshipDescription *destRelationship = [relationships objectForKey:@"tests"];
@@ -562,8 +562,7 @@
     
     AthleteTest *newAthleteTest = [NSEntityDescription insertNewObjectForEntityForName:[destEntity name] inManagedObjectContext:[self.athlete managedObjectContext]];
     [relationshipSet addObject:newAthleteTest];
-    VANGlobalMethods *method = [[VANGlobalMethods alloc] initwithEvent:self.event];
-    [method saveManagedObject:self.athlete];
+    [VANGlobalMethods saveManagedObject:self.athlete];
     
     return newAthleteTest;
 }
@@ -640,7 +639,7 @@
      }*/
 }
 
--(void)updateAthleteTagsCellWithAthlete:(Athlete *)athlete
+-(void)updateAthleteTagsCellWithAthlete:(Athlete *)athlete andReloadCell:(BOOL)reload
 {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
     VANCollectionCell *cell = (VANCollectionCell *)[self.tableView cellForRowAtIndexPath:indexPath];
@@ -650,7 +649,10 @@
     [cell.collectionView.collectionViewLayout invalidateLayout];
     [cell.collectionView reloadData];
     [cell.collectionView reloadItemsAtIndexPaths:[cell.collectionView indexPathsForVisibleItems]];
-    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    if (reload) {
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    }
+    
 }
 
 @end

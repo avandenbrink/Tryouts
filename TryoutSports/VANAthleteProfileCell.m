@@ -195,8 +195,8 @@ static NSString *camera = @"cameraButton.png";
     }}
 
 -(void)viewImageInFullScreen {
-    if ([_delegate respondsToSelector:@selector(VANTableViewCellrequestsImageInFullScreen:fromCell:)]) {
-        [_delegate VANTableViewCellrequestsImageInFullScreen:nil fromCell:self];
+    if ([_delegate respondsToSelector:@selector(VANTableViewCellrequestsImageforAthete:fromCell:)]) {
+        [_delegate VANTableViewCellrequestsImageforAthete:self.athlete fromCell:self];
     }
 }
         

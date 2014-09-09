@@ -129,13 +129,17 @@ static NSString *profilePic = @"TSsmall-04.png";
             NSManagedObjectContext *context = self.athleteImage.managedObjectContext;
             [context deleteObject:self.athleteImage];
             [self.delegate deleteImagefromSoloImageViewer:self.athleteImage];
-            [_delegate requiresUIUpdating];
+            if ([_delegate respondsToSelector:@selector(requiresUIUpdating)]) {
+                [_delegate requiresUIUpdating];
+            }
         }
     } else if (actionSheet.tag == 2) { // 2 == Make Profile Image Button Pressed
         if (buttonIndex == 0) {
             Athlete *athlete = _athleteImage.athlete;
             athlete.profileImage = _athleteImage;
-            [_delegate requiresUIUpdating];
+            if ([_delegate respondsToSelector:@selector(requiresUIUpdating)]) {
+                [_delegate requiresUIUpdating];
+            }
         }
     }
 }

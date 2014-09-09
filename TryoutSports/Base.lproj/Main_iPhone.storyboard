@@ -1546,7 +1546,7 @@
         <image name="decisionRoom.png" width="508" height="503"/>
         <image name="downArrow.png" width="350" height="500"/>
         <image name="neutral.png" width="350" height="500"/>
-        <image name="settings.png" width="510" height="505"/>
+        <image name="settings.png" width="417" height="417"/>
         <image name="teams.png" width="510" height="505"/>
         <image name="upArrow.png" width="350" height="500"/>
     </resources>

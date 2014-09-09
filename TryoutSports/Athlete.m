@@ -27,6 +27,7 @@
 @dynamic phoneNumber;
 @dynamic position;
 @dynamic seen;
+@dynamic valueScore;
 @dynamic skillsname;
 @dynamic skillsvalue;
 @dynamic tags;

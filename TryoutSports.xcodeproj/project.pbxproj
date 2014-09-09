@@ -87,10 +87,11 @@
 		C721D2E917CBC48B00E4B2B8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B1C06117A9F27F00EF8C93 /* Foundation.framework */; };
 		C721D2EA17CBC48B00E4B2B8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B1C06517A9F27F00EF8C93 /* UIKit.framework */; };
 		C72B0BC419A6B136001FF689 /* VANConnectCentreControllerPad.m in Sources */ = {isa = PBXBuildFile; fileRef = C72B0BC319A6B136001FF689 /* VANConnectCentreControllerPad.m */; };
-		C7386F3917B357CF00F08FDB /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = C7386F3817B357CF00F08FDB /* Event.m */; };
 		C738EC6117FE23A300876A0F /* VANHeadShotController.m in Sources */ = {isa = PBXBuildFile; fileRef = C738EC6017FE23A300876A0F /* VANHeadShotController.m */; };
 		C738EC6517FE2FF500876A0F /* VANHeadshotCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C738EC6417FE2FF500876A0F /* VANHeadshotCell.m */; };
 		C738EC6B17FF2D3300876A0F /* VANSoloImageViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = C738EC6A17FF2D3300876A0F /* VANSoloImageViewer.m */; };
+		C73F33EF19B2F3E9002F65DC /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = C73F33EE19B2F3E9002F65DC /* settings.png */; };
+		C73F33F119B2F46A002F65DC /* settings_white.png in Resources */ = {isa = PBXBuildFile; fileRef = C73F33F019B2F46A002F65DC /* settings_white.png */; };
 		C74DBA3B1855A6DE00E17841 /* VANTagsTableDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C74DBA3A1855A6DE00E17841 /* VANTagsTableDelegate.m */; };
 		C74DBA3E1856492D00E17841 /* VANAthleteSignInController.m in Sources */ = {isa = PBXBuildFile; fileRef = C74DBA3D1856492D00E17841 /* VANAthleteSignInController.m */; };
 		C74DBA421856BB4800E17841 /* VANCheckInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C74DBA411856BB4800E17841 /* VANCheckInViewController.m */; };
@@ -160,7 +161,6 @@
 		C7CFDA1017B5912E00665A26 /* decisionRoom.png in Resources */ = {isa = PBXBuildFile; fileRef = C7CFDA0F17B5912E00665A26 /* decisionRoom.png */; };
 		C7CFDA1E17B59A3200665A26 /* teams.png in Resources */ = {isa = PBXBuildFile; fileRef = C7CFDA1D17B59A3200665A26 /* teams.png */; };
 		C7CFDA2017B59BEC00665A26 /* athletes.png in Resources */ = {isa = PBXBuildFile; fileRef = C7CFDA1F17B59BEC00665A26 /* athletes.png */; };
-		C7CFDA2217B59BF200665A26 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = C7CFDA2117B59BF200665A26 /* settings.png */; };
 		C7CFDA2417B59C1F00665A26 /* contect.png in Resources */ = {isa = PBXBuildFile; fileRef = C7CFDA2317B59C1F00665A26 /* contect.png */; };
 		C7E16C5217B0BDFD0023FCDD /* icon29.png in Resources */ = {isa = PBXBuildFile; fileRef = C7E16C5117B0BDFD0023FCDD /* icon29.png */; };
 		C7E16C5617B0BEBF0023FCDD /* icon40.png in Resources */ = {isa = PBXBuildFile; fileRef = C7E16C5517B0BEBE0023FCDD /* icon40.png */; };
@@ -174,6 +174,10 @@
 		C7E6FE3917AB015400A14674 /* VANTagsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7E6FE3517AB015400A14674 /* VANTagsViewController.m */; };
 		C7E6FE3A17AB015400A14674 /* CharacteristicsDefault.plist in Resources */ = {isa = PBXBuildFile; fileRef = C7E6FE3617AB015400A14674 /* CharacteristicsDefault.plist */; };
 		C7E6FE3D17AB018400A14674 /* VANFullNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7E6FE3C17AB018400A14674 /* VANFullNavigationViewController.m */; };
+		C7EF9E8419A7A6390039A0F9 /* VANImportUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = C7EF9E8319A7A6390039A0F9 /* VANImportUtility.m */; };
+		C7EF9E8719A7B9850039A0F9 /* VANViewImportDocumentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7EF9E8619A7B9850039A0F9 /* VANViewImportDocumentViewController.m */; };
+		C7EF9E8E19A816990039A0F9 /* UIImage+resize.m in Sources */ = {isa = PBXBuildFile; fileRef = C7EF9E8D19A816990039A0F9 /* UIImage+resize.m */; };
+		C7EF9E9219AAA2DC0039A0F9 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = C7EF9E9119AAA2DC0039A0F9 /* Event.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -329,14 +333,14 @@
 		C721D2E717CBC48B00E4B2B8 /* TryoutSports Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "TryoutSports Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C72B0BC219A6B136001FF689 /* VANConnectCentreControllerPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANConnectCentreControllerPad.h; sourceTree = "<group>"; };
 		C72B0BC319A6B136001FF689 /* VANConnectCentreControllerPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANConnectCentreControllerPad.m; sourceTree = "<group>"; };
-		C7386F3717B357CF00F08FDB /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Event.h; path = ../Event.h; sourceTree = "<group>"; };
-		C7386F3817B357CF00F08FDB /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Event.m; path = ../Event.m; sourceTree = "<group>"; };
 		C738EC5F17FE23A300876A0F /* VANHeadShotController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANHeadShotController.h; sourceTree = "<group>"; };
 		C738EC6017FE23A300876A0F /* VANHeadShotController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANHeadShotController.m; sourceTree = "<group>"; };
 		C738EC6317FE2FF500876A0F /* VANHeadshotCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANHeadshotCell.h; sourceTree = "<group>"; };
 		C738EC6417FE2FF500876A0F /* VANHeadshotCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANHeadshotCell.m; sourceTree = "<group>"; };
 		C738EC6917FF2D3300876A0F /* VANSoloImageViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANSoloImageViewer.h; sourceTree = "<group>"; };
 		C738EC6A17FF2D3300876A0F /* VANSoloImageViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANSoloImageViewer.m; sourceTree = "<group>"; };
+		C73F33EE19B2F3E9002F65DC /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
+		C73F33F019B2F46A002F65DC /* settings_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings_white.png; sourceTree = "<group>"; };
 		C74DBA391855A6DD00E17841 /* VANTagsTableDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANTagsTableDelegate.h; sourceTree = "<group>"; };
 		C74DBA3A1855A6DE00E17841 /* VANTagsTableDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANTagsTableDelegate.m; sourceTree = "<group>"; };
 		C74DBA3C1856492D00E17841 /* VANAthleteSignInController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANAthleteSignInController.h; sourceTree = "<group>"; };
@@ -405,7 +409,7 @@
 		C7B1C06917A9F27F00EF8C93 /* TryoutSports-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TryoutSports-Info.plist"; sourceTree = "<group>"; };
 		C7B1C06B17A9F27F00EF8C93 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C7B1C06D17A9F27F00EF8C93 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		C7B1C06F17A9F27F00EF8C93 /* TryoutSports-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TryoutSports-Prefix.pch"; sourceTree = "<group>"; };
+		C7B1C06F17A9F27F00EF8C93 /* F-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "F-Prefix.pch"; sourceTree = "<group>"; };
 		C7B1C07017A9F27F00EF8C93 /* VANAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VANAppDelegate.h; sourceTree = "<group>"; };
 		C7B1C07117A9F27F00EF8C93 /* VANAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VANAppDelegate.m; sourceTree = "<group>"; };
 		C7B1C07417A9F27F00EF8C93 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
@@ -441,7 +445,6 @@
 		C7CFDA0F17B5912E00665A26 /* decisionRoom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = decisionRoom.png; sourceTree = "<group>"; };
 		C7CFDA1D17B59A3200665A26 /* teams.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = teams.png; sourceTree = "<group>"; };
 		C7CFDA1F17B59BEC00665A26 /* athletes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = athletes.png; sourceTree = "<group>"; };
-		C7CFDA2117B59BF200665A26 /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		C7CFDA2317B59C1F00665A26 /* contect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = contect.png; sourceTree = "<group>"; };
 		C7E16C5117B0BDFD0023FCDD /* icon29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon29.png; sourceTree = "<group>"; };
 		C7E16C5517B0BEBE0023FCDD /* icon40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon40.png; sourceTree = "<group>"; };
@@ -462,6 +465,15 @@
 		C7E6FE3617AB015400A14674 /* CharacteristicsDefault.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CharacteristicsDefault.plist; sourceTree = "<group>"; };
 		C7E6FE3B17AB018400A14674 /* VANFullNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANFullNavigationViewController.h; sourceTree = "<group>"; };
 		C7E6FE3C17AB018400A14674 /* VANFullNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANFullNavigationViewController.m; sourceTree = "<group>"; };
+		C7EF9E8219A7A6390039A0F9 /* VANImportUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANImportUtility.h; sourceTree = "<group>"; };
+		C7EF9E8319A7A6390039A0F9 /* VANImportUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANImportUtility.m; sourceTree = "<group>"; };
+		C7EF9E8519A7B9850039A0F9 /* VANViewImportDocumentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANViewImportDocumentViewController.h; sourceTree = "<group>"; };
+		C7EF9E8619A7B9850039A0F9 /* VANViewImportDocumentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANViewImportDocumentViewController.m; sourceTree = "<group>"; };
+		C7EF9E8C19A816990039A0F9 /* UIImage+resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+resize.h"; sourceTree = "<group>"; };
+		C7EF9E8D19A816990039A0F9 /* UIImage+resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+resize.m"; sourceTree = "<group>"; };
+		C7EF9E8F19AAA2DB0039A0F9 /* TryoutSports-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TryoutSports-Bridging-Header.h"; sourceTree = "<group>"; };
+		C7EF9E9019AAA2DC0039A0F9 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		C7EF9E9119AAA2DC0039A0F9 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -504,6 +516,7 @@
 		C703D5C317AB05A200471194 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C7EF9E8819A7B98D0039A0F9 /* Import/Export Views */,
 				C79A2ABD1833D01700507C8E /* Intro View Controller */,
 				C79A2AC21833FC4100507C8E /* App Settings */,
 				C79A2ABE1833E51100507C8E /* Event New/Edit Information */,
@@ -564,6 +577,10 @@
 				C738EC6A17FF2D3300876A0F /* VANSoloImageViewer.m */,
 				C78EFFB0182A03ED00749A37 /* VANTableView.h */,
 				C78EFFB1182A03ED00749A37 /* VANTableView.m */,
+				C7EF9E8219A7A6390039A0F9 /* VANImportUtility.h */,
+				C7EF9E8319A7A6390039A0F9 /* VANImportUtility.m */,
+				C7EF9E8C19A816990039A0F9 /* UIImage+resize.h */,
+				C7EF9E8D19A816990039A0F9 /* UIImage+resize.m */,
 			);
 			name = "Custom Objects";
 			sourceTree = "<group>";
@@ -625,8 +642,8 @@
 				C7CED92E17BEDBFD0042BAA7 /* Athlete+addNew.m */,
 				C7B99BC819A5934D00EA2F6D /* TeamName.h */,
 				C7B99BC919A5934D00EA2F6D /* TeamName.m */,
-				C7386F3717B357CF00F08FDB /* Event.h */,
-				C7386F3817B357CF00F08FDB /* Event.m */,
+				C7EF9E9019AAA2DC0039A0F9 /* Event.h */,
+				C7EF9E9119AAA2DC0039A0F9 /* Event.m */,
 				C7CB0A27184D137C00610B14 /* Event+_new.h */,
 				C7CB0A28184D137C00610B14 /* Event+_new.m */,
 				C703D64817AB068900471194 /* Positions.h */,
@@ -645,6 +662,7 @@
 				C703D65517AB068900471194 /* AthleteTags.m */,
 				C703D65617AB068900471194 /* Image.h */,
 				C703D65717AB068900471194 /* Image.m */,
+				C7EF9E8F19AAA2DB0039A0F9 /* TryoutSports-Bridging-Header.h */,
 			);
 			name = "Core Data Model";
 			sourceTree = "<group>";
@@ -652,6 +670,7 @@
 		C703D69B17AB0EB400471194 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				C7B1C07C17A9F27F00EF8C93 /* Images.xcassets */,
 				C7E16C4A17B0BA5A0023FCDD /* Icons */,
 				C703D68317AB0EAC00471194 /* FaceFrame.png */,
 				C79172BC183BF2060073390E /* sideGradientA.png */,
@@ -910,7 +929,6 @@
 			isa = PBXGroup;
 			children = (
 				C7CED92C17BE8CD80042BAA7 /* TryoutSports.entitlements */,
-				C7B1C07C17A9F27F00EF8C93 /* Images.xcassets */,
 				C703D67D17AB077600471194 /* Settings.bundle */,
 				C7B1C07017A9F27F00EF8C93 /* VANAppDelegate.h */,
 				C7B1C07117A9F27F00EF8C93 /* VANAppDelegate.m */,
@@ -931,7 +949,7 @@
 				C7B1C06917A9F27F00EF8C93 /* TryoutSports-Info.plist */,
 				C7B1C06A17A9F27F00EF8C93 /* InfoPlist.strings */,
 				C7B1C06D17A9F27F00EF8C93 /* main.m */,
-				C7B1C06F17A9F27F00EF8C93 /* TryoutSports-Prefix.pch */,
+				C7B1C06F17A9F27F00EF8C93 /* F-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -958,6 +976,8 @@
 		C7E16C4A17B0BA5A0023FCDD /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				C73F33F019B2F46A002F65DC /* settings_white.png */,
+				C73F33EE19B2F3E9002F65DC /* settings.png */,
 				C76B6B0517F4B5C5005B1C33 /* TSIconB.png */,
 				C774B59417F3584600C400DC /* TSsmall-01.png */,
 				C774B59517F3584600C400DC /* TSsmall-02.png */,
@@ -967,7 +987,6 @@
 				C774B59917F3584600C400DC /* TSsmall-06.png */,
 				C7CFDA0F17B5912E00665A26 /* decisionRoom.png */,
 				C7CFDA2317B59C1F00665A26 /* contect.png */,
-				C7CFDA2117B59BF200665A26 /* settings.png */,
 				C7CFDA1F17B59BEC00665A26 /* athletes.png */,
 				C7CFDA1D17B59A3200665A26 /* teams.png */,
 				C7E16C5117B0BDFD0023FCDD /* icon29.png */,
@@ -988,6 +1007,15 @@
 				C703D60A17AB061200471194 /* Custom Objects */,
 			);
 			name = "Universal Super Classes";
+			sourceTree = "<group>";
+		};
+		C7EF9E8819A7B98D0039A0F9 /* Import/Export Views */ = {
+			isa = PBXGroup;
+			children = (
+				C7EF9E8519A7B9850039A0F9 /* VANViewImportDocumentViewController.h */,
+				C7EF9E8619A7B9850039A0F9 /* VANViewImportDocumentViewController.m */,
+			);
+			name = "Import/Export Views";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1063,7 +1091,7 @@
 						DevelopmentTeam = V95E568Y46;
 						SystemCapabilities = {
 							com.apple.iCloud = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -1105,11 +1133,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				C79172B9183BEE550073390E /* cameraButton.png in Resources */,
+				C73F33F119B2F46A002F65DC /* settings_white.png in Resources */,
 				C7CFDA1E17B59A3200665A26 /* teams.png in Resources */,
 				C703D69517AB0EAC00471194 /* TryoutSportsLogo1.png in Resources */,
 				C7B1C07817A9F27F00EF8C93 /* Main_iPad.storyboard in Resources */,
 				C76B6B0617F4B5C5005B1C33 /* TSIconB.png in Resources */,
-				C7CFDA2217B59BF200665A26 /* settings.png in Resources */,
 				C703D69417AB0EAC00471194 /* TOSIcon.png in Resources */,
 				C7E6FE3A17AB015400A14674 /* CharacteristicsDefault.plist in Resources */,
 				C7B1C07D17A9F27F00EF8C93 /* Images.xcassets in Resources */,
@@ -1141,6 +1169,7 @@
 				C703D69017AB0EAC00471194 /* MenuTopBackground.png in Resources */,
 				C7CFDA0617B431E500665A26 /* mask.png in Resources */,
 				C77B7AEB1836DB76003823A4 /* VANAddTagCell.xib in Resources */,
+				C73F33EF19B2F3E9002F65DC /* settings.png in Resources */,
 				C79172BD183BF2060073390E /* sideGradientA.png in Resources */,
 				C7CFDA0C17B45E4500665A26 /* seen.png in Resources */,
 				C703D63617AB066A00471194 /* VANBoolCell.xib in Resources */,
@@ -1182,7 +1211,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C74DBA3B1855A6DE00E17841 /* VANTagsTableDelegate.m in Sources */,
-				C7386F3917B357CF00F08FDB /* Event.m in Sources */,
 				C703D5E817AB05CF00471194 /* VANAthleteListViewController.m in Sources */,
 				C774B57717F2054100C400DC /* VANCompareStatsCell.m in Sources */,
 				C703D5E717AB05CF00471194 /* VANMainMenuViewController.m in Sources */,
@@ -1195,6 +1223,7 @@
 				C703D60417AB060600471194 /* VANTeamColor.m in Sources */,
 				C703D5EA17AB05CF00471194 /* VANAthleteDetailController.m in Sources */,
 				C703D65C17AB068900471194 /* Tags.m in Sources */,
+				C7EF9E8E19A816990039A0F9 /* UIImage+resize.m in Sources */,
 				C703D5EB17AB05CF00471194 /* VANTeamsController.m in Sources */,
 				C703D62E17AB066A00471194 /* VANMotherCell.m in Sources */,
 				C738EC6517FE2FF500876A0F /* VANHeadshotCell.m in Sources */,
@@ -1222,6 +1251,7 @@
 				C703D5C217AB056B00471194 /* VANIntroViewController.m in Sources */,
 				C703D5F217AB05EC00471194 /* UIColor+NewColors.m in Sources */,
 				C703D63B17AB066A00471194 /* VANAthleteListCell.m in Sources */,
+				C7EF9E8419A7A6390039A0F9 /* VANImportUtility.m in Sources */,
 				C703D63917AB066A00471194 /* VANPickerCell.m in Sources */,
 				C703D60717AB060600471194 /* NewTableConfiguration.m in Sources */,
 				C703D60817AB060600471194 /* VANTeamTableView.m in Sources */,
@@ -1237,6 +1267,7 @@
 				C7B99BCA19A5934D00EA2F6D /* TeamName.m in Sources */,
 				C7CED92917BD5E3F0042BAA7 /* VANConnectCentreController.m in Sources */,
 				C703D5E217AB05CF00471194 /* VANAppSettingsViewController.m in Sources */,
+				C7EF9E8719A7B9850039A0F9 /* VANViewImportDocumentViewController.m in Sources */,
 				C703D65D17AB068900471194 /* Skills.m in Sources */,
 				C703D67117AB06DC00471194 /* VANMainMenuViewControllerPad.m in Sources */,
 				C703D67517AB06DC00471194 /* VANAthleteEditControllerPad.m in Sources */,
@@ -1246,6 +1277,7 @@
 				C7B1C07217A9F27F00EF8C93 /* VANAppDelegate.m in Sources */,
 				C703D62F17AB066A00471194 /* VANDefaultCell.m in Sources */,
 				C703D67017AB06DC00471194 /* VANIntroViewControllerPad.m in Sources */,
+				C7EF9E9219AAA2DC0039A0F9 /* Event.m in Sources */,
 				C703D5F317AB05EC00471194 /* VANReverseSegue.m in Sources */,
 				C76B6B0417F4909E005B1C33 /* VANSettingTabsControllerPad.m in Sources */,
 				C703D63117AB066A00471194 /* VANTextFieldCell.m in Sources */,
@@ -1360,7 +1392,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "TryoutSports Tests/TryoutSports Tests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "TryoutSports Tests";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -1378,7 +1410,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TryoutSports Tests/TryoutSports Tests-Prefix.pch";
 				INFOPLIST_FILE = "TryoutSports Tests/TryoutSports Tests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "TryoutSports Tests";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -1459,14 +1491,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_ENTITLEMENTS = TryoutSports/TryoutSports.entitlements;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TryoutSports/TryoutSports-Prefix.pch";
 				INFOPLIST_FILE = "TryoutSports/TryoutSports-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = TryoutSports;
+				PROVISIONING_PROFILE = "9d24828a-1e53-41ee-8a97-29e40a0adc9c";
+				SWIFT_OBJC_BRIDGING_HEADER = "TryoutSports/TryoutSports-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1476,14 +1511,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_ENTITLEMENTS = TryoutSports/TryoutSports.entitlements;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TryoutSports/TryoutSports-Prefix.pch";
 				INFOPLIST_FILE = "TryoutSports/TryoutSports-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = TryoutSports;
+				PROVISIONING_PROFILE = "9d24828a-1e53-41ee-8a97-29e40a0adc9c";
+				SWIFT_OBJC_BRIDGING_HEADER = "TryoutSports/TryoutSports-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1504,7 +1541,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "TryoutSportsTests/TryoutSportsTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = TryoutSportsTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -1522,7 +1559,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TryoutSports/TryoutSports-Prefix.pch";
 				INFOPLIST_FILE = "TryoutSportsTests/TryoutSportsTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = TryoutSportsTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};

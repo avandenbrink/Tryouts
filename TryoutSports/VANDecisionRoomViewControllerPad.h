@@ -8,6 +8,11 @@
 
 #import "VANDecisionRoomViewController.h"
 
-@interface VANDecisionRoomViewControllerPad : VANDecisionRoomViewController
+@interface VANDecisionRoomViewControllerPad : VANDecisionRoomViewController <UITableViewDataSource, UITableViewDelegate, UITabBarDelegate>
+
+@property (weak, nonatomic) IBOutlet UITableView *topTableView;
+@property (weak, nonatomic) IBOutlet UITabBar *topTabBar;
+@property (weak, nonatomic) IBOutlet UITabBarItem *allTopAthletes;
+@property (weak, nonatomic) IBOutlet UITabBarItem *allNoTeamTopAthletes;
 
 @end

@@ -36,12 +36,11 @@
 
 
 - (IBAction)sliderValueChanged:(id)sender {
-    self.value.text = [NSString stringWithFormat:@"%.00f", self.slider.value];
-
+    self.value.text = [NSString stringWithFormat:@"%.01f", self.slider.value];
 }
 
 -(void)finisedTouchingSlider:(id)sender {
-    self.skill.value = [NSNumber numberWithInt:[self.value.text integerValue]];
+    self.skill.value = [NSNumber numberWithFloat:self.slider.value];
     [self saveManagedObjectContext:self.skill];
 }
 

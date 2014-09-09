@@ -24,6 +24,7 @@
 @property (nonatomic, retain) NSString * phoneNumber;
 @property (nonatomic, retain) NSString * position;
 @property (nonatomic, retain) NSNumber * seen;
+@property (nonatomic, retain) NSNumber * valueScore;
 @property (nonatomic, retain) id skillsname;
 @property (nonatomic, retain) id skillsvalue;
 @property (nonatomic, retain) id tags;

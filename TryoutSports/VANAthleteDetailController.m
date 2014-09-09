@@ -69,7 +69,7 @@
     [super viewWillAppear:animated];
     
     [self.tableView reloadData];
-    [_tableDelegate updateAthleteTagsCellWithAthlete:self.athlete];
+    [_tableDelegate updateAthleteTagsCellWithAthlete:self.athlete andReloadCell:NO];
     self.navigationItem.title = self.athlete.name;
 
 }
@@ -348,7 +348,7 @@
 }
 
 
--(void)VANTableViewCellrequestsImageInFullScreen:(UIImage *)image fromCell:(VANAthleteProfileCell *)cell
+-(void)VANTableViewCellrequestsImageforAthete:(Athlete *)athlete fromCell:(VANAthleteProfileCell *)cell
 {
     self.tableView.scrollEnabled = NO;
     self.tableView.contentOffset = CGPointMake(0, -64);

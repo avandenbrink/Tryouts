@@ -37,6 +37,7 @@ static NSString* const defaultName = @"NewTryout";
 @property (strong, nonatomic) NSMutableDictionary *urlsForFileNames;
 
 - (IBAction)addEvent:(id)sender;
+-(void)getLocalFiles;
 
 // Create New Event Methods available for calling and Subclassing
 -(void)createNewFileWithName:(NSString *)name;
