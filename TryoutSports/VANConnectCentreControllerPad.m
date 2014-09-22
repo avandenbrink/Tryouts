@@ -37,7 +37,9 @@
 */
 
 - (IBAction)sendViaAirdrop:(id)sender {
-    UIActivityViewController *activityView = [[UIActivityViewController alloc] initWithActivityItems:@[@"Testing",self.document] applicationActivities:nil];
+    NSData *documentData = [NSData dataWithContentsOfFile:[self.document.fileURL absoluteString] options:NSDataReadingMapped error:nil];
+    
+    UIActivityViewController *activityView = [[UIActivityViewController alloc] initWithActivityItems:@[@"Testing",documentData] applicationActivities:nil];
     activityView.excludedActivityTypes = @[UIActivityTypeAddToReadingList,UIActivityTypeAssignToContact,UIActivityTypeCopyToPasteboard, UIActivityTypePostToFacebook, UIActivityTypePostToFlickr, UIActivityTypePostToTencentWeibo, UIActivityTypePostToTwitter, UIActivityTypePostToVimeo, UIActivityTypePrint, UIActivityTypeSaveToCameraRoll];
     
     self.popOver = [[UIPopoverController alloc] initWithContentViewController:activityView];

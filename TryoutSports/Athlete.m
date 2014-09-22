@@ -20,6 +20,7 @@
 @dynamic birthday;
 @dynamic checkedIn;
 @dynamic email;
+@dynamic isCut;
 @dynamic flagged;
 @dynamic isSelfCheckedIn;
 @dynamic name;
@@ -41,5 +42,6 @@
 @dynamic profileImage;
 @dynamic skills;
 @dynamic tests;
+@dynamic teamName;
 
 @end

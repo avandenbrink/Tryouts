@@ -18,14 +18,6 @@
     return NO;
 }
 
--(void)cancel {
-    NSManagedObjectContext *context = [self.athlete managedObjectContext];
-    [context deleteObject:self.athlete];
-    [self.controller toggleTablesVisible];
-    [self.controller dismissViewControllerAnimated:YES
-                                                  completion:nil];
-}
-
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 3;
 }
@@ -47,9 +39,10 @@
         //NSMutableSet *athleteSet = [self.event mutableSetValueForKey:@"athletes"];
         //self.controller.athleteList = (NSMutableArray *)[athleteSet allObjects];
         //[self.controller.tableView reloadData];
-        [self.controller tabBar:self.controller.tabBar didSelectItem:self.controller.tabBar.selectedItem]; //Finding which controller is selected and reselecting it so that the Athlete list is updated based on its results.
-        [self.controller toggleTablesVisible];
-        [self.controller dismissViewControllerAnimated:YES completion:nil];
+        
+//        [self.controller tabBar:self.controller.tabBar didSelectItem:self.controller.tabBar.selectedItem]; //Finding which controller is selected and reselecting it so that the Athlete list is updated based on its results.
+//        [self.controller toggleTablesVisible];
+//        [self.controller dismissViewControllerAnimated:YES completion:nil];
     }
 }
 

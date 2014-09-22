@@ -11,5 +11,4 @@
 
 @interface VANAthleteEditControllerPad : VANAthleteEditController
 
-@property (weak, nonatomic) VANAthleteListControllerPad *controller;
 @end

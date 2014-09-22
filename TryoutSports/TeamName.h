@@ -9,9 +9,12 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+@class Event;
 
 @interface TeamName : NSManagedObject
 
 @property (nonatomic, retain) NSString * name;
-
+@property (nonatomic, retain) NSNumber * index;
+@property (nonatomic, retain) NSSet *atheltes;
+@property (nonatomic, retain) Event *event;
 @end

@@ -96,7 +96,7 @@ NSString *const kEventAthleteRelationship = @"athletes";
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
     if (url) {
-        [url URLByResolvingSymlinksInPath];
+        url = [url URLByResolvingSymlinksInPath];
         NSLog(@"%@",url);
         for (NSInteger i = 0; i < [self.receivedProfileQueue count]; i++) {
             if ([[self.receivedProfileQueue objectAtIndex:i] isKindOfClass:[VANTryoutDocument class]]) {
@@ -107,6 +107,13 @@ NSString *const kEventAthleteRelationship = @"athletes";
                 if ([[docURL absoluteString] isEqualToString:[url absoluteString]]) {
                     return true;
                 }
+            } else if ([[self.receivedProfileQueue objectAtIndex:i] isKindOfClass:[NSArray class]]) {
+                NSArray *fileArray = [self.receivedProfileQueue objectAtIndex:i];
+                NSURL *fileURL = [[fileArray firstObject] URLByResolvingSymlinksInPath];
+                if ([[fileURL absoluteString] isEqualToString:[url absoluteString]]) {
+                    return true;
+                }
+                
             }
         }
         
@@ -128,7 +135,8 @@ NSString *const kEventAthleteRelationship = @"athletes";
         } else if ([fileType isEqualToString:@"csv"]) {
             NSString *fileContents = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
             NSCharacterSet *newLineCharacter = [NSCharacterSet newlineCharacterSet];
-            NSArray *fileRows = [fileContents componentsSeparatedByCharactersInSet:newLineCharacter];
+            NSArray *urls = [NSArray arrayWithObject:url];
+            NSArray *fileRows = [urls arrayByAddingObjectsFromArray:[fileContents componentsSeparatedByCharactersInSet:newLineCharacter]];
             
             if (fileRows) {
                 [self enqueueDocument:fileRows];
@@ -280,6 +288,10 @@ NSString *const kEventAthleteRelationship = @"athletes";
                     [profileViewController.tableView reloadData];
                 }
                 
+            } else {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could not open file" message:@"Warning: This file could not be openned.  It may be out of date, or corrupted" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alert show];
+                [self discardDocument:document];
             }
         }];
         
@@ -287,25 +299,35 @@ NSString *const kEventAthleteRelationship = @"athletes";
     } else if ([[self.receivedProfileQueue firstObject] isKindOfClass:[NSArray class]]) {
         
         NSArray *fileRows = [self.receivedProfileQueue firstObject];
-        NSArray *titles = [[fileRows firstObject] componentsSeparatedByString:@","];
+        NSArray *titles = [[fileRows objectAtIndex:1] componentsSeparatedByString:@","];
         NSMutableArray *fileColumnTitles = [NSMutableArray arrayWithCapacity:[titles count]];
         for (NSString *string in titles) {
             NSString *titleString = [string stringByReplacingOccurrencesOfString:@":" withString:@""];
             [fileColumnTitles addObject:[titleString lowercaseString]];
         }
         
-        NSInteger nameColumn = [self getColumnforDataType:[VANImportUtility nameVariations] Data:fileColumnTitles];
+        NSInteger nameColumn = [self getColumnforDataType:[VANImportUtility singleNameVariations] Data:fileColumnTitles];
+        NSInteger lastNameColumn = [self getColumnforDataType:[VANImportUtility lastNameVariations] Data:fileColumnTitles];
         NSInteger numberColumn = [self getColumnforDataType:[VANImportUtility numberVariations] Data:fileColumnTitles];
         
         NSMutableArray *allNames = [NSMutableArray array];
         NSMutableArray *allNumbers = [NSMutableArray array];
         
-        for (NSInteger i = 1; i < [fileRows count]; i++) { // Start at 1 because we want to skip titles
+        if (nameColumn == NSNotFound) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot find name column" message:@"Warning: could not find a column titled 'name', cannot convert file." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+            [self discardDocument:nil];
+        }
+        
+        for (NSInteger i = 2; i < [fileRows count]; i++) { // Start at 2 because we want to skip url and titles
             NSString *rowString = [fileRows objectAtIndex:i];
             NSArray *rowData = [rowString componentsSeparatedByString:@","];
             
             if (nameColumn != NSNotFound) {
                 NSString *rowName = [rowData objectAtIndex:nameColumn];
+                if (lastNameColumn != NSNotFound) {
+                    rowName = [rowName stringByAppendingString:[NSString stringWithFormat:@" %@", [rowData objectAtIndex:lastNameColumn]]];
+                }
                 if ([rowName isEqualToString:@""]) {
                     continue;
                 }
@@ -406,6 +428,9 @@ NSString *const kEventAthleteRelationship = @"athletes";
     if ([[self.receivedProfileQueue firstObject] isKindOfClass:[VANTryoutDocument class]]) {
         VANTryoutDocument *doc = [self.receivedProfileQueue firstObject];
         [self removeInboxItem:doc.fileURL];
+    } else if ([[self.receivedProfileQueue firstObject] isKindOfClass:[NSArray class]]){
+        NSURL *fileURL = [[self.receivedProfileQueue firstObject] firstObject];
+        [self removeInboxItem:fileURL];
     }
     [self dequeueDocument];
     [self presentNextProfile];
@@ -509,7 +534,7 @@ NSString *const kEventAthleteRelationship = @"athletes";
             NSArray *fileRows = [self.receivedProfileQueue firstObject];
             
             //Collect First row as titles and optimize labels
-            NSArray *titles = [[fileRows firstObject] componentsSeparatedByString:@","];
+            NSArray *titles = [[fileRows objectAtIndex:1] componentsSeparatedByString:@","];
             NSMutableArray *fileColumnTitles = [NSMutableArray arrayWithCapacity:[titles count]];
             for (NSString *string in titles) {
                 NSString *titleString = [string stringByReplacingOccurrencesOfString:@":" withString:@""];
@@ -517,7 +542,8 @@ NSString *const kEventAthleteRelationship = @"athletes";
             }
             
             //Use Titles to find the columns of each of the key values
-            NSInteger nameColumn = [self getColumnforDataType:[VANImportUtility nameVariations] Data:fileColumnTitles];
+            NSInteger nameColumn = [self getColumnforDataType:[VANImportUtility singleNameVariations] Data:fileColumnTitles];
+            NSInteger nameColumnSecondary = [self getColumnforDataType:[VANImportUtility lastNameVariations] Data:fileColumnTitles];
             NSInteger numberColumn = [self getColumnforDataType:[VANImportUtility numberVariations] Data:fileColumnTitles];
             NSInteger emailColumn = [self getColumnforDataType:[VANImportUtility emailVariations] Data:fileColumnTitles];
             NSInteger phoneColumn = [self getColumnforDataType:[VANImportUtility phoneVariations] Data:fileColumnTitles];
@@ -528,7 +554,6 @@ NSString *const kEventAthleteRelationship = @"athletes";
             NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
             NSString *str =@"3/15/2012 9:15 PM";
             NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-
             
             for (NSInteger i = 1; i < [fileRows count]; i++) { // Start at 1 because we want to skip titles
                 NSString *rowString = [fileRows objectAtIndex:i];
@@ -538,8 +563,12 @@ NSString *const kEventAthleteRelationship = @"athletes";
                 if (![[rowData objectAtIndex:nameColumn] isEqualToString:@""]) {
                     
                     Athlete *athlete = (Athlete*)[global addNewRelationship:kEventAthleteRelationship toManagedObject:event andSave:NO];
-                    athlete.name = [rowData objectAtIndex:nameColumn];
+                    NSString *aName = [rowData objectAtIndex:nameColumn];
+                    if (nameColumnSecondary != NSNotFound) {
+                        aName = [aName stringByAppendingString:[NSString stringWithFormat:@" %@",[rowData objectAtIndex:nameColumnSecondary]]];
+                    }
                     
+                    athlete.name = aName;
                     if (numberColumn != NSNotFound) {
                         NSString *numberString = [rowData objectAtIndex:numberColumn];
                         [f setNumberStyle:NSNumberFormatterDecimalStyle];
@@ -568,11 +597,11 @@ NSString *const kEventAthleteRelationship = @"athletes";
             }
             [self.popoverController dismissPopoverAnimated:YES];
             [VANGlobalMethods saveManagedObject:event];
+            [self removeInboxItem:[[self.receivedProfileQueue firstObject] firstObject]];
             [self dequeueDocument];
             [self presentNextProfile];
         }
     }];
-
 }
 
 

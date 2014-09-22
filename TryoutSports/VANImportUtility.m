@@ -154,8 +154,8 @@ NSString * const kFileNameType = @".tryoutsports";
     return fileList;
 }
 
-+ (NSArray *)nameVariations {
-    return @[@"name", @"names", @"first name", @"first_name"];
++ (NSArray *)singleNameVariations {
+    return @[@"name", @"names", @"first name", @"first_name", @"givenname"];
 }
 
 + (NSArray *)numberVariations {
@@ -167,7 +167,11 @@ NSString * const kFileNameType = @".tryoutsports";
 }
 
 + (NSArray *)phoneVariations {
-    return @[@"phone",@"phone number", @"home", @"homephone", @"home phone" @"cell", @"cellphone", @"cell phone"];
+    return @[@"phone",@"phone number", @"home", @"homephone", @"home phone", @"cell", @"cellphone", @"cell phone"];
+}
+
++ (NSArray *)lastNameVariations {
+    return @[@"last name", @"last names", @"last_name", @"surname"];
 }
 
 + (NSArray *)positionVariations {

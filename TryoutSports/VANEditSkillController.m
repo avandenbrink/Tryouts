@@ -139,19 +139,9 @@ self.config.optionIndex Explained:
 
 -(void)cancel {
     if (!self.editing) {
-        if (self.skill == nil && self.position == nil) {
-            NSManagedObjectContext *context = [self.test managedObjectContext];
-            [context deleteObject:self.test];
-            [self.config saveFileForFilePath:kTestKey];
-        } else if (self.position == nil) {
-            NSManagedObjectContext *context = [self.skill managedObjectContext];
-            [context deleteObject:self.skill];
-            [self.config saveFileForFilePath:kSkillsKey];
-        } else {
-            NSManagedObjectContext *context = [self.position managedObjectContext];
-            [context deleteObject:self.position];
-            [self.config saveFileForFilePath:kPositionsKey];
-        }
+        [self.position.managedObjectContext deleteObject:self.position];
+        [self.test.managedObjectContext deleteObject:self.test];
+        [self.skill.managedObjectContext deleteObject:self.skill];
     }
     [self.navigationController popViewControllerAnimated:YES];
 }

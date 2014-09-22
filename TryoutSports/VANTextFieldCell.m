@@ -10,7 +10,8 @@
 
 @implementation VANTextFieldCell
 
--(void)initiate {
+-(void)initiate
+{
     self.textField.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.textField.delegate = self;
 }
@@ -18,12 +19,10 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
--(void)resignAndSave {
-    
+-(void)resignAndSave
+{
     [self.textField resignFirstResponder];
     self.value = self.textField.text;
     //NSLog(@"%@", self.textField.text);
@@ -32,9 +31,8 @@
 
 #pragma mark - UI Text Field Delegate Methods
 
--(void)textFieldDidBeginEditing:(UITextField *)textField {
-    
-    //Tell the Delegate that the text field did claim first responder
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
     if ([self.delegate respondsToSelector:@selector(adjustContentInsetsForEditing:)]) {
         [self.delegate adjustContentInsetsForEditing:YES];
     }
@@ -43,20 +41,23 @@
     }
 }
 
--(BOOL)textFieldShouldReturn:(UITextField *)textField {
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
     [self.textField resignFirstResponder];
     return YES;
 }
 
--(void)textFieldDidEndEditing:(UITextField *)textField {
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
     self.value = self.textField.text;
     if (self.test) {
         self.test.value = self.textField.text;
     } else {
-        [self.delegate addTextFieldContent:self.textField.text ToContextForTitle:self.label.text];
+        if ([self.delegate respondsToSelector:@selector(addTextFieldContent:forIndexpath:)]) {
+            [self.delegate addTextFieldContent:self.textField.text forIndexpath:self.indexPath];
+        }
     }
     [self.delegate adjustContentInsetsForEditing:NO];
 }
-
 
 @end

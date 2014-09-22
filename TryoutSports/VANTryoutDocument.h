@@ -12,6 +12,5 @@
 
 @property (strong, nonatomic) NSMutableArray *moveEventListeners;
 @property (strong, nonatomic) NSString *documentName;
-@property (strong, nonatomic) NSFileWrapper *wrapper;
 
 @end

@@ -151,6 +151,7 @@
 		C7B99BCD19A5934E00EA2F6D /* Athlete.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B99BCC19A5934E00EA2F6D /* Athlete.m */; };
 		C7CB0A29184D137C00610B14 /* Event+_new.m in Sources */ = {isa = PBXBuildFile; fileRef = C7CB0A28184D137C00610B14 /* Event+_new.m */; };
 		C7CB0A2C184D2C8A00610B14 /* VANDetailTableDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C7CB0A2B184D2C8A00610B14 /* VANDetailTableDelegate.m */; };
+		C7CB9C6719CCAF64008B13B8 /* VANEditAthletesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7CB9C6619CCAF64008B13B8 /* VANEditAthletesViewController.m */; };
 		C7CED92417BD28360042BAA7 /* ArrowRight.png in Resources */ = {isa = PBXBuildFile; fileRef = C7CED92317BD28360042BAA7 /* ArrowRight.png */; };
 		C7CED92617BD287D0042BAA7 /* ArrowLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = C7CED92517BD287D0042BAA7 /* ArrowLeft.png */; };
 		C7CED92917BD5E3F0042BAA7 /* VANConnectCentreController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7CED92817BD5E3F0042BAA7 /* VANConnectCentreController.m */; };
@@ -178,6 +179,7 @@
 		C7EF9E8719A7B9850039A0F9 /* VANViewImportDocumentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7EF9E8619A7B9850039A0F9 /* VANViewImportDocumentViewController.m */; };
 		C7EF9E8E19A816990039A0F9 /* UIImage+resize.m in Sources */ = {isa = PBXBuildFile; fileRef = C7EF9E8D19A816990039A0F9 /* UIImage+resize.m */; };
 		C7EF9E9219AAA2DC0039A0F9 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = C7EF9E9119AAA2DC0039A0F9 /* Event.m */; };
+		C7F9DDB619CEA3870028346F /* VANTextEditSimpleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7F9DDB519CEA3870028346F /* VANTextEditSimpleCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -432,6 +434,8 @@
 		C7CB0A28184D137C00610B14 /* Event+_new.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Event+_new.m"; sourceTree = "<group>"; };
 		C7CB0A2A184D2C8A00610B14 /* VANDetailTableDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANDetailTableDelegate.h; sourceTree = "<group>"; };
 		C7CB0A2B184D2C8A00610B14 /* VANDetailTableDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANDetailTableDelegate.m; sourceTree = "<group>"; };
+		C7CB9C6519CCAF64008B13B8 /* VANEditAthletesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANEditAthletesViewController.h; sourceTree = "<group>"; };
+		C7CB9C6619CCAF64008B13B8 /* VANEditAthletesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANEditAthletesViewController.m; sourceTree = "<group>"; };
 		C7CED92317BD28360042BAA7 /* ArrowRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ArrowRight.png; sourceTree = "<group>"; };
 		C7CED92517BD287D0042BAA7 /* ArrowLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ArrowLeft.png; sourceTree = "<group>"; };
 		C7CED92717BD5E3F0042BAA7 /* VANConnectCentreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANConnectCentreController.h; sourceTree = "<group>"; };
@@ -474,6 +478,7 @@
 		C7EF9E8F19AAA2DB0039A0F9 /* TryoutSports-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TryoutSports-Bridging-Header.h"; sourceTree = "<group>"; };
 		C7EF9E9019AAA2DC0039A0F9 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
 		C7EF9E9119AAA2DC0039A0F9 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		C7F9DDB519CEA3870028346F /* VANTextEditSimpleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VANTextEditSimpleCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -623,6 +628,7 @@
 				C703D61117AB066A00471194 /* VANTextFieldCell.h */,
 				C703D61217AB066A00471194 /* VANTextFieldCell.m */,
 				C703D61317AB066A00471194 /* VANTextEditCell.xib */,
+				C7F9DDB519CEA3870028346F /* VANTextEditSimpleCell.xib */,
 				C703D61417AB066A00471194 /* VANValueSliderCell.h */,
 				C703D61517AB066A00471194 /* VANValueSliderCell.m */,
 				C703D61617AB066A00471194 /* VANValueSliderCell.xib */,
@@ -779,6 +785,8 @@
 				C7E6FE3317AB015400A14674 /* VANEventSettingsViewController.m */,
 				C703D5D217AB05CF00471194 /* VANEditSkillController.h */,
 				C703D5D317AB05CF00471194 /* VANEditSkillController.m */,
+				C7CB9C6519CCAF64008B13B8 /* VANEditAthletesViewController.h */,
+				C7CB9C6619CCAF64008B13B8 /* VANEditAthletesViewController.m */,
 			);
 			name = "Event New/Edit Information";
 			sourceTree = "<group>";
@@ -1152,6 +1160,7 @@
 				C774B59E17F3584600C400DC /* TSsmall-05.png in Resources */,
 				C703D63417AB066A00471194 /* VANValueSliderCell.xib in Resources */,
 				C703D69717AB0EAC00471194 /* neutral.png in Resources */,
+				C7F9DDB619CEA3870028346F /* VANTextEditSimpleCell.xib in Resources */,
 				C703D63817AB066A00471194 /* VANDateCell.xib in Resources */,
 				C774B59C17F3584600C400DC /* TSsmall-03.png in Resources */,
 				C7983397182037AF002FBD35 /* VANCollectionCell.xib in Resources */,
@@ -1248,6 +1257,7 @@
 				C703D65B17AB068900471194 /* Positions.m in Sources */,
 				C762141F17E2828100C7DB2D /* VANDecisionRoomViewController.m in Sources */,
 				C703D63F17AB066A00471194 /* VANCollectionCell.m in Sources */,
+				C7CB9C6719CCAF64008B13B8 /* VANEditAthletesViewController.m in Sources */,
 				C703D5C217AB056B00471194 /* VANIntroViewController.m in Sources */,
 				C703D5F217AB05EC00471194 /* UIColor+NewColors.m in Sources */,
 				C703D63B17AB066A00471194 /* VANAthleteListCell.m in Sources */,

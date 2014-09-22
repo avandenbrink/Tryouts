@@ -12,6 +12,7 @@
 
 @property (strong, nonatomic) NSArray *sections;
 @property (strong, nonatomic) VANTeamColor *teamColor;
+@property (strong, nonatomic) NSMutableArray *values;
 
 
 @end
@@ -47,9 +48,9 @@
     
 }
 
--(void)addTextFieldContent:(NSString *)string ToContextForTitle:(NSString *)title {
-    if ([self.delegate respondsToSelector:@selector(addTextFieldContent:ToContextForTitle:)]) {
-        [self.delegate addTextFieldContent:string ToContextForTitle:title];
+-(void)addTextFieldContent:(NSString *)content forIndexpath:(NSIndexPath *)index {
+    if ([self.delegate respondsToSelector:@selector(addTextFieldContent:forIndexpath:)]) {
+        [self.delegate addTextFieldContent:content forIndexpath:index];
     } else {
         NSLog(@"Warning: NewTableConfig - Delegate not prepared for addTextFieldContent");
     }
@@ -125,15 +126,32 @@
         NSArray *cells = [[NSBundle mainBundle] loadNibNamed:@"VANTextEditCell" owner:self options:nil];
         cell = (VANTextFieldCell *)[cells objectAtIndex:0];
     }
-    cell.sideView.backgroundColor = [self.teamColor findTeamColor];
     cell.label.text = label;
     cell.textField.text = value;
+    cell.indexPath = index;
     cell.textField.placeholder = placeholder;
     cell.textField.keyboardType = keyboard;
     cell.expandable = NO;
     [cell initiate];
     cell.value = value;
-    
+    cell.delegate = self;
+    return cell;
+}
+
+- (VANTextFieldCell *)buildSimpleTextFieldCellInTable:(UITableView *)tableView ForIndex:(NSIndexPath *)index withLabel:(NSString *)label andValue:(id)value orPlaceholder:(NSString *)placeholder withKeyboard:(UIKeyboardType)keyboard
+{
+    VANTextFieldCell *cell = [tableView dequeueReusableCellWithIdentifier:@"simpleTextCell"];
+    if (cell == nil) {
+        NSArray *cells = [[NSBundle mainBundle] loadNibNamed:@"VANTextEditSimpleCell" owner:self options:nil];
+        cell = (VANTextFieldCell *)[cells objectAtIndex:0];
+    }
+    cell.textField.text = value;
+    cell.textField.placeholder = placeholder;
+    cell.textField.keyboardType = keyboard;
+    cell.indexPath = index;
+    cell.expandable = NO;
+    [cell initiate];
+    cell.value = value;
     cell.delegate = self;
     return cell;
 }

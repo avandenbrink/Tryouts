@@ -16,8 +16,6 @@
 @property (strong, nonatomic) UIBarButtonItem *cancelButton;
 @property (strong, nonatomic) UIBarButtonItem *nextButton;
 
-@property (strong, nonatomic) VANTextFieldCell *textCell;
-
 -(NSMutableArray *)getArrayofNumbersUpTo:(NSInteger)number;
 
 @end
@@ -25,14 +23,6 @@
 @implementation VANNewEventViewController
 
 @synthesize fetchedResultsController = _fetchedResultsController;
-
-//Migrating to CoreData from Plist date storage Keep this as referrence for possible future use
-/*
- - (NSString *)dataFilePath {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    return [documentsDirectory stringByAppendingPathComponent:@"events.plist"];
-}*/
 
 - (void)viewDidLoad
 {
@@ -66,54 +56,52 @@
 #pragma mark - TableViewDataSource Methods
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 4;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) {
-        return 1;
-    } else if (section == 1) {
-        if (self.config.rowZero || self.config.rowTwo || self.config.rowThree || self.config.rowFour) {
-            return 6;
-        } else {
-            return 5;
-        }
-    } else {
-        return 2;
+    switch (section) {
+        case 0:
+            return 1;
+            break;
+        case 1:
+            if (self.config.rowZero || self.config.rowTwo || self.config.rowThree || self.config.rowFour) {
+                return 6;
+            } else {
+                return 5;
+            }
+            break;
+        case 2:
+            return [self.event.teamNames count]+1;
+            break;
+        case 3:
+            return 2;
+        default:
+            return 0;
+            break;
     }
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if ([indexPath section] == 0) {
-        //Only 1 Option for Row 0
-        return [self.config buildTextFieldCellInTable:tableView ForIndex:indexPath withLabel:@"Name" andValue:self.event.name orPlaceholder:@"Required" withKeyboard:UIKeyboardTypeDefault];
-    } else if ([indexPath section] == 1) {
-        
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0) {
+        return [self.config buildTextFieldCellInTable:tableView ForIndex:indexPath withLabel:@"Event Name" andValue:self.event.name orPlaceholder:@"Required" withKeyboard:UIKeyboardTypeDefault];
+    } else if (indexPath.section == 1) {
         if ([indexPath row] == 0) {
-            //Row 0
-            //Only 1 Option for Row 0
-            return [self.config buildCellInTable:tableView ForIndex:indexPath withLabel:@"Event Date:" andValue:self.event.startDate];
-
+            return [self.config buildCellInTable:tableView ForIndex:indexPath withLabel:@"Date:" andValue:self.event.startDate];
         } else if ([indexPath row] == 1) {
-            //Row 1
-            //If Row 0 is Activated this will be its Cell otherwise it will be Regualar Row 1
             if (self.config.rowZero) {
-                return [self.config buildDatePickerCellInTable:tableView ForIndex:indexPath forPurpose:@"Event Date"];
+                return [self.config buildDatePickerCellInTable:tableView ForIndex:indexPath forPurpose:@"Date"];
             } else {
                 return [self.config buildTextFieldCellInTable:tableView ForIndex:indexPath withLabel:@"Location:" andValue:self.event.location orPlaceholder:@"Optional" withKeyboard:UIKeyboardTypeDefault];
             }
         } else if ([indexPath row] == 2) {
-            //Row 2
-            //If Row 0 is activated this will be Regular Row 1 Else will be Row 2
             if (self.config.rowZero) {
                 return [self.config buildTextFieldCellInTable:tableView ForIndex:indexPath withLabel:@"Location:" andValue:self.event.location orPlaceholder:@"Optional" withKeyboard:UIKeyboardTypeDefault];
             } else {
                 return [self.config buildCellInTable:tableView ForIndex:indexPath withLabel:@"Number of Teams:" andValue:[NSNumber numberWithInteger:([self.event.numTeams integerValue])]];
             }
         } else if ([indexPath row] == 3) {
-            //Row 3
-            //If Row 0 is actiavted with will be regular Row 2 Unless regular row 2 is activated This row will be its Options Cell, If neither are activated, It belonges to regular Row 3
             if (self.config.rowZero) {
                 return [self.config buildCellInTable:tableView ForIndex:indexPath withLabel:@"Number of Teams:" andValue:[NSNumber numberWithInteger:([self.event.numTeams integerValue])]];
             } else if (self.config.rowTwo) {
@@ -122,9 +110,6 @@
                 return [self.config buildCellInTable:tableView ForIndex:indexPath withLabel:@"Athlete Age:" andValue:self.event.athleteAge];
             }
         } else if ([indexPath row] == 4) {
-            //Row 4
-            //If Row 0 or Row 2 are active, this becomes row 3, If row 3 is active then this becomes its Optoins Cell, otherwise it is regular row 4
-            
             if (self.config.rowZero || self.config.rowTwo) {
                 return [self.config buildCellInTable:tableView ForIndex:indexPath withLabel:@"Athlete Age:" andValue:self.event.athleteAge];
             } else if (self.config.rowThree) {
@@ -132,15 +117,26 @@
             } else {
                 return [self.config buildCellInTable:tableView ForIndex:indexPath withLabel:@"Athletes Per Team" andValue:self.event.athletesPerTeam];
             }
-        
         } else {
-            //Row 5
-            //If Row 0, 2, or 3 are active, this becomes row 4, unless row 4 is active then this is its Options Cell, otherwise it is empty with no Selections
             if (self.config.rowZero || self.config.rowTwo || self.config.rowThree) {
                 return [self.config buildCellInTable:tableView ForIndex:indexPath withLabel:@"Athletes Per Team" andValue:self.event.athletesPerTeam];
             } else {
                 return [self.config buildPickerCellInTable:tableView ForIndex:indexPath withValues:[self getArrayofNumbersUpTo:50] andSelected:[NSString stringWithFormat:@"%@",self.event.athletesPerTeam] forPurpose:@"athletesPerTeam"];
             }
+        }
+    } else if (indexPath.section == 2) {
+        if (indexPath.row == [self.event.teamNames count]) {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"defaultCell"];
+            if (cell == nil) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"defaultCell"];
+            }
+            cell.textLabel.text = @"Add a Team...";
+            return cell;
+        } else {
+            NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES];
+            NSArray *teams = [[self.event.teamNames allObjects] sortedArrayUsingDescriptors:@[sort]];
+            TeamName *team = [teams objectAtIndex:indexPath.row];
+            return [self.config buildSimpleTextFieldCellInTable:tableView ForIndex:indexPath withLabel:nil andValue:team.name orPlaceholder:nil withKeyboard:UIKeyboardTypeAlphabet];
         }
     } else {
         if ([indexPath row] == 0) {
@@ -163,63 +159,129 @@
     }
 }
 
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (section == 1) {
-        return @"Event Information";
-    } else if (section == 2){
-        return @"More Options";
-    } else {
-        return nil;
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    switch (section) {
+        case 0:
+            return nil;
+            break;
+        case 1:
+            return @"Event Information";
+            break;
+        case 2:
+            return @"Teams";
+            break;
+        case 3:
+            return @"More Options";
+        default:
+            return nil;
+            break;
     }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if ([[tableView cellForRowAtIndexPath:indexPath] isKindOfClass:[VANTextFieldCell class]]) {
         VANTextFieldCell *cell = (VANTextFieldCell *)[tableView cellForRowAtIndexPath:indexPath];
         [cell.textField becomeFirstResponder];
-        self.textCell = cell;
-    } else if ([indexPath section] == 1) {
-        if ([[tableView cellForRowAtIndexPath:indexPath] isKindOfClass:[UITableViewCell class]]) {
-                 [self.config didSelectRowAtIndex:indexPath inTableView:tableView forTheme:[UIColor blackColor]];
-        }
-        if (self.textCell) {
-            [self.textCell.textField resignFirstResponder];
-            self.textCell = nil;
-        }
     } else {
-        if (self.textCell) {
-            [self.textCell.textField resignFirstResponder];
-            self.textCell = nil;
+        if ([indexPath section] == 1) {
+            if ([[tableView cellForRowAtIndexPath:indexPath] isKindOfClass:[UITableViewCell class]]) {
+                 [self.config didSelectRowAtIndex:indexPath inTableView:tableView forTheme:[UIColor blackColor]];
+            }
+        }
+        if (indexPath.section == 2) {
+            if (indexPath.row == [self.event.teamNames count]) {
+                [self addNewTeamForIndexPath:indexPath];
+            }
         }
     }
 }
 
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 2 && indexPath.row != [self.event.teamNames count]) {
+        return YES;
+    }
+    return NO;
+}
+
+-(BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 2 && indexPath.row != [self.event.teamNames count]) {
+        return YES;
+    }
+    return NO;
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        if (indexPath.section == 2 && indexPath.row != [self.event.teamNames count]) {
+            NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES];
+            NSArray *teams = [[self.event.teamNames allObjects] sortedArrayUsingDescriptors:@[sort]];
+            TeamName *team = [teams objectAtIndex:indexPath.row];
+            [self.event removeTeamNamesObject:team];
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+    }
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return @"Remove";
+}
+    
 #pragma mark- UI Scroll View Delegate Methods
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if (self.textCell) {
-        [self.textCell.textField resignFirstResponder];
-        self.textCell = nil;
-    }
+    [self.view endEditing:YES];
+//    
+//    if (self.activeIndex) {
+//        VANTextFieldCell *cell = (VANTextFieldCell *)[self.tableView cellForRowAtIndexPath:self.activeIndex];
+//        [cell.textField resignFirstResponder];
+//        self.activeIndex = nil;
+//    }
 }
 
 #pragma mark - Custon Methods
 
--(void)addTextFieldContent:(NSString *)content ToContextForTitle:(NSString *)title {
-    if ([title isEqualToString:@"Name"]) {
-        self.event.name = content;
-        NSLog(@"Adding Name");
-    } else if ([title isEqualToString:@"Location:"]) {
-        self.event.location = content;
-        NSLog(@"Add Location");
-    } else {
-        NSLog(@"Error: Couldn't Save %@", title);
+-(void)addNewTeamForIndexPath:(NSIndexPath *)indexpath
+{
+    VANGlobalMethods *global = [[VANGlobalMethods alloc] initwithEvent:self.event];
+    TeamName *team = (TeamName *)[global addNewRelationship:@"teamNames" toManagedObject:self.event andSave:NO];
+    team.name = [NSString stringWithFormat:@"Team %lu", (unsigned long)[self.event.teamNames count]];
+    team.index = [NSNumber numberWithInt:[self.event.teamNames count]];
+    team.event = self.event;
+    [self.tableView insertRowsAtIndexPaths:@[indexpath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexpath];
+    cell.textLabel.text = team.name;
+}
+
+-(void)addTextFieldContent:(NSString *)content forIndexpath:(NSIndexPath *)index {
+    switch (index.section) {
+        case 0:
+            self.event.name = content;
+            break;
+            
+        case 1:
+            self.event.location = content;
+            break;
+        
+        case 2:
+            if (index.section == 2) {
+                NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES];
+                NSArray *teams = [[self.event.teamNames allObjects] sortedArrayUsingDescriptors:@[sort]];
+                TeamName *team = [teams objectAtIndex:index.row];
+                team.name = content;
+            }
+            break;
+            
+        default:
+            NSLog(@"Error: Couldn't Save %@. In NEWEvent View's addTextFieldContent ToContext", index);
+            break;
     }
 }
 
-//Used In CellForRowAtIndex to generate an Array of Numbers up to a Specified Ammount
--(NSMutableArray *)getArrayofNumbersUpTo:(NSInteger)number {
+- (NSMutableArray *)getArrayofNumbersUpTo:(NSInteger)number // Used In CellForRowAtIndex to generate an Array of Numbers up to a Specified Ammount
+{
     NSMutableArray *numbers = [NSMutableArray arrayWithObject:@"1"];
     for (NSInteger i = 2; i <= number; i++) {
         [numbers addObject:[NSString stringWithFormat:@"%d",i]];
@@ -227,8 +289,8 @@
     return numbers;
 }
 
-//When "Next" is tapped, this method is called
-- (IBAction)saveEvent:(id)sender {
+- (IBAction)saveEvent:(id)sender
+{
     [self.view endEditing:YES];
     
     self.event.numTeams = [NSNumber numberWithInt:[self.event.numTeams intValue] + 1];
@@ -276,11 +338,6 @@
     } else if ([purpose isEqualToString:@"info"]){
         self.event.manageInfo = [NSNumber numberWithBool:value];
     }
-}
-
--(void)VANTextFieldCellsTextFieldDidClaimFirstResponder:(VANTextFieldCell *)cell
-{
-    self.textCell = cell;
 }
 
 #pragma mark - Segue Methods

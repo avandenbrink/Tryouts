@@ -10,6 +10,7 @@
 #import "VANAthleteEditController.h"
 #import "VANTagsTableViewController.h"
 
+#import "VANAthleteListViewController.h"
 #import "VANAthleteProfileCell.h"
 #import "VANTextFieldCell.h"
 #import "VANValueSliderCell.h"
@@ -128,7 +129,7 @@
 -(void)requiresUIUpdating
 {
     [self.tableView reloadData];
-    VANAthleteListViewController *controller = (VANAthleteListViewController *)[self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-2];
+    VANAthleteListViewController *controller = [self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-2];
     NSString *string = self.athlete.name;
     [controller removeImagesFromProfileCache:@[string]];
   //  controller.shouldReloadCache = YES;

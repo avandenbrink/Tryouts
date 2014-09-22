@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6206.8" systemVersion="14A343f" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="v70-ZG-AqD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6206.8" systemVersion="14A361c" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="v70-ZG-AqD">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7026.1"/>
@@ -29,7 +29,7 @@
             <objects>
                 <tableViewController id="ohn-MY-8Hl" customClass="VANNewEventViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="3hz-LY-zcc">
-                        <rect key="frame" x="0.0" y="64" width="540" height="556"/>
+                        <rect key="frame" x="0.0" y="64" width="540" height="507"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
@@ -47,19 +47,19 @@
                             <outlet property="delegate" destination="ohn-MY-8Hl" id="lYi-eg-kCb"/>
                         </connections>
                     </tableView>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="Settings" image="TSsmall-01.png" id="KZT-AB-0mP"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8AB-jh-bEe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-614" y="-1269"/>
+            <point key="canvasLocation" x="-615" y="-1774"/>
         </scene>
         <!--Stats-->
         <scene sceneID="c1h-ba-Dun">
             <objects>
                 <tableViewController id="9DL-hq-P6R" customClass="VANNewSkillsAndTestsController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="JUz-I3-OAO">
-                        <rect key="frame" x="0.0" y="64" width="540" height="556"/>
+                        <rect key="frame" x="0.0" y="64" width="540" height="507"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
@@ -86,7 +86,7 @@
                             <outlet property="delegate" destination="9DL-hq-P6R" id="VE8-B6-doV"/>
                         </connections>
                     </tableView>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="Stats" image="TSsmall-06.png" id="pTO-Aw-DwM"/>
                     <connections>
                         <segue destination="iXJ-gx-1pn" kind="push" identifier="editPosition" id="Pn1-aQ-e9F"/>
@@ -96,7 +96,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qbn-1h-sXX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1162" y="-1869"/>
+            <point key="canvasLocation" x="71" y="-1774"/>
         </scene>
         <!--Main Menu View Controller Pad-->
         <scene sceneID="psd-0O-kHZ">
@@ -353,7 +353,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="phK-kC-XDa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2425" y="403"/>
+            <point key="canvasLocation" x="2667" y="286"/>
         </scene>
         <!--Decision Room-->
         <scene sceneID="nu2-d3-FAb">
@@ -413,7 +413,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b0X-eo-Cgf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1944" y="1061"/>
+            <point key="canvasLocation" x="1877" y="1230"/>
         </scene>
         <!--Athlete Sign In Controller-->
         <scene sceneID="i9s-jE-Mkr">
@@ -846,9 +846,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8O1-Uj-M7W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1961" y="2030"/>
+            <point key="canvasLocation" x="1617" y="2364"/>
         </scene>
-        <!--Edit Athlete-->
+        <!--Athlete Edit Controller Pad-->
         <scene sceneID="YTF-kL-QqS">
             <objects>
                 <tableViewController id="Iae-HQ-RzS" customClass="VANAthleteEditControllerPad" sceneMemberID="viewController">
@@ -917,17 +917,11 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Edit Athlete" id="kIW-pZ-GoO">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="fGK-H6-kzv">
-                            <connections>
-                                <action selector="saveNewAthlete:" destination="Iae-HQ-RzS" id="bCN-HC-pVV"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="kIW-pZ-GoO"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KV5-vZ-nRd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2039" y="-977"/>
+            <point key="canvasLocation" x="1584" y="-1709"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="G9j-TM-ul1">
@@ -943,7 +937,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="goM-K1-qE7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1984" y="-891"/>
+            <point key="canvasLocation" x="1525" y="-1666"/>
         </scene>
         <!--Athlete List Controller Pad-->
         <scene sceneID="gx9-qT-1Ai">
@@ -954,7 +948,7 @@
                         <viewControllerLayoutGuide type="bottom" id="5HW-3i-KfK"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="YvI-az-v9M">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Click the + to start adding athletes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="59e-zd-24l">
@@ -962,20 +956,20 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bop-az-CtJ">
+                                <rect key="frame" x="386" y="89" width="40" height="40"/>
+                                <state key="normal" title="&gt;">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="closeTagsTable" destination="npb-pJ-fUF" eventType="touchUpInside" id="rwb-2P-1fY"/>
+                                </connections>
+                            </button>
                             <tableView autoresizesSubviews="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="91" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="cm9-D4-Z5X">
-                                <rect key="frame" x="0.0" y="64" width="384" height="960"/>
+                                <rect key="frame" x="0.0" y="0.0" width="384" height="960"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="64" id="SjY-EM-gxT">
-                                        <rect key="frame" x="0.0" y="22" width="768" height="64"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SjY-EM-gxT" id="957-wY-a3n">
-                                            <rect key="frame" x="0.0" y="0.0" width="768" height="63"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                        <inset key="separatorInset" minX="90" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    </tableViewCell>
-                                    <tableViewCell autoresizesSubviews="NO" contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="84" id="l4d-42-613" customClass="VANAthleteListCellPad">
+                                    <tableViewCell autoresizesSubviews="NO" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="84" id="l4d-42-613" customClass="VANAthleteListCellPad">
                                         <rect key="frame" x="0.0" y="86" width="768" height="84"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" autoresizesSubviews="NO" opaque="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="l4d-42-613" id="SVv-Vz-eiH">
@@ -996,6 +990,12 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="CWk-BR-09D" secondAttribute="height" multiplier="1:1" id="6VG-1P-V0D"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="37"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Team 1" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oe2-yE-rh1">
                                                     <rect key="frame" x="623" y="6" width="96" height="35"/>
@@ -1069,7 +1069,7 @@
                                 </connections>
                             </tableView>
                             <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vVf-Ha-Aoe">
-                                <rect key="frame" x="0.0" y="975" width="768" height="49"/>
+                                <rect key="frame" x="0.0" y="911" width="768" height="49"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <items>
                                     <tabBarItem title="Name" image="TSsmall-04.png" id="5zf-ny-kuM"/>
@@ -1082,15 +1082,6 @@
                                     <outlet property="delegate" destination="npb-pJ-fUF" id="EhR-r1-0iF"/>
                                 </connections>
                             </tabBar>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bop-az-CtJ">
-                                <rect key="frame" x="386" y="89" width="40" height="40"/>
-                                <state key="normal" title="&gt;">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="closeTagsTable" destination="npb-pJ-fUF" eventType="touchUpInside" id="rwb-2P-1fY"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -1103,6 +1094,7 @@
                             <constraint firstItem="5HW-3i-KfK" firstAttribute="top" secondItem="cm9-D4-Z5X" secondAttribute="bottom" id="wKP-3F-hlS"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="AdY-oX-12d">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="kHg-Eo-VCM">
                             <connections>
@@ -1136,14 +1128,14 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DHz-Ty-yKE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-7" y="-845"/>
+            <point key="canvasLocation" x="48" y="-1055"/>
         </scene>
-        <!--New Event-->
+        <!--Settings-->
         <scene sceneID="tTc-16-jcd">
             <objects>
                 <tabBarController definesPresentationContext="YES" id="vk4-Ng-Gr4" customClass="VANSettingTabsControllerPad" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <navigationItem key="navigationItem" title="New Event" id="mpq-I8-02Q">
+                    <navigationItem key="navigationItem" title="Settings" id="mpq-I8-02Q">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="Iny-ju-fa6">
                             <connections>
                                 <action selector="saveEvent:" destination="vk4-Ng-Gr4" id="Uch-Me-9rI"/>
@@ -1159,11 +1151,43 @@
                     <connections>
                         <segue destination="ohn-MY-8Hl" kind="relationship" relationship="viewControllers" id="Ueg-10-Irt"/>
                         <segue destination="9DL-hq-P6R" kind="relationship" relationship="viewControllers" id="k41-Ln-aeM"/>
+                        <segue destination="bla-Xr-Gms" kind="relationship" relationship="viewControllers" id="3Zs-NT-yYf"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KwM-AI-oyJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="257" y="-845"/>
+            <point key="canvasLocation" x="92" y="-1055"/>
+        </scene>
+        <!--Athletes-->
+        <scene sceneID="rlo-kH-6Wo">
+            <objects>
+                <tableViewController id="bla-Xr-Gms" customClass="VANEditAthletesViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="fOq-yS-Usv">
+                        <rect key="frame" x="0.0" y="0.0" width="540" height="507"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="dRs-bv-gtF">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dRs-bv-gtF" id="CtG-Jn-Xse">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="bla-Xr-Gms" id="Klk-tx-92H"/>
+                            <outlet property="delegate" destination="bla-Xr-Gms" id="9vh-BQ-XbV"/>
+                        </connections>
+                    </tableView>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <tabBarItem key="tabBarItem" title="Athletes" id="65I-E3-ICr"/>
+                    <connections>
+                        <segue destination="Iae-HQ-RzS" kind="push" identifier="athleteDetail" id="5XH-kT-kf2"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hCm-N9-sCU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="783" y="-1774"/>
         </scene>
         <!--Intro View Controller Pad-->
         <scene sceneID="fGA-BE-7rf">
@@ -1517,7 +1541,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QlX-mq-e9S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="321" y="-2469"/>
+            <point key="canvasLocation" x="71" y="-2604"/>
         </scene>
     </scenes>
     <resources>
@@ -1541,6 +1565,7 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="wtR-KT-D4S"/>
+        <segue reference="5XH-kT-kf2"/>
         <segue reference="Pn1-aQ-e9F"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -41,7 +41,6 @@ static NSString *kUserSettingSortType = @"AhleteListFilterType";
     self.tabBar.selectedItem = [self.tabBar.items objectAtIndex:tabIndex];
     [self sortAthletesByIndex:tabIndex];
     
-    [self sortAthleteListbyName]; //Create Original Sort Method, sorted by their name and places them in self.athleteList
     self.imageCache = [NSMutableDictionary dictionary]; //Create the Image Cache Dictionary for future use.
 }
 
@@ -67,28 +66,44 @@ static NSString *kUserSettingSortType = @"AhleteListFilterType";
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
-    return 1;
+    return [self.sectionArray count];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-    return [self.athleteList count];
-
+    NSArray *array = [self.athleteLister valueForKey:[self.sectionArray objectAtIndex:section]];
+    return [array count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    VANAthleteListCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    Athlete *athlete = [self.athleteList objectAtIndex:[indexPath row]];
+    VANAthleteListCell *cell = (VANAthleteListCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    NSArray *array = [self.athleteLister valueForKey:[self.sectionArray objectAtIndex:indexPath.section]];
+    Athlete *athlete = [array objectAtIndex:indexPath.row];
 
     [self setupAthleteListCell:cell withAthlete:athlete forIndexPath:indexPath];
-    
     return cell;
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return [self.sectionArray objectAtIndex:section];
+}
+
+-(NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
+{
+    return index;
+}
+
+-(NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+    UITabBarItem *item = self.tabBar.selectedItem;
+    if ([item isEqual:[self.tabBar.items objectAtIndex:0]]) {
+        return self.sectionArray;
+    } else {
+        return nil;
+    }
 }
 
 - (void)setupAthleteListCell:(VANAthleteListCell *)cell withAthlete:(Athlete *)athlete forIndexPath:(NSIndexPath *)indexPath
@@ -101,15 +116,12 @@ static NSString *kUserSettingSortType = @"AhleteListFilterType";
     cell.aNumber.text = [athlete.number stringValue];
     cell.isFlagged = [athlete.flagged boolValue];
 
-    //Setting up HeadShotImage:
-    cell.athleteHeadshot.layer.cornerRadius = cell.athleteHeadshot.frame.size.height/2;
     cell.athleteHeadshot.layer.masksToBounds = YES;
     cell.athleteHeadshot.backgroundColor = [UIColor lightGrayColor];
     
     //Set up Number
-    NSString *athleteNumber = [NSString stringWithFormat:@"%@", athlete.number];
-    cell.aNumber.text = athleteNumber;
-    cell.aNumberImg.text = athleteNumber;
+    cell.aNumber.text = [athlete.number stringValue];
+    cell.aNumberImg.text = [athlete.number stringValue];
     
     
     if (athlete.images.count > 0 && !athlete.profileImage) {
@@ -142,33 +154,7 @@ static NSString *kUserSettingSortType = @"AhleteListFilterType";
                 imgCell.athleteHeadshot.image = athleteImage;
             }];
         }];
-       // NSPersistentStoreCoordinator *coordinator = [athlete.managedObjectContext persistentStoreCoordinator];
-
-//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//            NSIndexPath *path = indexPath;
-//           // NSManagedObjectContext *backupContext = [[NSManagedObjectContext alloc] init];
-//           // [backupContext setPersistentStoreCoordinator:coordinator];
-//            Athlete *backgroundAthlete = (Athlete *)[self.athlete.managedObjectContext.parentContext objectWithID:athleteID];
-//            Image *coreImage = backgroundAthlete.profileImage;
-//            NSData *imageData = coreImage.headShot;
-//            UIImage *athleteImage = [UIImage imageWithData:imageData];
-//            [self.imageCache setValue:athleteImage forKey:backgroundAthlete.name];
-//            
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                VANAthleteListCell *imgCell = (VANAthleteListCell *)[self.tableView cellForRowAtIndexPath:path];
-//                imgCell.athleteHeadshot.image = athleteImage;
-//            });
-//            
-//        });
-        /*
-        //Set the Images
-        Image *coreImage = [[athlete.headShotImage allObjects] objectAtIndex:0];
-        NSData *imageData = coreImage.headShot;
-        UIImage *athleteImage = [UIImage imageWithData:imageData];
-        cell.athleteHeadshot.image = athleteImage;
-        */
         [self setNumberWithHeadshotForCell:cell];
-        
     } else {
         cell.athleteHeadshot.image = nil; //Cancel for reusable cells
         
@@ -177,9 +163,9 @@ static NSString *kUserSettingSortType = @"AhleteListFilterType";
     }
     
     //Athlete Number and Team Number and its background
-    if ([athlete.teamSelected integerValue] > 0) {
+    if (athlete.teamName) {
         cell.numberBG.backgroundColor = [self.teamColor findTeamColor];
-        cell.teamLabel.text = [NSString stringWithFormat:@"Team %@", athlete.teamSelected];
+        cell.teamLabel.text = [NSString stringWithFormat:@"%@", athlete.teamName.name];
         cell.athleteHeadshot.backgroundColor = [self.teamColor washedColor];
     } else {
         cell.numberBG.backgroundColor = [UIColor lightGrayColor];
@@ -214,29 +200,6 @@ static NSString *kUserSettingSortType = @"AhleteListFilterType";
 }
 
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return NO;
-}
-
-
-
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        VANGlobalMethods *methods = [[VANGlobalMethods alloc] initwithEvent:self.event];
-        [methods removeRelationshipObjectInIndexPath:indexPath forKey:@"athletes"];
-        NSMutableSet *athleteSet = [self.event mutableSetValueForKey:@"athletes"];
-        self.athleteList = (NSMutableArray *)[athleteSet allObjects];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-
-    }
-}
-
-
 /*
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
@@ -255,9 +218,15 @@ static NSString *kUserSettingSortType = @"AhleteListFilterType";
 
 #pragma mark - Table view delegate
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return NO;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Athlete *athlete = [self.athleteList objectAtIndex:[indexPath row]];
+    NSArray *array = [self.athleteLister valueForKey:[self.sectionArray objectAtIndex:indexPath.section]];
+    Athlete *athlete = [array objectAtIndex:indexPath.row];
     if (self.compareDelegate) {
         [self.compareDelegate completeChangeAthlete:athlete];
         [self.navigationController popViewControllerAnimated:YES];
@@ -294,12 +263,7 @@ static NSString *kUserSettingSortType = @"AhleteListFilterType";
 }
 
 - (IBAction)addNewAthlete:(id)sender {
-    VANGlobalMethods *methods = [[VANGlobalMethods alloc] initwithEvent:self.event];
-    Athlete *athlete = (Athlete *)[methods addNewRelationship:athleteRelationship toManagedObject:self.event andSave:NO];
-    athlete.number = [NSNumber numberWithInteger:[self.event.athletes count]];
-    athlete.seen = 0;
-    athlete.flagged = 0;
-    [self performSegueWithIdentifier:@"toNewAthletePage" sender:athlete];
+    [self performSegueWithIdentifier:@"toNewAthletePage" sender:nil];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -312,8 +276,13 @@ static NSString *kUserSettingSortType = @"AhleteListFilterType";
         }
     } else if ([segue.identifier isEqualToString:@"toNewAthletePage"]) {
         VANAthleteEditController *viewController = segue.destinationViewController;
-        viewController.athlete = sender;
         viewController.event = self.event;
+        viewController.delegate = self;
+        if (sender) {
+            viewController.athlete = sender;
+        } else {
+            viewController.isNew = YES;
+        }
     }
 }
 
@@ -413,46 +382,10 @@ static NSString *kUserSettingSortType = @"AhleteListFilterType";
     }
 }
 
-
--(void)sortAthleteListbyName {
-    NSArray *array = [self.event.athletes allObjects];
-    NSSortDescriptor *sortByFirst = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
-    self.athleteList = (NSMutableArray *)[array sortedArrayUsingDescriptors:@[sortByFirst]];
-}
-
--(void)sortAthleteListbyNumber {
-    NSArray *array = [self.event.athletes allObjects];
-    NSSortDescriptor *sortByFirst = [NSSortDescriptor sortDescriptorWithKey:@"number" ascending:YES];
-    NSSortDescriptor *sortBySecond = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
-    self.athleteList = (NSMutableArray *)[array sortedArrayUsingDescriptors:@[sortByFirst,sortBySecond]];
-}
-
--(void)sortAthleteListbySeen {
-    NSArray *array = [self.event.athletes allObjects];
-    NSSortDescriptor *sortByFirst = [NSSortDescriptor sortDescriptorWithKey:@"seen" ascending:YES];
-    NSSortDescriptor *sortBySecond = [NSSortDescriptor sortDescriptorWithKey:@"number" ascending:YES];
-    self.athleteList = (NSMutableArray *)[array sortedArrayUsingDescriptors:@[sortByFirst,sortBySecond]];
-}
-
--(void)sortAthleteListbyPosition {
-    NSArray *array = [self.event.athletes allObjects];
-    NSSortDescriptor *sortByFirst = [NSSortDescriptor sortDescriptorWithKey:@"position" ascending:YES];
-    NSSortDescriptor *sortBySecond = [NSSortDescriptor sortDescriptorWithKey:@"number" ascending:YES];
-    self.athleteList = (NSMutableArray *)[array sortedArrayUsingDescriptors:@[sortByFirst,sortBySecond]];
-}
-
--(void)sortAthleteListbyFlagged {
-    NSArray *array = [self.event.athletes allObjects];
-    NSSortDescriptor *sortByFirst = [NSSortDescriptor sortDescriptorWithKey:@"flagged" ascending:YES];
-    NSSortDescriptor *sortBySecond = [NSSortDescriptor sortDescriptorWithKey:@"number" ascending:YES];
-    self.athleteList = (NSMutableArray *)[array sortedArrayUsingDescriptors:@[sortByFirst,sortBySecond]];
-}
-
 #pragma mark - VANAthleteListCell Delegate Methods
 
-
--(void)swipeTableViewCell:(VANAthleteListCell *)cell didEndSwipingSwipingWithState:(swipeTableViewCellState)state mode:(swipeTableViewCellMode)mode {
-    
+-(void)swipeTableViewCell:(VANAthleteListCell *)cell didEndSwipingSwipingWithState:(swipeTableViewCellState)state mode:(swipeTableViewCellMode)mode
+{
     NSManagedObjectContext *context = [self.event managedObjectContext];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Athlete" inManagedObjectContext:context];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
@@ -469,7 +402,6 @@ static NSString *kUserSettingSortType = @"AhleteListFilterType";
         NSLog(@"Warning No Athlete Found with name: %@, After Swiping Completed", cell.name.text);
         return;
     }
-    
     
     if (state == swipeTableViewCellState1)
     {
@@ -503,7 +435,8 @@ static NSString *kUserSettingSortType = @"AhleteListFilterType";
 
 #pragma mark - Custom Methods
 
--(void)removeImagesFromProfileCache:(NSArray *)images {
+-(void)removeImagesFromProfileCache:(NSArray *)images
+{
     if (!images) {
         _imageCache = nil;
     } else if (_imageCache){

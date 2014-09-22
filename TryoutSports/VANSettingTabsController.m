@@ -8,11 +8,11 @@
 
 
 #import "VANSettingTabsController.h"
+#import "VANEditAthletesViewController.h"
 
 
 @interface VANSettingTabsController ()
 
-@property (strong, nonatomic) UIBarButtonItem *cancelButton;
 @property (strong, nonatomic) UIBarButtonItem *saveButton;
 
 @end
@@ -23,9 +23,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    self.cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel)];
-    self.navigationItem.leftBarButtonItem = self.cancelButton;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveEvent:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(saveEvent:)];
     VANTeamColor *teamColor = [[VANTeamColor alloc] init];
     [self.view setTintColor:[teamColor findTeamColor]];
 }
@@ -39,42 +37,20 @@
 #pragma mark - Tab Bar Controller Delegate Methods
 
 -(void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
-    NSLog(@"Changing View Controller");
     if ([viewController isKindOfClass:[VANNewEventViewController class]]) {
         VANNewEventViewController *controller = (VANNewEventViewController *)viewController;
         controller.event = self.event;
-    } else {
-        VANNewSkillsAndTestsController *contorller = (VANNewSkillsAndTestsController *)viewController;
+    } else if ([viewController isKindOfClass:[VANNewSkillsAndTestsController class]] || [viewController isKindOfClass:[VANEditAthletesViewController class]]) {
+        VANManagedObjectTableViewController *contorller = (VANManagedObjectTableViewController *)viewController;
         contorller.event = self.event;
         [contorller.tableView reloadData];
     }
-    
 }
 
 #pragma mark - Custom Methods
 
--(void)cancel {
-    NSInteger count = [self.navigationController.viewControllers count];
-    UIViewController *controller = [self.navigationController.viewControllers objectAtIndex:count - 2];
-    if (![controller isKindOfClass:[VANMainMenuViewController class]]) {
-        NSManagedObjectContext *context = [self.event managedObjectContext];
-        [context deleteObject:self.event];
-    } else {
-        self.event.numTeams = [NSNumber numberWithInteger:[self.event.numTeams integerValue] + 1];
-    }
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 - (IBAction)saveEvent:(id)sender {
     [self.view endEditing:YES];
-    
-    //Log the Event qualities for debugging Purposes
-//    NSLog(@"Name: %@", self.event.name);
-//    NSLog(@"Date: %@", [self.event.startDate description]);
-//    NSLog(@"Location: %@", self.event.location);
-//    NSLog(@"Number of Teams: %@", self.event.numTeams);
-//    NSLog(@"Athlete Age: %@", self.event.athleteAge);
-//    NSLog(@"Athletes Per Team: %@", self.event.athletesPerTeam);
     
     self.event.numTeams = [NSNumber numberWithInt:[self.event.numTeams intValue] + 1];
     

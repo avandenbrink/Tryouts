@@ -20,7 +20,7 @@
 @property (strong, nonatomic) AthleteTest *test;
 @property (strong, nonatomic) AthleteSkills *skill;
 @property (strong, nonatomic) IBOutlet UILabel *label;
-@property (strong, nonatomic) IBOutlet UIView *sideView;
+@property (strong, nonatomic) NSIndexPath *indexPath;
 @property (nonatomic) BOOL expandable;
 
 -(void)saveManagedObjectContext:(NSManagedObject *)managedObject;

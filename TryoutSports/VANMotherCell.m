@@ -37,8 +37,6 @@
 }
 
 -(void)configureWith:(NSManagedObject *)object {
-    VANTeamColor *teamColor = [[VANTeamColor alloc] init];
-    self.sideView.backgroundColor = [teamColor findTeamColor];
 }
 
 -(IBAction)keyboardResign:(id)sender {

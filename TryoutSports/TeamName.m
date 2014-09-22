@@ -12,5 +12,8 @@
 @implementation TeamName
 
 @dynamic name;
+@dynamic index;
+@dynamic atheltes;
+@dynamic event;
 
 @end

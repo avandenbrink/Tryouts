@@ -285,8 +285,6 @@ static int kBottomInset = 64.0f;
     Tests *object = [fullArray objectAtIndex:[indexPath row]];
     cell.label.text = object.descriptor;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    VANTeamColor *teamColor = [[VANTeamColor alloc] init];
-    cell.sideView.backgroundColor = [teamColor findTeamColor];
     cell.textField.clearButtonMode = UITextFieldViewModeWhileEditing;
     [cell.textField addTarget:self action:@selector(keyboardResign:) forControlEvents:UIControlEventEditingDidEndOnExit];
     cell.textField.delegate = cell;
@@ -360,10 +358,10 @@ static int kBottomInset = 64.0f;
     NSMutableArray *strings = [NSMutableArray array];
     for (NSInteger i = 0; i < [self.athlete.aTags count]; i++) {
         AthleteTags *tag = [[self.athlete.aTags allObjects] objectAtIndex:i];
-        if (tag.descriptor == nil) {
+        if (tag.attribute == nil) {
             [strings addObject:@""];
         } else {
-            [strings addObject:tag.descriptor];
+            [strings addObject:tag.attribute];
         }
     }
     
@@ -399,8 +397,7 @@ static int kBottomInset = 64.0f;
 -(void)readjustTeamCellWithAnimation:(BOOL)animate
 {
     VANScrollViewTeamSelectionCell *cell = (VANScrollViewTeamSelectionCell *)[self cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
-    [cell gotoPageWithAnimation:animate];
-    
+    [cell setTeamPageForAthlete:self.athlete];
 }
 
 -(void)editAthleteProfile:(id)sender {
@@ -461,8 +458,7 @@ static int kBottomInset = 64.0f;
     
     AthleteSkills *newAthleteSkill = [NSEntityDescription insertNewObjectForEntityForName:[destEntity name] inManagedObjectContext:[self.athlete managedObjectContext]];
     [relationshipSet addObject:newAthleteSkill];
-    VANGlobalMethods *method = [[VANGlobalMethods alloc] initwithEvent:self.event];
-    [method saveManagedObject:self.athlete];
+    [VANGlobalMethods saveManagedObject:self.athlete];
     return newAthleteSkill;
 }
 
@@ -476,8 +472,7 @@ static int kBottomInset = 64.0f;
     
     AthleteTest *newAthleteTest = [NSEntityDescription insertNewObjectForEntityForName:[destEntity name] inManagedObjectContext:[self.athlete managedObjectContext]];
     [relationshipSet addObject:newAthleteTest];
-    VANGlobalMethods *method = [[VANGlobalMethods alloc] initwithEvent:self.event];
-    [method saveManagedObject:self.athlete];
+    [VANGlobalMethods saveManagedObject:self.athlete];
     
     return newAthleteTest;
 }

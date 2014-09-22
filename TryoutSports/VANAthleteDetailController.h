@@ -15,7 +15,6 @@
 #import "VANPictureTaker.h"
 #import "VANSoloImageViewer.h"
 
-
 @class AthleteSkills;
 
 @interface VANAthleteDetailController : VANManagedObjectTableViewController <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, UITextFieldDelegate, UIActionSheetDelegate, VANPictureTakerDelegate, VANAthleteProfileDelegate, VANSoloImageViewerDelegate, VANDetailTableDelegate>

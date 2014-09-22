@@ -16,12 +16,15 @@
 @protocol VANDetailTableDelegate <NSObject>
 
 -(Event *)collectEvent;
--(Athlete *)collectAthlete;
+
 -(void)introduceTagsViewWithAnimation:(BOOL)animate;
 // ------ Forwarded from AThelteProfileCell Delegate
 -(void)VANTableViewCellrequestsActivateCameraForAthlete:(Athlete *)athlete fromCell:(VANAthleteProfileCell *)cell;
 -(void)VANTableViewCellrequestsImageforAthete:(Athlete *)athlete fromCell:(VANAthleteProfileCell *)cell;
 // ------- Optional based on If the TextField is used or not; Forwarded from VANTextFieldCell Delegate
+
+@optional
+-(Athlete *)collectAthlete;
 -(void)addTextFieldContent:(NSString *)string ToContextForTitle:(NSString *)title;
 -(void)adjustContentInsetsForEditing:(BOOL)editing;
 

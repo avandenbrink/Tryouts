@@ -11,6 +11,7 @@
 #import "Athlete.h"
 #import "Skills.h"
 #import "Tests.h"
+#import "TeamName.h"
 #import "Positions.h"
 #import "VANAppDelegate.h"
 #import "VANTeamColor.h"

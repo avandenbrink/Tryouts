@@ -193,24 +193,16 @@
             NSLog(@"WARNING: TeamsCell (%@) disrupted because event.numTeams is less than 1, Replacing it with 1 again", self.event.numTeams);
             self.event.numTeams = [NSNumber numberWithInteger:2];
         }
-        cell.athlete = self.athlete;
-        [cell initiate];
-    } else {
-        cell.athlete = self.athlete;
-        cell.pageController.currentPage = [self.athlete.teamSelected integerValue];
+
     }
-    
-    [cell gotoPageWithAnimation:YES];
-    
-    //Add Code to Move scroller to Team #; here so it moves when an athlete is selected;
-    //Also Need to find out where to move this when the table dimensions change to account for this, mabye add Table Reload?
+    [cell setTeamPageForAthlete:self.athlete];
     return cell;
 }
 
 -(void)moveTeamScrollViewWithAnimation:(BOOL)animate
 {
     VANScrollViewTeamSelectionCell *cell = (VANScrollViewTeamSelectionCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
-    [cell gotoPageWithAnimation:animate];
+    [cell setTeamPageForAthlete:self.athlete];
 }
 
 - (UITableViewCell *)setupTagCellforTable:(UITableView *)tableView forIndex:(NSIndexPath *)indexPath
@@ -312,8 +304,6 @@
     Tests *object = [fullArray objectAtIndex:[indexPath row]];
     cell.label.text = object.descriptor;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    VANTeamColor *teamColor = [[VANTeamColor alloc] init];
-    cell.sideView.backgroundColor = [teamColor findTeamColor];
     cell.textField.clearButtonMode = UITextFieldViewModeWhileEditing;
     [cell.textField addTarget:self action:@selector(keyboardResign:) forControlEvents:UIControlEventEditingDidEndOnExit];
     cell.textField.delegate = cell;
@@ -495,8 +485,7 @@
 -(void)readjustTeamCellWithAnimation:(BOOL)animate
 {
     VANScrollViewTeamSelectionCell *cell = (VANScrollViewTeamSelectionCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
-    [cell gotoPageWithAnimation:animate];
-    
+    [cell setTeamPageForAthlete:self.athlete];
 }
 
 /*

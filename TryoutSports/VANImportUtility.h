@@ -24,7 +24,8 @@
 + (NSArray *)getLocalFileList;
 
 
-+ (NSArray *)nameVariations;
++ (NSArray *)singleNameVariations;
++ (NSArray *)lastNameVariations;
 + (NSArray *)numberVariations;
 + (NSArray *)emailVariations;
 + (NSArray *)phoneVariations;

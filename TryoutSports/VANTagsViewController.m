@@ -72,7 +72,7 @@ static NSString *kTagTypeKey = @"type";
 - (BOOL)searchThroughArrayOfDicts:(NSArray *)array forTag:(AthleteTags *)tag {
     for (NSInteger i = 0; i < [array count]; i++) {
         NSDictionary *dic = [self.selectedTagsArray objectAtIndex:i];
-        if ([[dic valueForKey:kTagNameKey] isEqualToString:tag.descriptor]) {
+        if ([[dic valueForKey:kTagNameKey] isEqualToString:tag.attribute]) {
             return YES;
         }
     }
@@ -101,7 +101,7 @@ static NSString *kTagTypeKey = @"type";
             AthleteTags *tag = [tags objectAtIndex:i];
             BOOL exists = [self searchThroughArrayOfDicts:self.selectedTagsArray forTag:tag];
             if (!exists) {
-                NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:@[tag.descriptor, [NSNumber numberWithInt:1], tag.type] forKeys:@[kTagNameKey, kTagCountKey, kTagTypeKey]];
+                NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:@[tag.attribute, [NSNumber numberWithInt:1], tag.type] forKeys:@[kTagNameKey, kTagCountKey, kTagTypeKey]];
                 [self.selectedTagsArray addObject:dictionary];
             }
         }
@@ -351,7 +351,7 @@ static NSString *kTagTypeKey = @"type";
 //Works with this Controllers DidSelectCellatIndex Method to cycle through all of the currently selected Athlete tags to make sure that we have the correct value before removing it from the athlete's profile
 - (AthleteTags *)returnManagedObjectwithString:(NSString *)string fromSet:(NSSet *)set {
     for (AthleteTags *tag in set) {
-        if ([tag.descriptor isEqualToString:string]) {
+        if ([tag.attribute isEqualToString:string]) {
             return tag;
         }
     }
@@ -363,7 +363,7 @@ static NSString *kTagTypeKey = @"type";
 - (BOOL)findSelectedString:(NSDictionary *)dict inManagedObjectArray:(NSArray *)array {
     for (NSInteger i = 0; i < [array count]; i++) {
         AthleteTags *tag = [array objectAtIndex:i];
-        if ([[dict valueForKey:kTagNameKey] isEqualToString:tag.descriptor]) {
+        if ([[dict valueForKey:kTagNameKey] isEqualToString:tag.attribute]) {
             return YES;
         }
     }
@@ -385,7 +385,7 @@ static NSString *kTagTypeKey = @"type";
 -(BOOL)searchThroughArray:(NSArray *)array forString:(NSString *)string {
     for (NSInteger i = 0; i < [array count]; i++) {
         AthleteTags *tag = [array objectAtIndex:i];
-        if ([string isEqualToString:tag.descriptor]) {
+        if ([string isEqualToString:tag.attribute]) {
             return YES;
         }
     }
@@ -404,7 +404,7 @@ static NSString *kTagTypeKey = @"type";
         
     AthleteTags *tag = [NSEntityDescription insertNewObjectForEntityForName:[destEntity name] inManagedObjectContext:[self.athlete managedObjectContext]];
     [relationshipSet addObject:tag];
-    tag.descriptor = [dict valueForKey:kTagNameKey];
+    tag.attribute = [dict valueForKey:kTagNameKey];
     tag.type = [dict valueForKey:kTagTypeKey];
     [self saveManagedObjectContext:self.athlete];
 }

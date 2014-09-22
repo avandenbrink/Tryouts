@@ -12,6 +12,7 @@ static NSDateFormatter *__dateFormatter = nil;
 #import "Event.h"   
 #import "Skills.h"
 #import "Tests.h"
+#import "TeamName.h"
 #import "VANTeamColor.h"
 #import "Positions.h"
 #import "VANGlobalMethods.h"

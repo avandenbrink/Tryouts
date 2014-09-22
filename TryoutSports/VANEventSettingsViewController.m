@@ -56,11 +56,10 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
--(void)cancel {
+-(void)cancel
+{    
     [self.navigationController popViewControllerAnimated:YES];
 }
-
-
 
 - (void)loadVisiblePages {
     CGFloat pageWidth = self.scrollerView.frame.size.width;

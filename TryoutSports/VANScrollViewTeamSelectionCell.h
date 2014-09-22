@@ -19,8 +19,7 @@
 
 - (void)initiate;
 - (IBAction)changeScrollerfromController:(id)sender;
-- (void)gotoPageWithAnimation:(BOOL)animated;
-
+- (void)setTeamPageForAthlete:(Athlete *)athlete;
 - (void)resizeTeamViewstoControllerViewSize:(CGSize *)size;
 
 @end

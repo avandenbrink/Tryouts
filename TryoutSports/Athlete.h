@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class AthleteSkills, AthleteTags, AthleteTest, Event, Image;
+@class AthleteSkills, AthleteTags, AthleteTest, Event, Image, TeamName;
 
 @interface Athlete : NSManagedObject
 
@@ -17,6 +17,7 @@
 @property (nonatomic, retain) NSDate * birthday;
 @property (nonatomic, retain) NSNumber * checkedIn;
 @property (nonatomic, retain) NSString * email;
+@property (nonatomic, retain) NSNumber * isCut;
 @property (nonatomic, retain) NSNumber * flagged;
 @property (nonatomic, retain) NSNumber * isSelfCheckedIn;
 @property (nonatomic, retain) NSString * name;
@@ -36,6 +37,7 @@
 @property (nonatomic, retain) Event *event;
 @property (nonatomic, retain) NSSet *images;
 @property (nonatomic, retain) Image *profileImage;
+@property (nonatomic, retain) TeamName *teamName;
 @property (nonatomic, retain) NSSet *skills;
 @property (nonatomic, retain) NSSet *tests;
 @end

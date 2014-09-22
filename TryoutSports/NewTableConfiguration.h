@@ -23,7 +23,7 @@
 -(void)pickerCell:(VANPickerCell *)cell didChangeValueToRow:(NSInteger)row inArray:(NSArray *)array;
 -(void)adjustContentInsetsForEditing:(BOOL)editing;
 -(void)VANTextFieldCellsTextFieldDidClaimFirstResponder:(VANTextFieldCell *)cell;
--(void)addTextFieldContent:(NSString *)string ToContextForTitle:(NSString *)title;
+-(void)addTextFieldContent:(NSString *)content forIndexpath:(NSIndexPath *)index;
 -(UIAlertView *)createAlertViewforEmptyPickerViewCellWithPurpose:(NSString *)purpose;
 -(void)setBoolianValue:(BOOL)value forPurpose:(NSString *)purpose;
 
@@ -63,6 +63,8 @@
  * @param   keyboard   Type of keyboard that should be revealed when the TextField becomes firstResponder
  */
 - (VANTextFieldCell *)buildTextFieldCellInTable:(UITableView *)tableView ForIndex:(NSIndexPath *)index withLabel:(NSString *)label andValue:(id)value orPlaceholder:(NSString *)placeholder withKeyboard:(UIKeyboardType)keyboard;
+- (VANTextFieldCell *)buildSimpleTextFieldCellInTable:(UITableView *)tableView ForIndex:(NSIndexPath *)index withLabel:(NSString *)label andValue:(id)value orPlaceholder:(NSString *)placeholder withKeyboard:(UIKeyboardType)keyboard;
+
 /**
  * Builds and returns a VANDateCell that contains a UIDatePicker with height 216.  Sets the Cell at Index.row - 1 as its Delegate Cell and pushes its returned value to the Delegates detailViewLabel.  (Delegate should be a Right Detail TableViewCell)
  * @param   purpose   A String representation of the keyValue of where this data should be saved. (Spellcheck for accuraccy)

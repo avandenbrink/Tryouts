@@ -1,8 +1,3 @@
-#warning - Still need to adjust tags table to implement rules that aren't use with -viewdiddisappear
-#warning - Need to build functionality into Image Profile Viewer
-#warning - Need to hook up New Athlete Controller
-#warning - Need to Figure out Main Table View Cell's
-
 //
 //  VANAthleteListControllerPad.m
 //  Tryout Sports
@@ -63,30 +58,21 @@ static NSString *rAthleteImages = @"images";
 
 @implementation VANAthleteListControllerPad
 
--(void)viewDidLoad {
-    
+-(void)viewDidLoad
+{
     [super viewDidLoad];
-    //Ensure BOOL's are set
-    self.detailVisible = NO;
-    self.tagVisible = NO;
+        
+   // self.tableView.contentInset = UIEdgeInsetsMake(kInsetTopMainTable, 0, kInsetBottom, 0);
     
-    // Make List View desplay base on previous setting used.
-
-    if ([self.teamColor findTeamColor] == [UIColor whiteColor]) { //If Team Color is White need to make special arangments
-        self.tabBar.tintColor = [UIColor blackColor];
-    }
-    
-    self.tableView.contentInset = UIEdgeInsetsMake(kInsetTopMainTable, 0, kInsetBottom, 0);
-    
-    [self.view removeConstraints:self.view.constraints];
+    //[self.view removeConstraints:self.view.constraints];
     
     //Set up Auto Layout for Main TableView:
-    self.rightTableConstraint = [NSLayoutConstraint constraintsWithVisualFormat:@"[table]|" options:0 metrics:0 views:@{@"table": self.tableView}];
-    self.leftTableConstraint = [NSLayoutConstraint constraintsWithVisualFormat:@"|[table]" options:0 metrics:0 views:@{@"table": self.tableView}];
-    NSArray *tableVerticalConstratin = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[table]|" options:0 metrics:0 views:@{@"table": self.tableView}];
-    [self.view addConstraints:self.rightTableConstraint];
-    [self.view addConstraints:self.leftTableConstraint];
-    [self.view addConstraints:tableVerticalConstratin];
+//    self.rightTableConstraint = [NSLayoutConstraint constraintsWithVisualFormat:@"[table]|" options:0 metrics:0 views:@{@"table": self.tableView}];
+//    self.leftTableConstraint = [NSLayoutConstraint constraintsWithVisualFormat:@"|[table]" options:0 metrics:0 views:@{@"table": self.tableView}];
+//    NSArray *tableVerticalConstratin = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[table]|" options:0 metrics:0 views:@{@"table": self.tableView}];
+//    [self.view addConstraints:self.rightTableConstraint];
+//    [self.view addConstraints:self.leftTableConstraint];
+//    [self.view addConstraints:tableVerticalConstratin];
     NSArray *tabWidthConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"|[Tab]|" options:0 metrics:0 views:@{@"Tab": self.tabBar}];
     NSArray *tabHeightConstraint = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[Tab]|" options:0 metrics:0 views:@{@"Tab": self.tabBar}];
     [self.view addConstraints:tabWidthConstraints];
@@ -108,8 +94,8 @@ static NSString *rAthleteImages = @"images";
     [self.view addConstraints:horizon];
 }
 
-
--(void)viewWillAppear:(BOOL)animated {
+-(void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
     
     //Set up AthleteDetailTable if it is not already built as well as its DataSource and Delegate;
@@ -224,67 +210,10 @@ static NSString *rAthleteImages = @"images";
     [super viewWillDisappear:animated];
 }
 
-#pragma mark - Sorting Methods
-
-
-
-/*
--(void)addNewAthlete:(id)sender {
-    VANGlobalMethods *methods = [[VANGlobalMethods alloc] initwithEvent:self.event];
-    Athlete *athlete = (Athlete *)[methods addNewRelationship:@"athletes" toManagedObject:self.event andSave:NO];
-    [self performSegueWithIdentifier:@"toNewAthlete" sender:athlete];
-    
-}*/
-
-#pragma mark - Table View Data Source Methods
-
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [self.sectionArray count];
-}
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSArray *array = [self.athleteLister valueForKey:[self.sectionArray objectAtIndex:section]];
-    return [array count];
-}
-
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    VANAthleteListCellPad *cell = (VANAthleteListCellPad *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    
-    NSArray *array = [self.athleteLister valueForKey:[self.sectionArray objectAtIndex:indexPath.section]];
-    Athlete *athlete = [array objectAtIndex:indexPath.row];
-    
-    //Setup Athlete Name,
-    [self setupAthleteListCell:cell withAthlete:athlete forIndexPath:indexPath];
-    
-    return cell;
-}
-
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return [self.sectionArray objectAtIndex:section];
-}
-
--(NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
-    return index;
-}
-
--(NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
-    UITabBarItem *item = self.tabBar.selectedItem;
-    if ([item isEqual:[self.tabBar.items objectAtIndex:0]]) {
-        return self.sectionArray;
-    } else {
-        return nil;
-    }
-}
-
 #pragma mark - Table View Delegate Methods
 
-
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-//A. Reload Main TableViews Data to reflect any changes to the previously selected cell's Athlete
-    [self.tableView reloadData];
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
 
 //B. Find selected Cell's Athlete and pass it to the AthleteDetail TableView and ask it to reload its data after making sure that it is loaded
     NSArray *array = [self.athleteLister valueForKey:[self.sectionArray objectAtIndex:indexPath.section]];
@@ -302,7 +231,7 @@ static NSString *rAthleteImages = @"images";
     }
     [_tableViewDetailDelegate readjustTeamCellWithAnimation:YES];
     
-//C. Also pass the selected Athlete to the Tags Table View and ask it to reload its view.
+    //C. Also pass the selected Athlete to the Tags Table View and ask it to reload its view.
     //This could potentially be done through AthleteDetails didselecterowatIndex to use lazy loading, however the table has already been loaded into view in view will appear.  And we must ask Tags Table to close if openned at this point either way.
     
     [_tableViewTagsDelegate filterTagArraysWithAthlete:athlete];
@@ -314,33 +243,6 @@ static NSString *rAthleteImages = @"images";
         [self closeTagsTable];
     }
     [self.tableViewTags reloadData];
-    
-// D. Make any neccesary changes to the Selected Athlete itself.
-    athlete.seen = [NSNumber numberWithBool:YES]; //Ensuring that it has been reflected that this athlete has been Seen by the user and their profile has actively been selected.
-
-    
-    
-    
-//B. Figure out a way to Change the selected cell in Table View to show that it has been selected and differenciate it from the other athletes in the Table
-   /*
-    [UIView animateWithDuration:0.2f animations:^{
-        VANAthleteListCellPad *cell = (VANAthleteListCellPad *)[tableView cellForRowAtIndexPath:indexPath];
-        
-        CGPoint center = {cell.contentView.center.x, cell.contentView.center.y};
-        CGPoint centerActive;
-
-        if (self.previouslySelectedAthlete) {
-            VANAthleteListCellPad *prev = (VANAthleteListCellPad *)[tableView cellForRowAtIndexPath:self.previouslySelectedAthlete];
-            [prev.contentView setCenter:center];
-            centerActive = CGPointMake(prev.contentView.center.x + 15, prev.contentView.center.y);
-        } else {
-            centerActive = CGPointMake(cell.contentView.center.x + 15, cell.contentView.center.y);
-        }
-        [cell.contentView setCenter:centerActive];
-
-        self.previouslySelectedAthlete = indexPath;
-        //CGRect f = cell.contentView.frame;
-    }];*/
     
     [VANGlobalMethods saveManagedObject:self.event];
 }
@@ -354,8 +256,6 @@ static NSString *rAthleteImages = @"images";
 - (void)animateWithOffset:(CGFloat)offset {
 
 }
-
-#pragma mark - VAN Detail Table Delegate's Delegate Methods
 
 #pragma mark - VAN Tags Table Delegate Delegate Methods
 
@@ -379,7 +279,9 @@ static NSString *rAthleteImages = @"images";
         self.pictureTaker = [[VANPictureTaker alloc] init];
         self.pictureTaker.delegate = self;
     }
-    [self presentViewController:self.pictureTaker.imagePicker animated:YES completion:nil];
+    
+    UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:@"Image from:" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Use Camera" otherButtonTitles:@"Pick from library", nil];
+    [action showInView:self.view];
 }
 
 - (void)VANTableViewCellrequestsImageforAthete:(Athlete *)athlete fromCell:(VANAthleteProfileCell *)cell
@@ -407,11 +309,29 @@ static NSString *rAthleteImages = @"images";
     [self.darkView animateInImageViewerWithImage:headshot andInitialPosition:startView];
 }
 
+#pragma mark - UIAction Sheed delegate
+
+-(void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    
+    if (buttonIndex == 0) {
+        self.pictureTaker.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    } else {
+        if (buttonIndex == 1) {
+            self.pictureTaker.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        }
+    }
+    if ([UIImagePickerController isSourceTypeAvailable:self.pictureTaker.imagePicker.sourceType]) {
+        [self presentViewController:self.pictureTaker.imagePicker animated:YES completion:nil];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops" message:@"Image source is not available" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }
+}
+
 #pragma mark - VAN Solo Image Viewer Delegate Methods
 
 -(void)deleteImagefromSoloImageViewer:(Image *)image {
     [self.tableViewDetail reloadData];
-
 }
 
 -(void)closeSoloImageViewer {
@@ -419,7 +339,15 @@ static NSString *rAthleteImages = @"images";
 }
 
 -(void)requiresUIUpdating {
-    
+}
+
+#pragma mark - VAN Athlete Edit Controller Methods
+
+-(void)closeAthleteEditPopover
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [self sortAthletesByIndex:self.tabBar.selectedItem.tag];
+    [self.tableView reloadData];
 }
 
 #pragma mark - VAN Picture Taker Deletage Methods
@@ -479,20 +407,18 @@ static NSString *rAthleteImages = @"images";
 
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    VANAthleteEditControllerPad *controller;
     if ([segue.identifier isEqualToString:@"toNewAthletePage"]) {
-        NSString *device = [[UIDevice currentDevice] model];
-        if ([device isEqualToString:@"iPad"] || [device isEqualToString:@"iPad Simulator"]) {
-            UINavigationController *nav = segue.destinationViewController;
-            nav.modalPresentationStyle = UIModalPresentationFormSheet;
-            nav.navigationBar.tintColor = [self.teamColor findTeamColor];
-            controller = (VANAthleteEditControllerPad *)[nav topViewController];
-            controller.controller = self;
-            controller.event = self.event;
+        UINavigationController *nav = segue.destinationViewController;
+        nav.modalPresentationStyle = UIModalPresentationFormSheet;
+        nav.navigationBar.tintColor = [self.teamColor findTeamColor];
+        VANAthleteEditControllerPad *controller = (VANAthleteEditControllerPad *)[nav topViewController];
+        controller.event = self.event;
+        controller.delegate = self;
+        if (sender) {
+            controller.athlete = sender;
         } else {
-            controller = segue.destinationViewController;
+            controller.isNew = YES;
         }
-        controller.athlete = sender;
     }
 }
 

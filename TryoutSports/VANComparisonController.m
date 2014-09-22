@@ -233,7 +233,7 @@ static NSString *kValue = @"value";
                 NSArray *array = [self.athleteA.aTags allObjects];
                 NSString *tags = [NSMutableString string];
                 for (AthleteTags *tag in array) {
-                    tags = [tags stringByAppendingString:[NSString stringWithFormat:@"%@, ",tag.descriptor]];
+                    tags = [tags stringByAppendingString:[NSString stringWithFormat:@"%@, ",tag.attribute]];
                 }
                 cell.athleteATags.text = tags;
             } else {
@@ -245,7 +245,7 @@ static NSString *kValue = @"value";
                 NSArray *array = [self.athleteB.aTags allObjects];
                 NSString *tags = [NSMutableString string];
                 for (AthleteTags *tag in array) {
-                    tags = [tags stringByAppendingString:[NSString stringWithFormat:@"%@, ",tag.descriptor]];
+                    tags = [tags stringByAppendingString:[NSString stringWithFormat:@"%@, ",tag.attribute]];
                 }
                 cell.athleteBTags.text = tags;
             } else {

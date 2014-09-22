@@ -8,36 +8,42 @@
 
 #import "VANPictureTaker.h"
 
+static int imageSize = 400;
+
 @implementation VANPictureTaker
 
--(id)init {
+-(id)init
+{
     self = [super init];
     self.imagePicker = [[UIImagePickerController alloc] init];
     self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
     self.imagePicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
-    //UIView *view = [[UIView alloc] initWithFrame:CGRectMake(20, 100, self.imagePicker.view.frame.size.width - 40, self.imagePicker.view.frame.size.width - 40)];
-    ////view.backgroundColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.3];
-    //self.imagePicker.cameraOverlayView = view;
+    self.imagePicker.cameraDevice = UIImagePickerControllerCameraDeviceRear;
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(20, 100, self.imagePicker.view.frame.size.width - 40, self.imagePicker.view.frame.size.width - 40)];
+    view.backgroundColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.3];
+    self.imagePicker.cameraOverlayView = view;
     self.imagePicker.delegate = self;
     self.imagePicker.allowsEditing = YES;
     return self;
 }
 
-
--(void)callImagePickerController {    
+-(void)callImagePickerController
+{
     NSLog(@"*** Warning: This CallImagePickerController Method is Outdated");
 }
 
--(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
     if ([_delegate respondsToSelector:@selector(pictureTaker:isReadyToDismissWithAnimation:)]) {
         [_delegate pictureTaker:self isReadyToDismissWithAnimation:YES];
     }
 }
 
--(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
     
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
-    UIImage *resizedImage = [self resizeImage:image width:320 height:320];
+    UIImage *resizedImage = [self resizeImage:image width:imageSize height:imageSize];
     NSData *imageData = UIImagePNGRepresentation(resizedImage);
 
     if ([_delegate respondsToSelector:@selector(passBackSelectedImageData:)]) {
@@ -49,7 +55,8 @@
     
 }
 
--(UIImage *)resizeImage:(UIImage *)image width:(int)width height:(int)height {
+-(UIImage *)resizeImage:(UIImage *)image width:(int)width height:(int)height
+{
     CGImageRef imageRef = [image CGImage];
     CGImageAlphaInfo alphaInfo = CGImageGetAlphaInfo(imageRef);
 
@@ -65,5 +72,6 @@
     
     return result;
 }
+
 
 @end
