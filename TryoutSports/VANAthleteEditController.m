@@ -67,7 +67,7 @@ static NSString *cAthleteProfile = @"VANNewAthleteProfileCell";
     [rightButtons addObject:save];
     
     if (self.isNew) {
-        self.tempNumber = [NSNumber numberWithInteger:[self.event.athletes count]];
+        self.tempNumber = [NSNumber numberWithInteger:[self.event.athletes count]+1];
         UIBarButtonItem *saveAndMore = [[UIBarButtonItem alloc] initWithTitle:@"Add Another" style:UIBarButtonItemStylePlain target:self action:@selector(saveAndCreateAnotherAthlete)];
         [rightButtons addObject:saveAndMore];
     }
@@ -80,9 +80,11 @@ static NSString *cAthleteProfile = @"VANNewAthleteProfileCell";
 {
     if (!self.pictureTaker) {
         self.pictureTaker = [[VANPictureTaker alloc] init];
+        self.pictureTaker.delegate = self;
     }
-    self.pictureTaker.delegate = self;
-    [self presentViewController:self.pictureTaker.imagePicker animated:YES completion:nil];
+    if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear]) {
+        [self.pictureTaker buildFrontCameraView];
+    }
 }
 
 
@@ -229,13 +231,16 @@ static NSString *cAthleteProfile = @"VANNewAthleteProfileCell";
 }
 
 -(void)passBackSelectedImageData:(NSData *)imageData {
-    VANGlobalMethods *methods = [[VANGlobalMethods alloc] initwithEvent:self.event];
-    Image *image = (Image *)[methods addNewRelationship:@"headShotImage" toManagedObject:self.athlete andSave:YES];
+    Image *image = (Image *)[VANGlobalMethods addNewRelationship:@"headShotImage" toManagedObject:self.athlete andSave:YES];
     image.headShot = imageData;
     
     VANNewAthleteProfileCell *cell = (VANNewAthleteProfileCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
     cell.athleteHeadshot.image = [UIImage imageWithData:imageData];
     
+}
+
+-(void)presentViewController:(UIImagePickerController *)picker {
+    [self presentViewController:picker animated:YES completion:nil];
 }
 
 #pragma mark - Completion Methods
@@ -251,8 +256,7 @@ static NSString *cAthleteProfile = @"VANNewAthleteProfileCell";
     [self.view endEditing:YES];
     
     if (!self.athlete) {
-        VANGlobalMethods *methods = [[VANGlobalMethods alloc] initwithEvent:self.event];
-        self.athlete = (Athlete *)[methods addNewRelationship:athleteRelationship toManagedObject:self.event andSave:NO];
+        self.athlete = (Athlete *)[VANGlobalMethods addNewRelationship:athleteRelationship toManagedObject:self.event andSave:NO];
         self.athlete.seen = [NSNumber numberWithBool:NO];
         self.athlete.flagged = [NSNumber numberWithBool:NO];
     }
@@ -264,6 +268,8 @@ static NSString *cAthleteProfile = @"VANNewAthleteProfileCell";
     self.athlete.age = self.tempAge;
     self.athlete.position = self.tempPosition;
     self.athlete.birthday = self.tempBirthday;
+    self.athlete.uuid = [[NSUserDefaults standardUserDefaults] stringForKey:@"UUID"];
+
     
     /* To Delete */
     VANTextFieldCell *cell = (VANTextFieldCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
@@ -279,7 +285,7 @@ static NSString *cAthleteProfile = @"VANNewAthleteProfileCell";
         [alert show];
         return;
     } else {
-        [self saveManagedObjectContext:self.athlete];
+        [VANGlobalMethods saveManagedObject:self.athlete];
         if ([_delegate respondsToSelector:@selector(closeAthleteEditPopover)]) {
             [_delegate closeAthleteEditPopover];
         } else {

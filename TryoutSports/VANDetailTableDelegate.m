@@ -12,7 +12,6 @@
 #import "VANValueSliderCell.h"
 #import "VANCollectionCell.h"
 #import "VANPickerCell.h"
-#import "VANScrollViewTeamSelectionCell.h"
 
 #import "AthleteSkills.h"
 #import "AthleteTest.h"
@@ -60,16 +59,23 @@
 
 - (void)setup
 {
-    self.config = [[NewTableConfiguration alloc] init];
-    self.config.delegate = self;
+    if (!self.config) {
+        self.config = [[NewTableConfiguration alloc] init];
+        self.config.delegate = self;
+    }
     self.config.athlete = self.athlete;
     self.config.event = self.event;
 }
 
-- (void)resetAthletesPointertoAthlete:(Athlete *)athlete
+-(void)updateAthlete:(Athlete *)athlete
 {
     self.athlete = athlete;
     self.config.athlete = athlete;
+    
+    [self.tableView reloadData];
+    [self updateTagsCellWithAthlete:athlete andReloadCell:YES];
+    
+    [self readjustTeamCellWithAnimation:NO];
 }
 
 #pragma mark - Table View Data Source Methods
@@ -86,9 +92,9 @@
 {
     if (section == 0) {
         if (!self.config.rowThree) {
-            return 4;
+            return 3;
         } else {
-            return 5;
+            return 4;
         }
     } else if (section == 1) {
         return 1;
@@ -102,14 +108,11 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([indexPath section] == 0) {
-        // -------- Top Section
         if ([indexPath row] == 0) {
-            return [self setupAthleteInfoCellinTable:tableView forIndex:indexPath]; // -------- Athlete Info Cell
-        } else if ([indexPath row] == 1) {
             return [self setupProfileImageCellinTable:tableView forIndex:indexPath]; // -------- Athlete Profile Image Cell
+        } else if ([indexPath row] == 1) {
+            return [self setupCellforTeamNumberInTable:tableView forindex:indexPath]; // -------- Athlete Team Number Cell
         } else if ([indexPath row] == 2){
-            return [self setupCellforTeamNumberInTable:tableView forindex:indexPath]; // -------- Athlete Team Number Cell ------------
-        } else if ([indexPath row] == 3){
             UITableViewCell *cell = [self.config buildCellInTable:tableView ForIndex:indexPath withLabel:@"Position" andValue:self.athlete.position]; // -------- Athlete Position Selection Cell
             cell.backgroundColor = [UIColor darkGrayColor];
             cell.textLabel.textColor = [UIColor whiteColor];
@@ -145,24 +148,24 @@
 #pragma mark - Cell For Row At Support Methods
 
 
-- (UITableViewCell *)setupAthleteInfoCellinTable:(UITableView *)tableView forIndex:(NSIndexPath *)indexPath
-{
-    static NSString *cellID = @"detail";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellID];
-        cell.backgroundColor = [UIColor darkGrayColor];
-        cell.textLabel.textColor = [UIColor whiteColor];
-        cell.detailTextLabel.textColor = [UIColor whiteColor];
-    }
-    cell.textLabel.text = [NSString stringWithFormat:@"# %@",self.athlete.number];
-    NSDateFormatter *formater = [[NSDateFormatter alloc] init];
-    [formater setDateStyle:NSDateFormatterLongStyle];
-    cell.detailTextLabel.text = [formater stringFromDate:self.athlete.birthday];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    return cell;
-}
+//- (UITableViewCell *)setupAthleteInfoCellinTable:(UITableView *)tableView forIndex:(NSIndexPath *)indexPath
+//{
+//    static NSString *cellID = @"detail";
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+//    if (cell == nil) {
+//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellID];
+//        cell.backgroundColor = [UIColor darkGrayColor];
+//        cell.textLabel.textColor = [UIColor whiteColor];
+//        cell.detailTextLabel.textColor = [UIColor whiteColor];
+//    }
+//    cell.textLabel.text = [NSString stringWithFormat:@"# %@",self.athlete.number];
+//    NSDateFormatter *formater = [[NSDateFormatter alloc] init];
+//    [formater setDateStyle:NSDateFormatterLongStyle];
+//    cell.detailTextLabel.text = [formater stringFromDate:self.athlete.birthday];
+//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//    
+//    return cell;
+//}
 
 - (UITableViewCell *)setupProfileImageCellinTable:(UITableView *)tableView forIndex:(NSIndexPath *)indexPath
 {
@@ -174,8 +177,9 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.imageScrollView.delegate = cell;
         [cell setup];
+        cell.delegate = self;
     }
-    cell.delegate = self;
+
     cell.athlete = self.athlete;
     [cell addOrSubtrackViews];
     [cell attachImages];
@@ -189,11 +193,7 @@
     if (cell == nil) { //Loading Cell from Nib View
         NSArray *nibs = [[NSBundle mainBundle] loadNibNamed:@"VANScrollViewTeamSelectionCell" owner:self options:nil];
         cell = [nibs objectAtIndex:0];
-        if ([self.event.numTeams integerValue] < 2) { //A FailSave to ensure that the Minimum number of teams is 1
-            NSLog(@"WARNING: TeamsCell (%@) disrupted because event.numTeams is less than 1, Replacing it with 1 again", self.event.numTeams);
-            self.event.numTeams = [NSNumber numberWithInteger:2];
-        }
-
+        cell.delegate = self;
     }
     [cell setTeamPageForAthlete:self.athlete];
     return cell;
@@ -201,7 +201,7 @@
 
 -(void)moveTeamScrollViewWithAnimation:(BOOL)animate
 {
-    VANScrollViewTeamSelectionCell *cell = (VANScrollViewTeamSelectionCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+    VANScrollViewTeamSelectionCell *cell = (VANScrollViewTeamSelectionCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     [cell setTeamPageForAthlete:self.athlete];
 }
 
@@ -272,7 +272,6 @@
     }
     
     cell.skill = aSkill;
-    //     newValue.value = [NSNumber numberWithFloat:cell.slider.value];
 
     if (!aSkill.value) {
         cell.slider.value = 0;
@@ -348,14 +347,18 @@
 {
     if ([indexPath section] == 0) {
         if ([indexPath row] == 0) {
-            return 40;
+            if (!self.athlete.profileImage) {
+                return 100;
+            } else {
+                //Home Profile Cell
+                CGFloat width = self.tableView.frame.size.width;
+                if (width > 384) width = 384;
+                return width;
+            }
         } else if ([indexPath row] == 1) {
-            //Home Profile Cell
-            return 170;
-        } else if ([indexPath row] == 2) {
             //Team Selectiong Cell
             return 97;
-        } else if ([indexPath row] == 3) {
+        } else if ([indexPath row] == 2) {
             //Position Selection Cell
             return 60;
         } else {
@@ -478,24 +481,48 @@
     return nil;
 }
 
+#pragma mark - Team Scroll View Delegate Methods
 
+-(void)hasUpdatedAthleteTeam
+{
+    if ([self.delegate respondsToSelector:@selector(updateAthleteListTable)]) {
+        [self.delegate updateAthleteListTable];
+    }
+}
 
 #pragma mark - Custom Methods
 
--(void)readjustTeamCellWithAnimation:(BOOL)animate
-{
-    VANScrollViewTeamSelectionCell *cell = (VANScrollViewTeamSelectionCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
-    [cell setTeamPageForAthlete:self.athlete];
+-(void)prepareToLeaveAthleteProfile {
+    if (!self.athlete.seen || [self.athlete.seen isEqualToNumber:[NSNumber numberWithBool:NO]]) {
+        if ([self.athlete.aTags count] > 0) {
+            self.athlete.seen = [NSNumber numberWithBool:YES];
+        }
+        if ([self.athlete.skills count] > 0) {
+            for (AthleteSkills *skill in self.athlete.skills) {
+                if (skill.value) {
+                    self.athlete.seen = [NSNumber numberWithBool:YES];
+                }
+            }
+        }
+        if ([self.athlete.tests count] > 0) {
+            for (AthleteTest *test in self.athlete.tests) {
+                if (test.value) {
+                    self.athlete.seen = [NSNumber numberWithBool:YES];
+                }
+            }
+        }
+        if (self.athlete.teamName) {
+            self.athlete.seen = [NSNumber numberWithBool:YES];
+        }
+    }
+    [VANGlobalMethods saveManagedObject:self.event];
 }
 
-/*
- - (IBAction)addPicture:(id)sender {
- if (!self.pictureTaker) {
- self.pictureTaker = [[VANPictureTaker alloc] init];
- }
- self.pictureTaker.controller = self;
- [self.pictureTaker callImagePickerController];
- }*/
+-(void)readjustTeamCellWithAnimation:(BOOL)animate
+{
+    VANScrollViewTeamSelectionCell *cell = (VANScrollViewTeamSelectionCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    [cell setTeamPageForAthlete:self.athlete];
+}
 
 -(IBAction)keyboardResign:(id)sender
 {
@@ -628,7 +655,7 @@
      }*/
 }
 
--(void)updateAthleteTagsCellWithAthlete:(Athlete *)athlete andReloadCell:(BOOL)reload
+-(void)updateTagsCellWithAthlete:(Athlete *)athlete andReloadCell:(BOOL)reload
 {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
     VANCollectionCell *cell = (VANCollectionCell *)[self.tableView cellForRowAtIndexPath:indexPath];

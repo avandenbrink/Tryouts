@@ -22,7 +22,6 @@
 @property (nonatomic, retain) id logo;
 @property (nonatomic, retain) NSNumber * manageInfo;
 @property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSNumber * numTeams;
 @property (nonatomic, retain) NSDate * startDate;
 @property (nonatomic, retain) NSSet *athletes;
 @property (nonatomic, retain) NSSet *positions;

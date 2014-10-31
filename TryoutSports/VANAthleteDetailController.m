@@ -56,7 +56,7 @@
     self.tableDelegate = [[VANDetailTableDelegate alloc] initWithTableView:self.tableView];
     self.tableDelegate.delegate = self;
     self.tableDelegate.event = self.event;
-    [self.tableDelegate resetAthletesPointertoAthlete:self.athlete];
+//    [self.tableDelegate resetAthletesPointertoAthlete:self.athlete];
     
 	// Do any additional setup after loading the view.
     self.navigationItem.title = self.athlete.name;
@@ -70,7 +70,7 @@
     [super viewWillAppear:animated];
     
     [self.tableView reloadData];
-    [_tableDelegate updateAthleteTagsCellWithAthlete:self.athlete andReloadCell:NO];
+//    [_tableDelegate updateAthleteTagsCellWithAthlete:self.athlete andReloadCell:NO];
     self.navigationItem.title = self.athlete.name;
 
 }
@@ -101,9 +101,8 @@
     // --- [cell addNewImageFromData:imageData];  --- was used to animate image into place but not currently functioning
     
     //B. Create a new Image object and attach it to our selected athlete.
-    VANGlobalMethods *methods = [[VANGlobalMethods alloc] initwithEvent:self.event];
     
-    Image *newImage = (Image *)[methods addNewRelationship:@"images" toManagedObject:self.athlete andSave:NO];
+    Image *newImage = (Image *)[VANGlobalMethods addNewRelationship:@"images" toManagedObject:self.athlete andSave:NO];
     newImage.headShot = imageData;
     if ([self.athlete.images count] == 1) {
         self.athlete.profileImage = newImage;
@@ -179,17 +178,33 @@
 
 - (void)addPicture
 {
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Image From"
+                                                                   message:nil
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear]) {
+        UIAlertAction *cameraAction = [UIAlertAction actionWithTitle:@"Camera" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            if (!self.pictureTaker) {
+                self.pictureTaker = [[VANPictureTaker alloc] init];
+                self.pictureTaker.delegate = self;
+            }
+        }];
+        [alert addAction:cameraAction];
+    };
+    UIAlertAction* libraryAction = [UIAlertAction actionWithTitle:@"Library" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
         if (!self.pictureTaker) {
             self.pictureTaker = [[VANPictureTaker alloc] init];
+            self.pictureTaker.delegate = self;
         }
-        self.pictureTaker.delegate = self;
-        [self presentViewController:self.pictureTaker.imagePicker animated:YES completion:nil];
-    } else {
-        UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:@"No Camera was Detected" delegate:self cancelButtonTitle:@"OK" destructiveButtonTitle:nil otherButtonTitles: nil];
-        action.tag = 1;
-        [action showInView:self.view];
-    }
+        [self.pictureTaker buildLibraryView];
+    }];
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+                                                          handler:^(UIAlertAction * action) {}];
+    
+    [alert addAction:libraryAction];
+    [alert addAction:defaultAction];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+    
 }
 
 -(IBAction)keyboardResign:(id)sender

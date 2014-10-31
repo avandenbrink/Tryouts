@@ -80,6 +80,11 @@
     return [washed colorWithAlphaComponent:0.6];
 }
 
+-(UIColor *)lightColor {
+    UIColor *color = [self findTeamColor];
+    return [color colorWithAlphaComponent:0.3];
+}
+
 -(UIColor *)replaceTeamColor:(UIColor *)color {
     UIColor *currentColor = [self findTeamColor];
     if (currentColor == color) {

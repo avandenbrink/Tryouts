@@ -177,10 +177,7 @@ static int kBottomInset = 64.0f;
     if (cell == nil) { //Loading Cell from Nib View
         NSArray *nibs = [[NSBundle mainBundle] loadNibNamed:@"VANScrollViewTeamSelectionCell" owner:self options:nil];
         cell = [nibs objectAtIndex:0];
-        if ([self.event.numTeams integerValue] < 2) { //A FailSave to ensure that the Minimum number of teams is 1
-            NSLog(@"WARNING: TeamsCell (%@) disrupted because event.numTeams is less than 1, Replacing it with 1 again", self.event.numTeams);
-            self.event.numTeams = [NSNumber numberWithInteger:2];
-        }
+        
         cell.athlete = self.athlete;
         [cell initiate];
     } else {

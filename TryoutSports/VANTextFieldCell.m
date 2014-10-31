@@ -57,7 +57,9 @@
             [self.delegate addTextFieldContent:self.textField.text forIndexpath:self.indexPath];
         }
     }
-    [self.delegate adjustContentInsetsForEditing:NO];
+    if ([self.delegate respondsToSelector:@selector(adjustContentInsetsForEditing:)]) {
+        [self.delegate adjustContentInsetsForEditing:NO];
+    }
 }
 
 @end

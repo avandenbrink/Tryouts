@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 @class Event;
 
-@interface VANIntroShape : UIView
+@interface VANAthleteProgressView : UIView
 
 
 @property (nonatomic) CGFloat firstPoint;

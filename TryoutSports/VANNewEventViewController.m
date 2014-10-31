@@ -44,7 +44,6 @@
     
     self.tableView.backgroundView = nil;
     self.tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
-    self.event.numTeams = [NSNumber numberWithInteger:[self.event.numTeams integerValue] -1];;
 }
 
 - (void)didReceiveMemoryWarning
@@ -66,9 +65,9 @@
             break;
         case 1:
             if (self.config.rowZero || self.config.rowTwo || self.config.rowThree || self.config.rowFour) {
-                return 6;
-            } else {
                 return 5;
+            } else {
+                return 4;
             }
             break;
         case 2:
@@ -99,26 +98,18 @@
             if (self.config.rowZero) {
                 return [self.config buildTextFieldCellInTable:tableView ForIndex:indexPath withLabel:@"Location:" andValue:self.event.location orPlaceholder:@"Optional" withKeyboard:UIKeyboardTypeDefault];
             } else {
-                return [self.config buildCellInTable:tableView ForIndex:indexPath withLabel:@"Number of Teams:" andValue:[NSNumber numberWithInteger:([self.event.numTeams integerValue])]];
+                return [self.config buildCellInTable:tableView ForIndex:indexPath withLabel:@"Athlete Age:" andValue:self.event.athleteAge];
             }
         } else if ([indexPath row] == 3) {
             if (self.config.rowZero) {
-                return [self.config buildCellInTable:tableView ForIndex:indexPath withLabel:@"Number of Teams:" andValue:[NSNumber numberWithInteger:([self.event.numTeams integerValue])]];
+                return [self.config buildCellInTable:tableView ForIndex:indexPath withLabel:@"Athlete Age:" andValue:self.event.athleteAge];
             } else if (self.config.rowTwo) {
-                return [self.config buildPickerCellInTable:tableView ForIndex:indexPath withValues:[self getArrayofNumbersUpTo:10] andSelected:[NSString stringWithFormat:@"%@",self.event.numTeams] forPurpose:@"numTeams"];
-            } else {
-                return [self.config buildCellInTable:tableView ForIndex:indexPath withLabel:@"Athlete Age:" andValue:self.event.athleteAge];
-            }
-        } else if ([indexPath row] == 4) {
-            if (self.config.rowZero || self.config.rowTwo) {
-                return [self.config buildCellInTable:tableView ForIndex:indexPath withLabel:@"Athlete Age:" andValue:self.event.athleteAge];
-            } else if (self.config.rowThree) {
                 return [self.config buildPickerCellInTable:tableView ForIndex:indexPath withValues:[self getArrayofNumbersUpTo:40] andSelected:[NSString stringWithFormat:@"%@",self.event.athleteAge] forPurpose:@"athleteAge"];
             } else {
                 return [self.config buildCellInTable:tableView ForIndex:indexPath withLabel:@"Athletes Per Team" andValue:self.event.athletesPerTeam];
             }
         } else {
-            if (self.config.rowZero || self.config.rowTwo || self.config.rowThree) {
+            if (self.config.rowZero || self.config.rowTwo) {
                 return [self.config buildCellInTable:tableView ForIndex:indexPath withLabel:@"Athletes Per Team" andValue:self.event.athletesPerTeam];
             } else {
                 return [self.config buildPickerCellInTable:tableView ForIndex:indexPath withValues:[self getArrayofNumbersUpTo:50] andSelected:[NSString stringWithFormat:@"%@",self.event.athletesPerTeam] forPurpose:@"athletesPerTeam"];
@@ -245,8 +236,7 @@
 
 -(void)addNewTeamForIndexPath:(NSIndexPath *)indexpath
 {
-    VANGlobalMethods *global = [[VANGlobalMethods alloc] initwithEvent:self.event];
-    TeamName *team = (TeamName *)[global addNewRelationship:@"teamNames" toManagedObject:self.event andSave:NO];
+    TeamName *team = (TeamName *)[VANGlobalMethods addNewRelationship:@"teamNames" toManagedObject:self.event andSave:NO];
     team.name = [NSString stringWithFormat:@"Team %lu", (unsigned long)[self.event.teamNames count]];
     team.index = [NSNumber numberWithInt:[self.event.teamNames count]];
     team.event = self.event;
@@ -293,8 +283,6 @@
 {
     [self.view endEditing:YES];
     
-    self.event.numTeams = [NSNumber numberWithInt:[self.event.numTeams intValue] + 1];
-    
     //Checks to ensure that the Name quality is not Empty
     if (self.event.name == nil || [self.event.name isEqualToString:@""]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Info Missing" message:@"Your Event must have a name" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -323,9 +311,7 @@
 -(void)pickerCell:(VANPickerCell *)cell didChangeValueToRow:(NSInteger)row inArray:(NSArray *)array
 {
     NSString *n = [array objectAtIndex:row];
-    if ([cell.purpose isEqualToString:@"numTeams"]) {
-        self.event.numTeams = [NSNumber numberWithInteger:[n integerValue]];
-    } else if ([cell.purpose isEqualToString:@"athleteAge"]) {
+    if ([cell.purpose isEqualToString:@"athleteAge"]) {
         self.event.athleteAge = [NSNumber numberWithInteger:[n integerValue]];
     } else if ([cell.purpose isEqualToString:@"athletesPerTeam"]) {
         self.event.athletesPerTeam = [NSNumber numberWithInteger:[n integerValue]];

@@ -22,14 +22,16 @@
 
 @class VANTagsTable;
 
-@interface VANAthleteListControllerPad : VANAthleteListViewController <UITabBarDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, VANAthleteProfileDelegate, VANPictureTakerDelegate, VANSoloImageViewerDelegate, VANDetailTableDelegate, VANTagsTableViewDelegate, UIActionSheetDelegate>
+@interface VANAthleteListControllerPad : VANAthleteListViewController <UITabBarDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, VANAthleteProfileDelegate, VANPictureTakerDelegate, VANSoloImageViewerDelegate, VANDetailTableDelegate, VANTagsTableViewDelegate, UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *starterLabel;
 @property (weak, nonatomic) IBOutlet UIButton *closeTabsButton;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITabBar *tabBar;
 
-@property (strong, nonatomic) VANAthleteDetailTable *tableViewDetail;
+@property (strong, nonatomic) IBOutlet UITableView *tableViewDetail;
+@property (strong, nonatomic) IBOutlet UINavigationBar *detailNav;
+
 @property (strong, nonatomic) UITableView *tableViewTags;
 @property (strong, nonatomic) VANDetailTableDelegate *tableViewDetailDelegate;
 @property (strong, nonatomic) VANTagsTableDelegate *tableViewTagsDelegate;

@@ -36,6 +36,7 @@
 @dynamic testname;
 @dynamic testvalue;
 @dynamic coach;
+@dynamic uuid;
 @dynamic aTags;
 @dynamic event;
 @dynamic images;

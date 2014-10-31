@@ -27,10 +27,9 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
     VANTeamColor *anotherTeam = [[VANTeamColor alloc] init];
     self.colorView.backgroundColor = [anotherTeam findTeamColor];
-    [self.navigationBar setTintColor:[anotherTeam findTeamColor]]; //tintColor Sets Button Color;
+    [self.navigationBar setTintColor:[anotherTeam findTeamColor]];
     
 }
 
@@ -38,19 +37,16 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    self.colorView = [[UIView alloc] initWithFrame:CGRectMake(0, self.navigationBar.frame.size.height - 5, self.view.frame.size.height, 1.5)];
+    self.colorView = [[UIView alloc] init];
+    NSDictionary *dic = @{@"view":self.colorView};
+    [self.colorView setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.navigationBar addSubview:self.colorView];
+    NSArray *hori = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|" options:NSLayoutFormatAlignAllTop metrics:nil views:dic];
+    NSArray *vert = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[view(5)]|" options:NSLayoutFormatAlignAllLeft metrics:nil views:dic];
+    [self.navigationBar addConstraints:hori];
+    [self.navigationBar addConstraints:vert];
+
     self.interactivePopGestureRecognizer.enabled = YES;
-    //dx[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
-
 
 @end

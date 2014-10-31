@@ -14,6 +14,7 @@
 
 @protocol VANTextFieldCellDelegate <NSObject>
 
+@optional
 -(void)adjustContentInsetsForEditing:(BOOL)editing;
 -(void)addTextFieldContent:(NSString *)content forIndexpath:(NSIndexPath *)index;
 -(void)textFieldDidClaimFirstResponder:(VANTextFieldCell *)cell;

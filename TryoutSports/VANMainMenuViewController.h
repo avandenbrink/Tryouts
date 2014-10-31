@@ -10,7 +10,7 @@
 #import "VANIntroViewController.h"
 #import "Event.h"
 #import "VANAthleteListViewController.h"
-#import "VANIntroShape.h"
+#import "VANAthleteProgressView.h"
 
 @class VANTagsViewController;
 
@@ -22,7 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *testButton;
 @property (weak, nonatomic) IBOutlet UIButton *athleteSignIn;
 
-@property (weak, nonatomic) IBOutlet VANIntroShape *athleteStatView;
+@property (weak, nonatomic) IBOutlet VANAthleteProgressView *athleteStatView;
 
 @property (strong, nonatomic) UIPopoverController *popover;
 @property (strong, nonatomic) IBOutlet VANTagsViewController *controller;

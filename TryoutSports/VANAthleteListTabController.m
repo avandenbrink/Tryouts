@@ -58,8 +58,7 @@
 }
 
 -(void)addNewAthlete:(id)sender {
-    VANGlobalMethods *methods = [[VANGlobalMethods alloc] initwithEvent:self.event];
-    Athlete *athlete = (Athlete *)[methods addNewRelationship:@"athletes" toManagedObject:self.event andSave:NO];
+    Athlete *athlete = (Athlete *)[VANGlobalMethods addNewRelationship:@"athletes" toManagedObject:self.event andSave:NO];
     [self performSegueWithIdentifier:@"toNewAthlete" sender:athlete];
     
 }

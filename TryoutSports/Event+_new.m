@@ -12,7 +12,6 @@
 
 -(void)awakeFromInsert {
     self.startDate = [NSDate date];
-    self.numTeams = [NSNumber numberWithInt:1];
     self.athleteAge = [NSNumber numberWithInt:1];
     self.athletesPerTeam = [NSNumber numberWithInt:1];
     self.athleteSignIn = [NSNumber numberWithBool:YES];

@@ -9,8 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "Athlete.h"
 
+@protocol VANScrollViewDelegate <NSObject>
+
+-(void)hasUpdatedAthleteTeam;
+
+@end
+
 @interface VANScrollViewTeamSelectionCell : UITableViewCell <UIScrollViewDelegate>
 
+@property (weak, nonatomic) id <VANScrollViewDelegate> delegate;
 @property (strong, nonatomic) IBOutlet UIPageControl *pageController;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollViewer;
 @property (strong, nonatomic) UIView *viewer;

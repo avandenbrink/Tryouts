@@ -33,6 +33,7 @@
 @property (nonatomic, retain) id testname;
 @property (nonatomic, retain) id testvalue;
 @property (nonatomic, retain) NSString * coach;
+@property (nonatomic, retain) NSString * uuid;
 @property (nonatomic, retain) NSSet *aTags;
 @property (nonatomic, retain) Event *event;
 @property (nonatomic, retain) NSSet *images;

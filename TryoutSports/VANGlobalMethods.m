@@ -55,7 +55,7 @@
     [VANGlobalMethods saveManagedObject:self.event];
 }
 
--(NSManagedObject *)addNewRelationship:(NSString *)relationship toManagedObject:(NSManagedObject *)managedObject andSave:(BOOL)save {
++(NSManagedObject *)addNewRelationship:(NSString *)relationship toManagedObject:(NSManagedObject *)managedObject andSave:(BOOL)save {
     
     NSMutableSet *relationshipSet = [managedObject mutableSetValueForKey:relationship];
     NSEntityDescription *entity = [managedObject entity];

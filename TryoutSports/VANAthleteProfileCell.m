@@ -29,25 +29,25 @@ static NSString *camera = @"cameraButton.png";
 
 -(void)setup
 {
-    if (!_content) {
-        _content = [[UIView alloc] init];
-        [_imageScrollView addSubview:self.content];
-            _content.translatesAutoresizingMaskIntoConstraints = NO;
+    if (!self.content) {
+        self.content = [[UIView alloc] init];
+        [self.imageScrollView addSubview:self.content];
+            self.content.translatesAutoresizingMaskIntoConstraints = NO;
         
         NSDictionary *dic = @{@"content": self.content};
         NSArray *h = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[content]|" options:0 metrics:0 views:dic];
         NSArray *v = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[content]|" options:0 metrics:0 views:dic];
         
-        [_imageScrollView addConstraints:h];
-        [_imageScrollView addConstraints:v];
+        [self.imageScrollView addConstraints:h];
+        [self.imageScrollView addConstraints:v];
     }
 }
 
 
--(void)addOrSubtrackViews {
-    
-    NSArray *imageArray = [self.athlete.images allObjects]; //Get array of athlete images
-    NSInteger total = [imageArray count]+1; //Count images +1 for the "Take a Picture image"
+-(void)addOrSubtrackViews
+{
+    NSArray *imageArray = [self.athlete.images allObjects];
+    NSInteger total = [imageArray count]+1; // +1 for the "Take a Picture image"
     NSInteger views = [self.content.subviews count]; //Count how many views currently exist
     //Determine whether we need to Add to or subtrack from the current Views in the Area.
     if (total > views) {
@@ -132,10 +132,7 @@ static NSString *camera = @"cameraButton.png";
             image = [UIImage imageNamed:camera];
         }
         view.imageView.image = image;
-        
     }
-                //    [selectImage addTarget:self action:@selector(buildFullScreenImageViewWithImage) forControlEvents:UIControlEventTouchUpInside];
-
 }
 
 -(void)addNewImageFromData:(NSData *)imageData {

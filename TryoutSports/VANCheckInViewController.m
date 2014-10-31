@@ -447,9 +447,9 @@ static NSString *defaultImagePic = @"headshot.png";
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         if (!self.pictureTaker) {
             self.pictureTaker = [[VANPictureTaker alloc] init];
+            self.pictureTaker.delegate = self;
         }
-        self.pictureTaker.delegate = self;
-        [self presentViewController:self.pictureTaker.imagePicker animated:YES completion:nil];
+        [self.pictureTaker buildCameraView];
     }
 }
 
@@ -476,8 +476,7 @@ static NSString *defaultImagePic = @"headshot.png";
     // Position is set in TableView Delegate Methods
     
     //Image still...
-    VANGlobalMethods *methods = [[VANGlobalMethods alloc] initwithEvent:self.event];
-    Image *image = (Image *)[methods addNewRelationship:rAthleteImages toManagedObject:self.athlete andSave:NO];
+    Image *image = (Image *)[VANGlobalMethods addNewRelationship:rAthleteImages toManagedObject:self.athlete andSave:NO];
     image.headShot = _athleteImage;
     self.athlete.profileImage = image;
     self.athlete.checkedIn = [NSNumber numberWithBool:YES];
@@ -711,6 +710,10 @@ static NSString *defaultImagePic = @"headshot.png";
     [self dismissViewControllerAnimated:YES completion:^{
         [self progressToStepTwoFromState:VANStatestepOne];
     }];
+}
+
+-(void)presentViewController:(UIImagePickerController *)picker {
+    [self presentViewController:picker animated:YES completion:nil];
 }
 
 #pragma mark - Stepper Change Methods

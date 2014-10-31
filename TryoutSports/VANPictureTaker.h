@@ -14,6 +14,7 @@
 
 @protocol VANPictureTakerDelegate <NSObject>
 
+-(void)presentViewController:(UIImagePickerController *)picker;
 //Tells the Delegate that is is completed doing is work and is ready to be dismissed
 -(void)pictureTaker:(VANPictureTaker *)object isReadyToDismissWithAnimation:(BOOL)animation;
 
@@ -26,8 +27,10 @@
 @interface VANPictureTaker : NSObject <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, assign) id <VANPictureTakerDelegate> delegate;
-@property (strong, nonatomic) UIImagePickerController *imagePicker;
 
 -(void)callImagePickerController;
+-(void)buildFrontCameraView;
+-(void)buildRearCameraView;
+-(void)buildLibraryView;
 
 @end

@@ -80,6 +80,7 @@ static NSString *kUserSettingSortType = @"AhleteListFilterType";
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     VANAthleteListCell *cell = (VANAthleteListCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    
     NSArray *array = [self.athleteLister valueForKey:[self.sectionArray objectAtIndex:indexPath.section]];
     Athlete *athlete = [array objectAtIndex:indexPath.row];
 
@@ -199,23 +200,6 @@ static NSString *kUserSettingSortType = @"AhleteListFilterType";
     cell.aNumberImg.hidden = NO; // Show label above headshot
 }
 
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
 #pragma mark - Table view delegate
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -289,8 +273,14 @@ static NSString *kUserSettingSortType = @"AhleteListFilterType";
 #pragma  mark - Sort Athelte List Methods
 
 -(void)sortAthletesByIndex:(NSInteger)index {
+    NSArray *a = [self.event.athletes allObjects];
+    NSString *UUID = [[NSUserDefaults standardUserDefaults] stringForKey:@"UUID"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(uuid == %@) OR (uuid == nil)", UUID];
+    NSArray *array = [a filteredArrayUsingPredicate:predicate];
+    for (Athlete *a in array) {
+        a.uuid = UUID;
+    }
     if (index == 0) {
-        NSArray *array = [self.event.athletes allObjects];
         self.athleteLister = [NSMutableDictionary dictionary];
         self.sectionArray = [NSMutableArray array];
         NSSortDescriptor *sortByName = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
@@ -311,7 +301,6 @@ static NSString *kUserSettingSortType = @"AhleteListFilterType";
             }
         }
     } else if (index == 3) {
-        NSArray *array = [self.event.athletes allObjects];
         self.athleteLister = [NSMutableDictionary dictionary];
         self.sectionArray = [NSMutableArray array];
         NSSortDescriptor *sortByName = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
@@ -331,14 +320,12 @@ static NSString *kUserSettingSortType = @"AhleteListFilterType";
                 [array addObject:athlete];
             }
         }
+        
     } else if (index == 2) {
-        NSArray *array = [self.event.athletes allObjects];
         self.athleteLister = [NSMutableDictionary dictionary];
         self.sectionArray = [NSMutableArray arrayWithObjects:@"Unseen", @"Seen", nil];
-        
         NSSortDescriptor *sortByName = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
         NSArray *sortedArray = [array sortedArrayUsingDescriptors:@[sortByName]];
-        
         for (Athlete *athlete in sortedArray) {
             BOOL seen = [athlete.seen boolValue];
             if (![self.athleteLister objectForKey:[self.sectionArray objectAtIndex:0]]) {
@@ -356,15 +343,13 @@ static NSString *kUserSettingSortType = @"AhleteListFilterType";
             }
         }
     } else if (index == 1) {
-        NSArray *array = [self.event.athletes allObjects];
         self.athleteLister = [NSMutableDictionary dictionary];
         self.sectionArray = [NSMutableArray arrayWithObject:@"Numbers"];
         NSSortDescriptor *sortByNumber = [NSSortDescriptor sortDescriptorWithKey:@"number" ascending:YES];
         NSArray *sortedArray = [array sortedArrayUsingDescriptors:@[sortByNumber]];
         [self.athleteLister setObject:sortedArray forKey:[self.sectionArray objectAtIndex:0]];
-    } else if (index == 4) {
         
-        NSArray *array = [self.event.athletes allObjects];
+    } else if (index == 4) {
         self.athleteLister = [NSMutableDictionary dictionary];
         self.sectionArray = [NSMutableArray arrayWithObject:@"Flagged"];
         

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import <AVFoundation/AVFoundation.h>
 
 @interface VANAppDelegate : UIResponder <UIApplicationDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate>
 

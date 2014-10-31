@@ -154,6 +154,10 @@
     
     [self saveAthletesNewTeamTo:page];
 
+    if ([self.delegate respondsToSelector:@selector(hasUpdatedAthleteTeam)]) {
+        [self.delegate hasUpdatedAthleteTeam];
+    }
+
 }
 
 - (IBAction)changeScrollerfromController:(id)sender
@@ -167,7 +171,7 @@
 - (void)gotoPageWithAnimation:(BOOL)animated
 {
     NSInteger page = self.pageController.currentPage;
-    CGPoint frame = CGPointMake(self.frame.size.width *page, 0);
+    CGPoint frame = CGPointMake(self.frame.size.width*page, 0);
     if (animated) {
         [self.scrollViewer setContentOffset:frame animated:animated];
     } else {

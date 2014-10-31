@@ -179,15 +179,15 @@
     NSArray *position = [self.event.positions allObjects];
     NSMutableArray *teamsArray = [NSMutableArray array];
     
-    for (NSInteger i = 1; i < [self.event.numTeams integerValue]; i++) {
-        NSMutableArray *team = [NSMutableArray array];
-        for (NSInteger x = 0; x < [position count]; x++) {
-            NSMutableArray *pos = [NSMutableArray array];
-            [team addObject:pos];
-        }
-        [team addObject:[NSMutableArray array]];
-        [teamsArray addObject:team];
-    }
+//    for (NSInteger i = 1; i < [self.event.numTeams integerValue]; i++) {
+//        NSMutableArray *team = [NSMutableArray array];
+//        for (NSInteger x = 0; x < [position count]; x++) {
+//            NSMutableArray *pos = [NSMutableArray array];
+//            [team addObject:pos];
+//        }
+//        [team addObject:[NSMutableArray array]];
+//        [teamsArray addObject:team];
+//    }
     
     for (NSInteger i = 0; i < [array count]; i++) {
         Athlete *athlete = [array objectAtIndex:i];

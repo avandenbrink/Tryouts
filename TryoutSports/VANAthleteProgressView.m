@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Aaron VandenBrink. All rights reserved.
 //
 
-#import "VANIntroShape.h"
+#import "VANAthleteProgressView.h"
 #import "VANTeamColor.h"
 #import "Event.h"
 
@@ -14,7 +14,7 @@ static float const titleBarHeight = 25;
 static float const teamBarHeight = 25;
 static float const seenBarHeight = 20;
 
-@interface VANIntroShape ()
+@interface VANAthleteProgressView ()
 
 @property (nonatomic, assign) CGFloat teamWidth;
 @property (nonatomic, assign) CGFloat seenWidth;
@@ -24,7 +24,7 @@ static float const seenBarHeight = 20;
 
 @end
 
-@implementation VANIntroShape
+@implementation VANAthleteProgressView
 
 -(void)initiateWithEventInfo:(Event *)event {
     self.backgroundColor = [UIColor clearColor];

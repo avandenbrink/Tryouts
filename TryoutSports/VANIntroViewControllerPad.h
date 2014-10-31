@@ -7,9 +7,10 @@
 //
 
 #import "VANIntroViewController.h"
+
 @class VANMainMenuViewController;
 
-@interface VANIntroViewControllerPad : VANIntroViewController <UIPopoverControllerDelegate, UITextFieldDelegate>
+@interface VANIntroViewControllerPad : VANIntroViewController <UIPopoverControllerDelegate, UITextFieldDelegate, VANNewEventInterviewDelegate>
 
 @property (strong, nonatomic) VANMainMenuViewController *delegate;
 

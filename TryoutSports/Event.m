@@ -25,7 +25,6 @@
 @dynamic logo;
 @dynamic manageInfo;
 @dynamic name;
-@dynamic numTeams;
 @dynamic startDate;
 @dynamic athletes;
 @dynamic positions;

@@ -232,8 +232,7 @@ static NSString *kTryoutSportsImage = @"icon60.png";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if ([self.athleteArray count] == 0 || indexPath.row == [self.athleteArray count]) {
-        VANGlobalMethods *methods = [[VANGlobalMethods alloc] initwithEvent:self.event];
-        Athlete *newAthelte = (Athlete *)[methods addNewRelationship:@"athletes" toManagedObject:self.event andSave:NO];
+        Athlete *newAthelte = (Athlete *)[VANGlobalMethods addNewRelationship:@"athletes" toManagedObject:self.event andSave:NO];
         newAthelte.checkedIn = [NSNumber numberWithBool:NO];
         newAthelte.isSelfCheckedIn = [NSNumber numberWithBool:YES];
         newAthelte.number = [NSNumber numberWithInteger:[self.event.athletes count]];

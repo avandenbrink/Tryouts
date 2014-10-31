@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6220.14" systemVersion="14A361c" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14A388a" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Athlete" representedClassName="Athlete" syncable="YES">
         <attribute name="age" optional="YES" transient="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="birthday" optional="YES" attributeType="Date" syncable="YES"/>
@@ -20,6 +20,7 @@
         <attribute name="teamSelected" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="testname" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="testvalue" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="uuid" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="valueScore" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <relationship name="aTags" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="AthleteTags" inverseName="athlete" inverseEntity="AthleteTags" syncable="YES"/>
         <relationship name="event" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Event" inverseName="athletes" inverseEntity="Event" syncable="YES"/>
@@ -102,7 +103,7 @@
         <relationship name="event" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Event" inverseName="tests" inverseEntity="Event" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Athlete" positionX="0" positionY="0" width="128" height="479"/>
+        <element name="Athlete" positionX="0" positionY="0" width="128" height="494"/>
         <element name="AthleteSkills" positionX="0" positionY="0" width="128" height="90"/>
         <element name="AthleteTags" positionX="0" positionY="0" width="128" height="88"/>
         <element name="AthleteTest" positionX="0" positionY="0" width="128" height="116"/>

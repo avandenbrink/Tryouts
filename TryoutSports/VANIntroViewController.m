@@ -420,9 +420,10 @@ static NSString* const managedObjectEvent = @"Event";
                     }
                     
                     event = [eventResults firstObject];
-                }
-                event.name = name;
-                [self completeNewEventCreationWithEvent:event inDocument:newDocument];
+                }                
+                [self.interview addValuestoEventDocument:event];
+
+                //[self completeNewEventCreationWithEvent:event inDocument:newDocument];
             }
         }];
         
@@ -478,7 +479,6 @@ static NSString* const managedObjectEvent = @"Event";
     //     or read the underlying persistent store).
     
     NSDictionary *options;
-    
     if (self.cloudEnabled) {
         
         

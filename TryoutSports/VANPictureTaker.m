@@ -8,7 +8,13 @@
 
 #import "VANPictureTaker.h"
 
-static int imageSize = 400;
+static int imageSize = 800;
+
+@interface VANPictureTaker ()
+
+@property (strong, nonatomic) UIImagePickerController *imagePicker;
+
+@end
 
 @implementation VANPictureTaker
 
@@ -16,15 +22,44 @@ static int imageSize = 400;
 {
     self = [super init];
     self.imagePicker = [[UIImagePickerController alloc] init];
-    self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    self.imagePicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
-    self.imagePicker.cameraDevice = UIImagePickerControllerCameraDeviceRear;
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(20, 100, self.imagePicker.view.frame.size.width - 40, self.imagePicker.view.frame.size.width - 40)];
-    view.backgroundColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.3];
-    self.imagePicker.cameraOverlayView = view;
     self.imagePicker.delegate = self;
     self.imagePicker.allowsEditing = YES;
     return self;
+}
+
+-(void)buildRearCameraView {
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        self.imagePicker.cameraDevice = UIImagePickerControllerCameraDeviceRear;
+        //    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(20, 100, self.imagePicker.view.frame.size.width - 40, self.imagePicker.view.frame.size.width - 40)];
+        //    view.backgroundColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.3];
+        //    self.imagePicker.cameraOverlayView = view;
+        
+        [self.delegate presentViewController:self.imagePicker];
+    }
+}
+
+-(void)buildFrontCameraView {
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        self.imagePicker.cameraDevice = UIImagePickerControllerCameraDeviceFront;
+        //    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(20, 100, self.imagePicker.view.frame.size.width - 40, self.imagePicker.view.frame.size.width - 40)];
+        //    view.backgroundColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.3];
+        //    self.imagePicker.cameraOverlayView = view;
+        
+        [self.delegate presentViewController:self.imagePicker];
+    }
+}
+
+-(void)buildCameraView {
+
+}
+
+-(void)buildLibraryView {
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+        self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        [self.delegate presentViewController:self.imagePicker];
+    }
 }
 
 -(void)callImagePickerController
@@ -41,7 +76,6 @@ static int imageSize = 400;
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
     UIImage *resizedImage = [self resizeImage:image width:imageSize height:imageSize];
     NSData *imageData = UIImagePNGRepresentation(resizedImage);

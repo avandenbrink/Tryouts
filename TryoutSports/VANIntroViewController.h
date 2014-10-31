@@ -16,6 +16,8 @@
 #import "VANMainMenuViewController.h"
 #import "VANNewEventViewController.h"
 #import "VANTryoutDocument.h"
+#import "VANNewEventInterview.h"
+
 
 static NSString* const defaultName = @"NewTryout";
 
@@ -28,6 +30,8 @@ static NSString* const defaultName = @"NewTryout";
 @property (weak, nonatomic) IBOutlet UITableView *eventsTable;
 @property (weak, nonatomic) IBOutlet UIButton *appSettings;
 @property (weak, nonatomic) IBOutlet UIImageView *logoImage;
+
+@property (strong, nonatomic) VANNewEventInterview *interview;
 
 @property (readonly, nonatomic) NSURL *containerURL;
 @property (readonly, nonatomic) NSURL *localURL;

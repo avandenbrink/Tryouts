@@ -14,17 +14,10 @@ static NSInteger tableWidth = 400;
 static NSInteger tableHeight = 400;
 static NSInteger marginSpacing = 100;
 
-static NSInteger popoverWidth = 300;
-static NSInteger popoverMargins = 3;
-static NSInteger popoverElementHeight = 50;
-
 static NSString* const fileNameType = @".tryoutsports";
 static NSString* const managedObjectEvent = @"Event";
 
 @interface VANIntroViewControllerPad ()
-
-@property (strong, nonatomic) UIPopoverController *popover;
-@property (strong, nonatomic) UITextField *nameText;
 
 @property (nonatomic) BOOL newLoad; //For Intro Animation
 
@@ -88,7 +81,6 @@ static NSString* const managedObjectEvent = @"Event";
     }
 }
 
-
 -(void)viewDidAppear:(BOOL)animated {
     
     [super viewDidAppear:animated];
@@ -134,6 +126,7 @@ static NSString* const managedObjectEvent = @"Event";
         controller.modalPresentationStyle = UIModalPresentationFormSheet;
         VANAppSettingsViewController *settingsController = (VANAppSettingsViewController *)[controller topViewController];
         settingsController.delegate = self;
+        
     } else if ([segue.identifier isEqualToString:@"toEventSettings"]) {
         VANFullNavigationViewController *nav = [segue destinationViewController];
         nav.modalPresentationStyle = UIModalPresentationFormSheet;
@@ -143,6 +136,17 @@ static NSString* const managedObjectEvent = @"Event";
         tabBarController.selectedIndex = 0;
         VANNewEventViewController *controller = (VANNewEventViewController *)[tabBarController.viewControllers objectAtIndex:0];
         controller.event = tabBarController.event;
+        
+    } else if ([segue.identifier isEqualToString:@"toNewEvent"]) {
+        UINavigationController *nav = [segue destinationViewController];
+        UIPageViewController *controller = (UIPageViewController *)[nav topViewController];
+        self.interview = [[VANNewEventInterview alloc] init];
+        self.interview.delegate = self;
+        self.interview.pager = controller;
+        controller.delegate = self.interview;
+        [self.interview initiateInterview];
+        
+        
     } else {
         [super prepareForSegue:segue sender:sender];
     }
@@ -152,7 +156,11 @@ static NSString* const managedObjectEvent = @"Event";
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return @"Existing Events";
+    if ([self.fileList count] > 0) {
+        return @"Existing Events";
+    } else {
+        return nil;
+    }
 }
 
 #pragma mark - Popover View Controller Delegate
@@ -162,106 +170,34 @@ static NSString* const managedObjectEvent = @"Event";
 }
 
 #pragma mark - Create New File
--(void)closePopoverFromSave {
-    if ([self.nameText hasText]) {  //If we have a valid Name
-        NSString *startingFileName = self.nameText.text;
-        //Dismiss Popover
-        [self.popover dismissPopoverAnimated:YES];
-        self.nameText = nil;
 
-        [self createNewFileWithName:startingFileName];
-        
-        //        if (self.cloudEnabled) {
-        //
-        //            NSURL* cloudURL =
-        //            [self.containerURL URLByAppendingPathComponent:fileName];
-        //
-        //            dispatch_queue_t queue =
-        //            dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        //
-        //            dispatch_async(queue, ^{
-        //
-        //                NSError* error;
-        //
-        //                if (![[NSFileManager defaultManager]
-        //                      setUbiquitous:YES
-        //                      itemAtURL:documentURL
-        //                      destinationURL:cloudURL
-        //                      error:&error]) {
-        //                    
-        //                    [NSException
-        //                     raise:NSGenericException
-        //                     format:@"Error moving to iCloud container: %@",
-        //                     error.localizedDescription];
-        //                }
-        //                
-        //                [self.urlsForFileNames setValue:cloudURL
-        //                                         forKey:fileName];
-        //                
-        //            });
-        //        }
-        
-    } else {
-        [self.nameText becomeFirstResponder];
-        VANTeamColor *color = [[VANTeamColor alloc] init];
-        self.nameText.layer.borderColor = [[color findTeamColor] CGColor];
-        self.nameText.borderStyle = UITextBorderStyleLine;
-    }
-}
 
 -(void)completeNewEventCreationWithEvent:(Event *)event {
     [self performSegueWithIdentifier:@"pushToMain" sender:event];
 }
 
--(void)closeAndCancelPopover {
-    [self.popover dismissPopoverAnimated:YES];
-}
-
--(void)addEvent:(id)sender {
-    
-    UIViewController *view = [[UIViewController alloc] init];
-    [view.view setFrame:CGRectMake(0, 0, 200, 800)];
-    
-    //Create subviews for View Controller
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(popoverMargins, popoverMargins, popoverWidth-(popoverMargins*2), popoverElementHeight)];
-    UIButton *saveButton = [[UIButton alloc] initWithFrame:CGRectMake(popoverMargins, ((popoverElementHeight*2)+(popoverMargins*3)), popoverWidth-(popoverMargins*2), popoverElementHeight)];
-    UIButton *cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(popoverMargins, ((popoverElementHeight*3)+(popoverMargins*4)), popoverWidth-(popoverMargins*2), popoverElementHeight)];
-    self.nameText = [[UITextField alloc] initWithFrame:CGRectMake(popoverMargins, ((popoverElementHeight)+(popoverMargins*2)), popoverWidth-(popoverMargins*2), popoverElementHeight)];
-    
-    //Insert Subviews to ViewController
-    [view.view insertSubview:label atIndex:0];
-    [view.view insertSubview:self.nameText atIndex:0];
-    [view.view insertSubview:saveButton atIndex:1];
-    [view.view insertSubview:cancelButton atIndex:1];
-    
-    //Customize Label
-    label.text = @"Create a New Event";
-    label.textAlignment = NSTextAlignmentCenter;
-    
-    //Customize Text Field
-    self.nameText.backgroundColor = [UIColor whiteColor];
-    self.nameText.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0);
-
-    //Customize Save Button
-    [saveButton setTitle:@"Create Event" forState:UIControlStateNormal];
-    [saveButton addTarget:self action:@selector(closePopoverFromSave) forControlEvents:UIControlEventTouchUpInside];
-    VANTeamColor *color = [[VANTeamColor alloc] init];
-    saveButton.backgroundColor = [color findTeamColor];
-    
-    //Customize Cancel Button
-    [cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
-    [cancelButton addTarget:self action:@selector(closeAndCancelPopover) forControlEvents:UIControlEventTouchUpInside];
-    cancelButton.backgroundColor = [UIColor lightGrayColor];
-    
-    self.popover = [[UIPopoverController alloc] initWithContentViewController:view];
-    self.popover.delegate = self;
-    self.popover.popoverContentSize = CGSizeMake(popoverWidth, ([view.view.subviews count]*popoverElementHeight)+([view.view.subviews count]*popoverMargins)+popoverMargins);
-    [self.popover presentPopoverFromRect:CGRectMake(self.view.bounds.size.width-50, 0, 50, 10) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-    [self.nameText becomeFirstResponder];
+-(void)addEvent:(id)sender
+{
+    [self performSegueWithIdentifier:@"toNewEvent" sender:nil];
 }
 
 -(void)completeNewEventCreationWithEvent:(Event *)event inDocument:(VANTryoutDocument *)document {
     [self performSegueWithIdentifier:@"pushToMain" sender:@[event, document]];
+}
+
+#pragma mark - New Event Interview Delegate Methods
+
+-(void)closeInterview {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(UIStoryboard *)getStoryboard {
+    return self.navigationController.storyboard;
+}
+
+-(void)buildNewEventWithData:(VANNewEventData *)data {
+    [self createNewFileWithName:data.eventName];
+    
 }
 
 @end

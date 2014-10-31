@@ -5,6 +5,24 @@
 	<key>PreferenceSpecifiers</key>
 	<array>
 		<dict>
+			<key>AutocapitalizationType</key>
+			<string>Words</string>
+			<key>AutocorrectionType</key>
+			<string>No</string>
+			<key>DefaultValue</key>
+			<string></string>
+			<key>IsSecure</key>
+			<false/>
+			<key>KeyboardType</key>
+			<string>Alphabet</string>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Coach</string>
+			<key>Key</key>
+			<string>coach</string>
+		</dict>
+		<dict>
 			<key>Title</key>
 			<string>General Info</string>
 			<key>Type</key>

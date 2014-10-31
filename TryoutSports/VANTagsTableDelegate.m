@@ -58,15 +58,15 @@ static NSString *kTagTypeKey = @"type";
     if (self) {
         [self setup];
         self.tableView = tableView;
-        _tableView.delegate = self;
-        _tableView.dataSource = self;
+        self.tableView.delegate = self;
+        self.tableView.dataSource = self;
     }
     return self;
 }
 
 -(void)setup {
     //place future setup code here.
-    _masterTagsArray = [self getPlistFileForResource:tagsFileName];
+    self.masterTagsArray = [self getPlistFileForResource:tagsFileName];
 }
 
 
@@ -100,6 +100,7 @@ static NSString *kTagTypeKey = @"type";
     
     
     _filterSegment.selectedSegmentIndex = 0;
+    [self.tableView reloadData];
 }
 
 -(void)resetTagsFiltertoAll {
@@ -111,7 +112,6 @@ static NSString *kTagTypeKey = @"type";
     NSString *file = [self getPlistFilePathForSimpleFileName:tagsFileName];
     if ([_masterTagsArray count] > 0) {
         [_masterTagsArray writeToFile:file atomically:YES];
-        NSLog(@"Saving File");
     } else {
         NSLog(@"Error Saving Tags File, _masterTagsArray is misplaced");
     }
@@ -207,6 +207,7 @@ static NSString *kTagTypeKey = @"type";
         }
         self.filterSegment = cell.segmentControl;
         [self.filterSegment addTarget:self action:@selector(filterChanged) forControlEvents:UIControlEventValueChanged];
+        cell.backgroundColor = [UIColor groupTableViewBackgroundColor];
         return cell;
     } else if (indexPath.section == 1 && indexPath.row == 1) {
         
@@ -223,6 +224,8 @@ static NSString *kTagTypeKey = @"type";
         cell.addNewButton.enabled = NO;
         cell.segmentButton.hidden = YES;
         _tagCell = cell;
+        cell.backgroundColor = [UIColor groupTableViewBackgroundColor];
+
         return cell;
     } else {
         static NSString *cellID = @"tag";
@@ -246,7 +249,8 @@ static NSString *kTagTypeKey = @"type";
             cell.imageView.image = [UIImage imageNamed:@"neutral.png"];
         }
         cell.textLabel.text = [dic valueForKey:kTagNameKey];
-        
+        cell.backgroundColor = [UIColor groupTableViewBackgroundColor];
+
         return cell;
     }
 }
@@ -318,6 +322,10 @@ static NSString *kTagTypeKey = @"type";
     } else {
         return @"Other tags:";
     }
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 44;
 }
 
 #pragma mark - Filter Segment Button Methods

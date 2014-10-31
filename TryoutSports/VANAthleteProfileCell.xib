@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="6206.8" systemVersion="14A343f" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="6250" systemVersion="14A388a" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7026.1"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -14,51 +16,29 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yjZ-GJ-CpK">
-                        <rect key="frame" x="60" y="0.0" width="200" height="169"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="200" id="l2b-UC-Rdq"/>
-                        </constraints>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="169"/>
                         <connections>
                             <outlet property="delegate" destination="IuM-lY-OCL" id="6GV-7v-IAi"/>
                         </connections>
                     </scrollView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sideGradientB.png" translatesAutoresizingMaskIntoConstraints="NO" id="RJF-zj-pjl">
-                        <rect key="frame" x="260" y="0.0" width="60" height="169"/>
-                    </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sideGradientA.png" translatesAutoresizingMaskIntoConstraints="NO" id="NyA-4l-FUt">
-                        <rect key="frame" x="0.0" y="0.0" width="60" height="169"/>
-                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
-                    <constraint firstItem="NyA-4l-FUt" firstAttribute="leading" secondItem="M5c-wT-nvG" secondAttribute="leading" id="3df-HG-rH3"/>
-                    <constraint firstAttribute="centerX" secondItem="yjZ-GJ-CpK" secondAttribute="centerX" id="6mU-Xz-qa4"/>
-                    <constraint firstItem="NyA-4l-FUt" firstAttribute="top" secondItem="M5c-wT-nvG" secondAttribute="top" id="6mb-yr-yaA"/>
-                    <constraint firstAttribute="bottom" secondItem="NyA-4l-FUt" secondAttribute="bottom" id="Fpb-Yk-gXk"/>
-                    <constraint firstAttribute="trailing" secondItem="RJF-zj-pjl" secondAttribute="trailing" id="MYf-NC-E2i"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="yjZ-GJ-CpK" secondAttribute="trailing" constant="-8" id="0vx-WS-9CS"/>
                     <constraint firstItem="yjZ-GJ-CpK" firstAttribute="top" secondItem="M5c-wT-nvG" secondAttribute="top" id="NGL-xX-gqp"/>
-                    <constraint firstItem="yjZ-GJ-CpK" firstAttribute="leading" secondItem="NyA-4l-FUt" secondAttribute="trailing" id="RQq-be-d42"/>
-                    <constraint firstAttribute="bottom" secondItem="RJF-zj-pjl" secondAttribute="bottom" id="i1a-RB-LUk"/>
+                    <constraint firstItem="yjZ-GJ-CpK" firstAttribute="leading" secondItem="M5c-wT-nvG" secondAttribute="leadingMargin" constant="-8" id="c1V-Y0-3eP"/>
                     <constraint firstAttribute="bottom" secondItem="yjZ-GJ-CpK" secondAttribute="bottom" id="vEP-qs-bbE"/>
-                    <constraint firstItem="RJF-zj-pjl" firstAttribute="top" secondItem="M5c-wT-nvG" secondAttribute="top" id="xWk-be-FNE"/>
-                    <constraint firstItem="RJF-zj-pjl" firstAttribute="leading" secondItem="yjZ-GJ-CpK" secondAttribute="trailing" id="zGQ-l8-6R5"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="imageScrollView" destination="yjZ-GJ-CpK" id="WAQ-TV-SX2"/>
             </connections>
+            <point key="canvasLocation" x="446" y="441"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="sideGradientA.png" width="833" height="833"/>
-        <image name="sideGradientB.png" width="833" height="833"/>
-    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination">
-            <size key="portraitSize" width="768" height="1024"/>
-            <size key="landscapeSize" width="1024" height="768"/>
-        </simulatedScreenMetrics>
+        <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
 </document>

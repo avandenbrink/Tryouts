@@ -17,6 +17,7 @@
 
 -(UIColor *)findTeamColor;
 -(UIColor *)washedColor;
+-(UIColor *)lightColor;
 -(UIColor *)replaceTeamColor:(UIColor *)color;
 
 

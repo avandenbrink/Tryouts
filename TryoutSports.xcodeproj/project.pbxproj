@@ -24,7 +24,7 @@
 		C703D5ED17AB05CF00471194 /* VANPictureTaker.m in Sources */ = {isa = PBXBuildFile; fileRef = C703D5E117AB05CF00471194 /* VANPictureTaker.m */; };
 		C703D5F217AB05EC00471194 /* UIColor+NewColors.m in Sources */ = {isa = PBXBuildFile; fileRef = C703D5EF17AB05EC00471194 /* UIColor+NewColors.m */; };
 		C703D5F317AB05EC00471194 /* VANReverseSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = C703D5F117AB05EC00471194 /* VANReverseSegue.m */; };
-		C703D60317AB060600471194 /* VANIntroShape.m in Sources */ = {isa = PBXBuildFile; fileRef = C703D5F617AB060600471194 /* VANIntroShape.m */; };
+		C703D60317AB060600471194 /* VANAthleteProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = C703D5F617AB060600471194 /* VANAthleteProgressView.m */; };
 		C703D60417AB060600471194 /* VANTeamColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C703D5F817AB060600471194 /* VANTeamColor.m */; };
 		C703D60517AB060600471194 /* VANFetchObjectConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = C703D5FA17AB060600471194 /* VANFetchObjectConfiguration.m */; };
 		C703D60617AB060600471194 /* VANEditConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = C703D5FC17AB060600471194 /* VANEditConfig.m */; };
@@ -81,11 +81,18 @@
 		C703D69817AB0EAC00471194 /* downArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = C703D68C17AB0EAC00471194 /* downArrow.png */; };
 		C703D69917AB0EAC00471194 /* TryoutSportsLogo1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C703D68D17AB0EAC00471194 /* TryoutSportsLogo1@2x.png */; };
 		C703D69A17AB0EAC00471194 /* headshot.png in Resources */ = {isa = PBXBuildFile; fileRef = C703D68E17AB0EAC00471194 /* headshot.png */; };
+		C70D45E61A002ED100441D84 /* VANCreateSuccessController.m in Sources */ = {isa = PBXBuildFile; fileRef = C70D45E51A002ED100441D84 /* VANCreateSuccessController.m */; };
+		C70D45E91A017E8700441D84 /* VANTeamDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C70D45E81A017E8700441D84 /* VANTeamDelegate.m */; };
 		C711CB6818347C3D0044CD48 /* VANAthleteListCellPad.m in Sources */ = {isa = PBXBuildFile; fileRef = C711CB6718347C3D0044CD48 /* VANAthleteListCellPad.m */; };
 		C721D2E217CBC09B00E4B2B8 /* VANIntroTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C721D2E117CBC09B00E4B2B8 /* VANIntroTest.m */; };
 		C721D2E817CBC48B00E4B2B8 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B1C08317A9F27F00EF8C93 /* XCTest.framework */; };
 		C721D2E917CBC48B00E4B2B8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B1C06117A9F27F00EF8C93 /* Foundation.framework */; };
 		C721D2EA17CBC48B00E4B2B8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B1C06517A9F27F00EF8C93 /* UIKit.framework */; };
+		C72AA80919FAF6D70033B06A /* VANInterviewTableDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C72AA80819FAF6D70033B06A /* VANInterviewTableDelegate.m */; };
+		C72AA80D19FB04B50033B06A /* VANNewEventData.m in Sources */ = {isa = PBXBuildFile; fileRef = C72AA80C19FB04B50033B06A /* VANNewEventData.m */; };
+		C72AA81019FB07200033B06A /* VANPositionsDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C72AA80F19FB07200033B06A /* VANPositionsDelegate.m */; };
+		C72AA81319FB1E090033B06A /* VANSkillsDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C72AA81219FB1E090033B06A /* VANSkillsDelegate.m */; };
+		C72AA81619FB1E140033B06A /* VANTestsDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C72AA81519FB1E140033B06A /* VANTestsDelegate.m */; };
 		C72B0BC419A6B136001FF689 /* VANConnectCentreControllerPad.m in Sources */ = {isa = PBXBuildFile; fileRef = C72B0BC319A6B136001FF689 /* VANConnectCentreControllerPad.m */; };
 		C738EC6117FE23A300876A0F /* VANHeadShotController.m in Sources */ = {isa = PBXBuildFile; fileRef = C738EC6017FE23A300876A0F /* VANHeadShotController.m */; };
 		C738EC6517FE2FF500876A0F /* VANHeadshotCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C738EC6417FE2FF500876A0F /* VANHeadshotCell.m */; };
@@ -97,6 +104,7 @@
 		C74DBA421856BB4800E17841 /* VANCheckInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C74DBA411856BB4800E17841 /* VANCheckInViewController.m */; };
 		C762141F17E2828100C7DB2D /* VANDecisionRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C762141E17E2828100C7DB2D /* VANDecisionRoomViewController.m */; };
 		C762142217E3C45600C7DB2D /* VANFilterButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C762142117E3C45600C7DB2D /* VANFilterButtonCell.m */; };
+		C7627ABE1A02EF5A0085E904 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7627ABD1A02EF5A0085E904 /* AVFoundation.framework */; };
 		C76B6B0417F4909E005B1C33 /* VANSettingTabsControllerPad.m in Sources */ = {isa = PBXBuildFile; fileRef = C76B6B0317F4909E005B1C33 /* VANSettingTabsControllerPad.m */; };
 		C76B6B0617F4B5C5005B1C33 /* TSIconB.png in Resources */ = {isa = PBXBuildFile; fileRef = C76B6B0517F4B5C5005B1C33 /* TSIconB.png */; };
 		C76B6B0917F4D04A005B1C33 /* VANAthleteListsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C76B6B0817F4D04A005B1C33 /* VANAthleteListsController.m */; };
@@ -149,6 +157,11 @@
 		C7B2D4F81853AC3700F42C99 /* VANCompareController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B2D4F71853AC3700F42C99 /* VANCompareController.m */; };
 		C7B99BCA19A5934D00EA2F6D /* TeamName.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B99BC919A5934D00EA2F6D /* TeamName.m */; };
 		C7B99BCD19A5934E00EA2F6D /* Athlete.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B99BCC19A5934E00EA2F6D /* Athlete.m */; };
+		C7BCE1F619F7455700C5FB7F /* VANNewEventInterview.m in Sources */ = {isa = PBXBuildFile; fileRef = C7BCE1F519F7455700C5FB7F /* VANNewEventInterview.m */; };
+		C7BCE1FA19F982A200C5FB7F /* VANEventNameController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7BCE1F919F982A200C5FB7F /* VANEventNameController.m */; };
+		C7BCE1FD19F9990C00C5FB7F /* VANSimpleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7BCE1FC19F9990C00C5FB7F /* VANSimpleTableViewController.m */; };
+		C7BCE20019F9A2BB00C5FB7F /* VANInterviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7BCE1FF19F9A2BB00C5FB7F /* VANInterviewController.m */; };
+		C7BCE20319F9F03A00C5FB7F /* VANAthleteAddObject.m in Sources */ = {isa = PBXBuildFile; fileRef = C7BCE20219F9F03A00C5FB7F /* VANAthleteAddObject.m */; };
 		C7CB0A29184D137C00610B14 /* Event+_new.m in Sources */ = {isa = PBXBuildFile; fileRef = C7CB0A28184D137C00610B14 /* Event+_new.m */; };
 		C7CB0A2C184D2C8A00610B14 /* VANDetailTableDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C7CB0A2B184D2C8A00610B14 /* VANDetailTableDelegate.m */; };
 		C7CB9C6719CCAF64008B13B8 /* VANEditAthletesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7CB9C6619CCAF64008B13B8 /* VANEditAthletesViewController.m */; };
@@ -234,8 +247,8 @@
 		C703D5EF17AB05EC00471194 /* UIColor+NewColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+NewColors.m"; sourceTree = "<group>"; };
 		C703D5F017AB05EC00471194 /* VANReverseSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANReverseSegue.h; sourceTree = "<group>"; };
 		C703D5F117AB05EC00471194 /* VANReverseSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANReverseSegue.m; sourceTree = "<group>"; };
-		C703D5F517AB060600471194 /* VANIntroShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANIntroShape.h; sourceTree = "<group>"; };
-		C703D5F617AB060600471194 /* VANIntroShape.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANIntroShape.m; sourceTree = "<group>"; };
+		C703D5F517AB060600471194 /* VANAthleteProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANAthleteProgressView.h; sourceTree = "<group>"; };
+		C703D5F617AB060600471194 /* VANAthleteProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANAthleteProgressView.m; sourceTree = "<group>"; };
 		C703D5F717AB060600471194 /* VANTeamColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANTeamColor.h; sourceTree = "<group>"; };
 		C703D5F817AB060600471194 /* VANTeamColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANTeamColor.m; sourceTree = "<group>"; };
 		C703D5F917AB060600471194 /* VANFetchObjectConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANFetchObjectConfiguration.h; sourceTree = "<group>"; };
@@ -329,10 +342,24 @@
 		C703D68C17AB0EAC00471194 /* downArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = downArrow.png; sourceTree = "<group>"; };
 		C703D68D17AB0EAC00471194 /* TryoutSportsLogo1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TryoutSportsLogo1@2x.png"; sourceTree = "<group>"; };
 		C703D68E17AB0EAC00471194 /* headshot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = headshot.png; sourceTree = "<group>"; };
+		C70D45E41A002ED100441D84 /* VANCreateSuccessController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANCreateSuccessController.h; sourceTree = "<group>"; };
+		C70D45E51A002ED100441D84 /* VANCreateSuccessController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANCreateSuccessController.m; sourceTree = "<group>"; };
+		C70D45E71A017E8700441D84 /* VANTeamDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANTeamDelegate.h; sourceTree = "<group>"; };
+		C70D45E81A017E8700441D84 /* VANTeamDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANTeamDelegate.m; sourceTree = "<group>"; };
 		C711CB6618347C3D0044CD48 /* VANAthleteListCellPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANAthleteListCellPad.h; sourceTree = "<group>"; };
 		C711CB6718347C3D0044CD48 /* VANAthleteListCellPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANAthleteListCellPad.m; sourceTree = "<group>"; };
 		C721D2E117CBC09B00E4B2B8 /* VANIntroTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANIntroTest.m; sourceTree = "<group>"; };
 		C721D2E717CBC48B00E4B2B8 /* TryoutSports Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "TryoutSports Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C72AA80719FAF6D70033B06A /* VANInterviewTableDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANInterviewTableDelegate.h; sourceTree = "<group>"; };
+		C72AA80819FAF6D70033B06A /* VANInterviewTableDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANInterviewTableDelegate.m; sourceTree = "<group>"; };
+		C72AA80B19FB04B50033B06A /* VANNewEventData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANNewEventData.h; sourceTree = "<group>"; };
+		C72AA80C19FB04B50033B06A /* VANNewEventData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANNewEventData.m; sourceTree = "<group>"; };
+		C72AA80E19FB07200033B06A /* VANPositionsDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANPositionsDelegate.h; sourceTree = "<group>"; };
+		C72AA80F19FB07200033B06A /* VANPositionsDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANPositionsDelegate.m; sourceTree = "<group>"; };
+		C72AA81119FB1E090033B06A /* VANSkillsDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANSkillsDelegate.h; sourceTree = "<group>"; };
+		C72AA81219FB1E090033B06A /* VANSkillsDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANSkillsDelegate.m; sourceTree = "<group>"; };
+		C72AA81419FB1E140033B06A /* VANTestsDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANTestsDelegate.h; sourceTree = "<group>"; };
+		C72AA81519FB1E140033B06A /* VANTestsDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANTestsDelegate.m; sourceTree = "<group>"; };
 		C72B0BC219A6B136001FF689 /* VANConnectCentreControllerPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANConnectCentreControllerPad.h; sourceTree = "<group>"; };
 		C72B0BC319A6B136001FF689 /* VANConnectCentreControllerPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANConnectCentreControllerPad.m; sourceTree = "<group>"; };
 		C738EC5F17FE23A300876A0F /* VANHeadShotController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANHeadShotController.h; sourceTree = "<group>"; };
@@ -353,6 +380,7 @@
 		C762141E17E2828100C7DB2D /* VANDecisionRoomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANDecisionRoomViewController.m; sourceTree = "<group>"; };
 		C762142017E3C45600C7DB2D /* VANFilterButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANFilterButtonCell.h; sourceTree = "<group>"; };
 		C762142117E3C45600C7DB2D /* VANFilterButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANFilterButtonCell.m; sourceTree = "<group>"; };
+		C7627ABD1A02EF5A0085E904 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		C76B6B0217F4909E005B1C33 /* VANSettingTabsControllerPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANSettingTabsControllerPad.h; sourceTree = "<group>"; };
 		C76B6B0317F4909E005B1C33 /* VANSettingTabsControllerPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANSettingTabsControllerPad.m; sourceTree = "<group>"; };
 		C76B6B0517F4B5C5005B1C33 /* TSIconB.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TSIconB.png; sourceTree = "<group>"; };
@@ -430,6 +458,16 @@
 		C7B99BC919A5934D00EA2F6D /* TeamName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamName.m; sourceTree = "<group>"; };
 		C7B99BCB19A5934E00EA2F6D /* Athlete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Athlete.h; sourceTree = "<group>"; };
 		C7B99BCC19A5934E00EA2F6D /* Athlete.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Athlete.m; sourceTree = "<group>"; };
+		C7BCE1F419F7455700C5FB7F /* VANNewEventInterview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANNewEventInterview.h; sourceTree = "<group>"; };
+		C7BCE1F519F7455700C5FB7F /* VANNewEventInterview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANNewEventInterview.m; sourceTree = "<group>"; };
+		C7BCE1F819F982A200C5FB7F /* VANEventNameController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANEventNameController.h; sourceTree = "<group>"; };
+		C7BCE1F919F982A200C5FB7F /* VANEventNameController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANEventNameController.m; sourceTree = "<group>"; };
+		C7BCE1FB19F9990C00C5FB7F /* VANSimpleTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANSimpleTableViewController.h; sourceTree = "<group>"; };
+		C7BCE1FC19F9990C00C5FB7F /* VANSimpleTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANSimpleTableViewController.m; sourceTree = "<group>"; };
+		C7BCE1FE19F9A2BB00C5FB7F /* VANInterviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANInterviewController.h; sourceTree = "<group>"; };
+		C7BCE1FF19F9A2BB00C5FB7F /* VANInterviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANInterviewController.m; sourceTree = "<group>"; };
+		C7BCE20119F9F03A00C5FB7F /* VANAthleteAddObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANAthleteAddObject.h; sourceTree = "<group>"; };
+		C7BCE20219F9F03A00C5FB7F /* VANAthleteAddObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VANAthleteAddObject.m; sourceTree = "<group>"; };
 		C7CB0A27184D137C00610B14 /* Event+_new.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Event+_new.h"; sourceTree = "<group>"; };
 		C7CB0A28184D137C00610B14 /* Event+_new.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Event+_new.m"; sourceTree = "<group>"; };
 		C7CB0A2A184D2C8A00610B14 /* VANDetailTableDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VANDetailTableDelegate.h; sourceTree = "<group>"; };
@@ -496,6 +534,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7627ABE1A02EF5A0085E904 /* AVFoundation.framework in Frameworks */,
 				C7CED92B17BD80150042BAA7 /* MessageUI.framework in Frameworks */,
 				C7B1C09C17A9F2AE00EF8C93 /* CoreData.framework in Frameworks */,
 				C7B1C09A17A9F29D00EF8C93 /* QuartzCore.framework in Frameworks */,
@@ -523,6 +562,7 @@
 			children = (
 				C7EF9E8819A7B98D0039A0F9 /* Import/Export Views */,
 				C79A2ABD1833D01700507C8E /* Intro View Controller */,
+				C7BCE1F719F7456400C5FB7F /* New Event Interivew */,
 				C79A2AC21833FC4100507C8E /* App Settings */,
 				C79A2ABE1833E51100507C8E /* Event New/Edit Information */,
 				C79A2AC01833FBC700507C8E /* Main Menu Controller */,
@@ -562,8 +602,8 @@
 			isa = PBXGroup;
 			children = (
 				C703D5F417AB05F100471194 /* Custom Colors and Segues */,
-				C703D5F517AB060600471194 /* VANIntroShape.h */,
-				C703D5F617AB060600471194 /* VANIntroShape.m */,
+				C703D5F517AB060600471194 /* VANAthleteProgressView.h */,
+				C703D5F617AB060600471194 /* VANAthleteProgressView.m */,
 				C703D5F717AB060600471194 /* VANTeamColor.h */,
 				C703D5F817AB060600471194 /* VANTeamColor.m */,
 				C703D5FB17AB060600471194 /* VANEditConfig.h */,
@@ -700,6 +740,25 @@
 				C7E57866185B7B710075F4A0 /* clipboard.png */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		C72AA80A19FAFCB70033B06A /* InterviewTable Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				C72AA80719FAF6D70033B06A /* VANInterviewTableDelegate.h */,
+				C72AA80819FAF6D70033B06A /* VANInterviewTableDelegate.m */,
+				C72AA80E19FB07200033B06A /* VANPositionsDelegate.h */,
+				C72AA80F19FB07200033B06A /* VANPositionsDelegate.m */,
+				C72AA81119FB1E090033B06A /* VANSkillsDelegate.h */,
+				C72AA81219FB1E090033B06A /* VANSkillsDelegate.m */,
+				C72AA81419FB1E140033B06A /* VANTestsDelegate.h */,
+				C72AA81519FB1E140033B06A /* VANTestsDelegate.m */,
+				C70D45E71A017E8700441D84 /* VANTeamDelegate.h */,
+				C70D45E81A017E8700441D84 /* VANTeamDelegate.m */,
+				C7BCE20119F9F03A00C5FB7F /* VANAthleteAddObject.h */,
+				C7BCE20219F9F03A00C5FB7F /* VANAthleteAddObject.m */,
+			);
+			name = "InterviewTable Delegates";
 			sourceTree = "<group>";
 		};
 		C738EC6217FE2F8100876A0F /* Collection View Cells */ = {
@@ -922,6 +981,7 @@
 		C7B1C06017A9F27F00EF8C93 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C7627ABD1A02EF5A0085E904 /* AVFoundation.framework */,
 				C7CED92A17BD80150042BAA7 /* MessageUI.framework */,
 				C7B1C09B17A9F2AE00EF8C93 /* CoreData.framework */,
 				C7B1C09917A9F29D00EF8C93 /* QuartzCore.framework */,
@@ -979,6 +1039,26 @@
 				C7B1C08C17A9F28000EF8C93 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C7BCE1F719F7456400C5FB7F /* New Event Interivew */ = {
+			isa = PBXGroup;
+			children = (
+				C7BCE1F419F7455700C5FB7F /* VANNewEventInterview.h */,
+				C7BCE1F519F7455700C5FB7F /* VANNewEventInterview.m */,
+				C72AA80B19FB04B50033B06A /* VANNewEventData.h */,
+				C72AA80C19FB04B50033B06A /* VANNewEventData.m */,
+				C7BCE1FE19F9A2BB00C5FB7F /* VANInterviewController.h */,
+				C7BCE1FF19F9A2BB00C5FB7F /* VANInterviewController.m */,
+				C7BCE1F819F982A200C5FB7F /* VANEventNameController.h */,
+				C7BCE1F919F982A200C5FB7F /* VANEventNameController.m */,
+				C7BCE1FB19F9990C00C5FB7F /* VANSimpleTableViewController.h */,
+				C7BCE1FC19F9990C00C5FB7F /* VANSimpleTableViewController.m */,
+				C70D45E41A002ED100441D84 /* VANCreateSuccessController.h */,
+				C70D45E51A002ED100441D84 /* VANCreateSuccessController.m */,
+				C72AA80A19FAFCB70033B06A /* InterviewTable Delegates */,
+			);
+			name = "New Event Interivew";
 			sourceTree = "<group>";
 		};
 		C7E16C4A17B0BA5A0023FCDD /* Icons */ = {
@@ -1219,6 +1299,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7BCE1F619F7455700C5FB7F /* VANNewEventInterview.m in Sources */,
 				C74DBA3B1855A6DE00E17841 /* VANTagsTableDelegate.m in Sources */,
 				C703D5E817AB05CF00471194 /* VANAthleteListViewController.m in Sources */,
 				C774B57717F2054100C400DC /* VANCompareStatsCell.m in Sources */,
@@ -1226,6 +1307,7 @@
 				C78EFFB2182A03ED00749A37 /* VANTableView.m in Sources */,
 				C7CB0A29184D137C00610B14 /* Event+_new.m in Sources */,
 				C703D68217AB0E2F00471194 /* Model.xcdatamodeld in Sources */,
+				C70D45E61A002ED100441D84 /* VANCreateSuccessController.m in Sources */,
 				C76B6B0917F4D04A005B1C33 /* VANAthleteListsController.m in Sources */,
 				C7E16C6117B2A6790023FCDD /* VANAthleteOrganizerController.m in Sources */,
 				C738EC6B17FF2D3300876A0F /* VANSoloImageViewer.m in Sources */,
@@ -1237,6 +1319,7 @@
 				C703D62E17AB066A00471194 /* VANMotherCell.m in Sources */,
 				C738EC6517FE2FF500876A0F /* VANHeadshotCell.m in Sources */,
 				C774B58717F3541100C400DC /* VANTabController.m in Sources */,
+				C7BCE20319F9F03A00C5FB7F /* VANAthleteAddObject.m in Sources */,
 				C774B58417F351C800C400DC /* VANAthleteListTabController.m in Sources */,
 				C703D5E517AB05CF00471194 /* VANNewSkillsAndTestsController.m in Sources */,
 				C7B99BCD19A5934E00EA2F6D /* Athlete.m in Sources */,
@@ -1251,6 +1334,7 @@
 				C703D5ED17AB05CF00471194 /* VANPictureTaker.m in Sources */,
 				C774B56917F1FBCF00C400DC /* VANComparisonController.m in Sources */,
 				C72B0BC419A6B136001FF689 /* VANConnectCentreControllerPad.m in Sources */,
+				C7BCE1FA19F982A200C5FB7F /* VANEventNameController.m in Sources */,
 				C7E16C5B17B14AE60023FCDD /* VANTagsTableViewController.m in Sources */,
 				C7CB0A2C184D2C8A00610B14 /* VANDetailTableDelegate.m in Sources */,
 				C774B5A217F35C6400C400DC /* VANAthleteNameViewController.m in Sources */,
@@ -1261,13 +1345,16 @@
 				C703D5C217AB056B00471194 /* VANIntroViewController.m in Sources */,
 				C703D5F217AB05EC00471194 /* UIColor+NewColors.m in Sources */,
 				C703D63B17AB066A00471194 /* VANAthleteListCell.m in Sources */,
+				C72AA80919FAF6D70033B06A /* VANInterviewTableDelegate.m in Sources */,
 				C7EF9E8419A7A6390039A0F9 /* VANImportUtility.m in Sources */,
 				C703D63917AB066A00471194 /* VANPickerCell.m in Sources */,
 				C703D60717AB060600471194 /* NewTableConfiguration.m in Sources */,
 				C703D60817AB060600471194 /* VANTeamTableView.m in Sources */,
+				C72AA81319FB1E090033B06A /* VANSkillsDelegate.m in Sources */,
 				C703D5E617AB05CF00471194 /* VANEditSkillController.m in Sources */,
-				C703D60317AB060600471194 /* VANIntroShape.m in Sources */,
+				C703D60317AB060600471194 /* VANAthleteProgressView.m in Sources */,
 				C703D5E317AB05CF00471194 /* VANTeamColorChangerViewController.m in Sources */,
+				C70D45E91A017E8700441D84 /* VANTeamDelegate.m in Sources */,
 				C738EC6117FE23A300876A0F /* VANHeadShotController.m in Sources */,
 				C703D5EC17AB05CF00471194 /* VANImagePickerController.m in Sources */,
 				C798338F181EE58B002FBD35 /* VANAthleteDetailTable.m in Sources */,
@@ -1283,9 +1370,11 @@
 				C703D67517AB06DC00471194 /* VANAthleteEditControllerPad.m in Sources */,
 				C703D65F17AB068900471194 /* AthleteSkills.m in Sources */,
 				C7CED92F17BEDBFD0042BAA7 /* Athlete+addNew.m in Sources */,
+				C72AA80D19FB04B50033B06A /* VANNewEventData.m in Sources */,
 				C76B6B0C17F4DC8F005B1C33 /* VANGlobalMethods.m in Sources */,
 				C7B1C07217A9F27F00EF8C93 /* VANAppDelegate.m in Sources */,
 				C703D62F17AB066A00471194 /* VANDefaultCell.m in Sources */,
+				C7BCE20019F9A2BB00C5FB7F /* VANInterviewController.m in Sources */,
 				C703D67017AB06DC00471194 /* VANIntroViewControllerPad.m in Sources */,
 				C7EF9E9219AAA2DC0039A0F9 /* Event.m in Sources */,
 				C703D5F317AB05EC00471194 /* VANReverseSegue.m in Sources */,
@@ -1300,10 +1389,12 @@
 				C7B1C06E17A9F27F00EF8C93 /* main.m in Sources */,
 				C703D66217AB068900471194 /* Image.m in Sources */,
 				C774B57417F2053700C400DC /* VANCompareTagsCell.m in Sources */,
+				C72AA81619FB1E140033B06A /* VANTestsDelegate.m in Sources */,
 				C703D67B17AB076600471194 /* VANIntroViewControllerPhone.m in Sources */,
 				C711CB6818347C3D0044CD48 /* VANAthleteListCellPad.m in Sources */,
 				C703D64017AB066A00471194 /* VANTagsCollectionCell.m in Sources */,
 				C703D67C17AB076600471194 /* VANSettingTabsController.m in Sources */,
+				C7BCE1FD19F9990C00C5FB7F /* VANSimpleTableViewController.m in Sources */,
 				C703D67317AB06DC00471194 /* VANAthleteDetailControllerPad.m in Sources */,
 				C774B57117F2052C00C400DC /* VANCompareNameCell.m in Sources */,
 				C703D60617AB060600471194 /* VANEditConfig.m in Sources */,
@@ -1317,6 +1408,7 @@
 				C7E16C5E17B153ED0023FCDD /* VANAddTagCell.m in Sources */,
 				C703D63D17AB066A00471194 /* VANAthleteProfileCell.m in Sources */,
 				C703D67417AB06DC00471194 /* VANAthleteListControllerPad.m in Sources */,
+				C72AA81019FB07200033B06A /* VANPositionsDelegate.m in Sources */,
 				C703D67217AB06DC00471194 /* VANSplitControllerPad.m in Sources */,
 				C78EFFB5182B106C00749A37 /* VANTagsTable.m in Sources */,
 				C74DBA3E1856492D00E17841 /* VANAthleteSignInController.m in Sources */,

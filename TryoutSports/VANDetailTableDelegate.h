@@ -10,6 +10,8 @@
 #import "VANAthleteProfileCell.h"
 #import "NewTableConfiguration.h"
 
+#import "VANScrollViewTeamSelectionCell.h"
+
 @class Athlete;
 @class Event;
 
@@ -18,6 +20,7 @@
 -(Event *)collectEvent;
 
 -(void)introduceTagsViewWithAnimation:(BOOL)animate;
+
 // ------ Forwarded from AThelteProfileCell Delegate
 -(void)VANTableViewCellrequestsActivateCameraForAthlete:(Athlete *)athlete fromCell:(VANAthleteProfileCell *)cell;
 -(void)VANTableViewCellrequestsImageforAthete:(Athlete *)athlete fromCell:(VANAthleteProfileCell *)cell;
@@ -27,12 +30,13 @@
 -(Athlete *)collectAthlete;
 -(void)addTextFieldContent:(NSString *)string ToContextForTitle:(NSString *)title;
 -(void)adjustContentInsetsForEditing:(BOOL)editing;
+-(void)updateAthleteListTable;
 
 @end
 
 
 
-@interface VANDetailTableDelegate : NSObject <UITableViewDataSource, UITableViewDelegate, VANAthleteProfileDelegate, VANTableViewCellExpansionDelegate, VANTextFieldCellDelegate>
+@interface VANDetailTableDelegate : NSObject <UITableViewDataSource, UITableViewDelegate, VANAthleteProfileDelegate, VANTableViewCellExpansionDelegate, VANTextFieldCellDelegate, VANScrollViewDelegate>
 
 @property (nonatomic, weak) id <VANDetailTableDelegate> delegate;
 
@@ -42,9 +46,10 @@
 @property (strong, nonatomic) NewTableConfiguration *config;
 
 -(id)initWithTableView:(UITableView *)tableView;
+-(void)updateAthlete:(Athlete *)athlete;
 -(void)moveTeamScrollViewWithAnimation:(BOOL)animate;
--(void)resetAthletesPointertoAthlete:(Athlete *)athlete;
 -(void)readjustTeamCellWithAnimation:(BOOL)animate;
--(void)updateAthleteTagsCellWithAthlete:(Athlete *)athlete andReloadCell:(BOOL)reload;
+-(void)prepareToLeaveAthleteProfile;
+-(void)updateTagsCellWithAthlete:(Athlete *)athlete andReloadCell:(BOOL)reload;
 
 @end

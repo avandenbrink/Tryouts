@@ -225,7 +225,7 @@ static NSString *kTagTypeKey = @"type";
                 tags = [tags stringByAppendingString:[NSString stringWithFormat:@"%@, ",d.attribute]];
             }
             NSLog(@"Deslected: %@", tags);
-            [self.delegateController.tableViewDetailDelegate updateAthleteTagsCellWithAthlete:nil andReloadCell:YES];
+            [self.delegateController.tableViewDetailDelegate updateTagsCellWithAthlete:nil andReloadCell:YES];
             [self.delegateController.tableViewDetail reloadData];
             
         } else {
@@ -239,7 +239,7 @@ static NSString *kTagTypeKey = @"type";
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
             [tableView moveRowAtIndexPath:indexPath toIndexPath:[NSIndexPath indexPathForRow:[self.selectedTagsArray count]-1 inSection:0]];
             
-            [self.delegateController.tableViewDetailDelegate updateAthleteTagsCellWithAthlete:nil andReloadCell:YES];
+            [self.delegateController.tableViewDetailDelegate updateTagsCellWithAthlete:nil andReloadCell:YES];
             [self.delegateController.tableViewDetail reloadData];
         }
     }

@@ -16,17 +16,17 @@
 
 
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    NSInteger count = [self.navigationController.viewControllers count];
-    UIViewController *controller = [self.navigationController.viewControllers objectAtIndex:count - 2];
-    
-    if ([controller isKindOfClass:[VANAthleteListViewController class]]) {
-        return 3;
-    } else {
-        return 4;
-    }
-}
+//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+//{
+//    NSInteger count = [self.navigationController.viewControllers count];
+//    UIViewController *controller = [self.navigationController.viewControllers objectAtIndex:count - 2];
+//    
+////    if ([controller isKindOfClass:[VANAthleteListViewController class]]) {
+////        return 3;
+////    } else {
+////        return 4;
+////    }
+//}
 
 
 

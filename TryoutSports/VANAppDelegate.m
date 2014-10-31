@@ -50,8 +50,16 @@ NSString *const kEventAthleteRelationship = @"athletes";
     // Override point for customization after application launch.
     self.rootNavigationController = (UINavigationController *)self.window.rootViewController;
     self.rooViewController = self.rootNavigationController.viewControllers[0];
-    
+
     self.savedFileNames = [NSMutableArray array];
+    
+    NSString *UUID = [[NSUserDefaults standardUserDefaults] stringForKey:@"UUID"];
+    if (!UUID) {
+        CFUUIDRef theUUID = CFUUIDCreate(NULL);
+        UUID = (__bridge_transfer NSString *) CFUUIDCreateString(NULL, theUUID);
+        CFRelease(theUUID);
+        [[NSUserDefaults standardUserDefaults] setObject:UUID forKey:@"UUID"];
+    }
     
     return YES;
 }
@@ -277,13 +285,11 @@ NSString *const kEventAthleteRelationship = @"athletes";
                     profileViewController.valueArray = (NSMutableArray *)@[event.name
                                                                            ,@"Coach Name"
                                                                            ,[formatter stringFromDate:event.startDate]
-                                                                           ,[event.numTeams stringValue]
                                                                            ,[NSString stringWithFormat:@"%lu",(unsigned long)[event.athletes count]]];
                     
                     profileViewController.labelArray = (NSMutableArray *)@[@"Event Name:",
                                                                            @"From:",
                                                                            @"Event Date",
-                                                                           @"Number of Teams",
                                                                            @"Number of Athletes"];
                     [profileViewController.tableView reloadData];
                 }
@@ -550,7 +556,6 @@ NSString *const kEventAthleteRelationship = @"athletes";
             NSInteger positionColumn = [self getColumnforDataType:[VANImportUtility positionVariations] Data:fileColumnTitles];
             NSInteger birthdateColumn = [self getColumnforDataType:[VANImportUtility birthdateVariations] Data:fileColumnTitles];
             
-            VANGlobalMethods *global = [[VANGlobalMethods alloc] initwithEvent:event];
             NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
             NSString *str =@"3/15/2012 9:15 PM";
             NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
@@ -562,7 +567,7 @@ NSString *const kEventAthleteRelationship = @"athletes";
                 //If they have a name we will include them in the addition
                 if (![[rowData objectAtIndex:nameColumn] isEqualToString:@""]) {
                     
-                    Athlete *athlete = (Athlete*)[global addNewRelationship:kEventAthleteRelationship toManagedObject:event andSave:NO];
+                    Athlete *athlete = (Athlete*)[VANGlobalMethods addNewRelationship:kEventAthleteRelationship toManagedObject:event andSave:NO];
                     NSString *aName = [rowData objectAtIndex:nameColumn];
                     if (nameColumnSecondary != NSNotFound) {
                         aName = [aName stringByAppendingString:[NSString stringWithFormat:@" %@",[rowData objectAtIndex:nameColumnSecondary]]];

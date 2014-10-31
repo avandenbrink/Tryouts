@@ -52,8 +52,6 @@
 - (IBAction)saveEvent:(id)sender {
     [self.view endEditing:YES];
     
-    self.event.numTeams = [NSNumber numberWithInt:[self.event.numTeams intValue] + 1];
-    
     //Checks to ensure that the Name quality is not Empty
     if (self.event.name == nil || [self.event.name isEqualToString:@""]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Info Missing" message:@"Your Event must have a name" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -68,7 +66,6 @@
             [self performSegueWithIdentifier:@"toMain" sender:self.event];
         }
     }
-    NSLog(@"Number of Teams : %@", self.event.numTeams);
 }
 
 -(void)saveManagedObjectContext:(NSManagedObject *)managedObject {

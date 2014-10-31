@@ -40,8 +40,6 @@
     if (![self.superView isKindOfClass:[VANMainMenuViewController class]]) {
         NSManagedObjectContext *context = [self.event managedObjectContext];
         [context deleteObject:self.event];
-    } else {
-        self.event.numTeams = [NSNumber numberWithInteger:[self.event.numTeams integerValue] + 1];
     }
     [self.navigationController dismissViewControllerAnimated:YES
                                                   completion:nil];
@@ -49,7 +47,6 @@
 
 -(void)saveEvent:(id)sender {
     [self.view endEditing:YES];
-    self.event.numTeams = [NSNumber numberWithInt:[self.event.numTeams intValue] + 1];
     
     //Checks to ensure that the Name quality is not Empty
     if (self.event.name == nil || [self.event.name isEqualToString:@""]) {

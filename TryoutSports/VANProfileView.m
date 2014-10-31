@@ -18,19 +18,13 @@
         NSDictionary *dic = @{@"image":self.imageView};
 
         NSLayoutConstraint *horizondal = [NSLayoutConstraint constraintWithItem:self.imageView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
-        NSArray *height = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[image]-|" options:0 metrics:0 views:dic];
+        NSArray *height = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[image]|" options:0 metrics:0 views:dic];
 
         NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:self.imageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.imageView attribute:NSLayoutAttributeHeight multiplier:1 constant:0];
         
         [self addConstraint:horizondal];
         [self addConstraints:height];
         [self.imageView addConstraint:width];
-        
-        //Setup Image Settings
-        
-        self.imageView.layer.masksToBounds = YES;
-        self.imageView.layer.cornerRadius = 65;
-        
     }
     if (!self.button) {
         self.button = [[UIButton alloc] init];

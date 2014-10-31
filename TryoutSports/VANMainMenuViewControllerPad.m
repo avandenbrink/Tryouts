@@ -215,13 +215,14 @@ static NSInteger kinfoContainerWidthLandscape = 250;
         
         // Warning an athlete(s) is registered to a team that no longer exists ------
         // Only happens when Athlete is given a team then the number of teams are changed
-        NSNumber *teamCount = self.event.numTeams;
-        NSArray *athletesOver = [self fetchAthletesWithPredicateValue:@"teamSelected" greatThan:teamCount];
-        if ([athletesOver count] == 1) {
-            [self addNotificationAlertForValue:[NSString stringWithFormat:@"%lu athlete is on a team that no longer exists", (unsigned long)[athletesOver count]] importance:VANNotificationImportanceWarning action:VANNotificationActionToAthletes];
-        } else if (athletesOver) {
-            [self addNotificationAlertForValue:[NSString stringWithFormat:@"%lu athletes on a team that no longer exists", (unsigned long)[athletesOver count]] importance:VANNotificationImportanceWarning action:VANNotificationActionToAthletes];
-        }
+        
+//        NSNumber *teamCount = self.event.numTeams;
+//        NSArray *athletesOver = [self fetchAthletesWithPredicateValue:@"teamSelected" greatThan:teamCount];
+//        if ([athletesOver count] == 1) {
+//            [self addNotificationAlertForValue:[NSString stringWithFormat:@"%lu athlete is on a team that no longer exists", (unsigned long)[athletesOver count]] importance:VANNotificationImportanceWarning action:VANNotificationActionToAthletes];
+//        } else if (athletesOver) {
+//            [self addNotificationAlertForValue:[NSString stringWithFormat:@"%lu athletes on a team that no longer exists", (unsigned long)[athletesOver count]] importance:VANNotificationImportanceWarning action:VANNotificationActionToAthletes];
+//        }
         
         // Team X only has y number of players.
         
@@ -302,7 +303,6 @@ static NSInteger kinfoContainerWidthLandscape = 250;
         tabBarController.delegate = tabBarController;
         tabBarController.superView = self;
         // Temporarily decreasing Event Teams to account for 0 being no team. Will be added back when view disappears
-        self.event.numTeams = [NSNumber numberWithInt:[self.event.numTeams intValue]-1];
         tabBarController.event = self.event;
         tabBarController.selectedIndex = 0;
         VANNewEventViewController *controller = (VANNewEventViewController *)[tabBarController.viewControllers objectAtIndex:0];
